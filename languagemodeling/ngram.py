@@ -77,9 +77,25 @@ class NGram(object):
 
         sent -- the sentence as a list of tokens.
         """
-        sentProb = self.sent_prob(sent)
-        # sentLogProb will be -inf if sentProb == 0
-        sentLogProb = float('-inf')
-        if (sentProb != 0):
-            sentLogProb = log(sentProb, 2)
+        # well, this code could be used (and passes test ha), however, to avoid 
+        # underflow, lets calculate log probability of each gram.
+        #sentProb = self.sent_prob(sent)
+        ## sentLogProb will be -inf if sentProb == 0
+        #sentLogProb = float('-inf')
+        #if (sentProb != 0):
+            #sentLogProb = log(sentProb, 2)
+        #return sentLogProb
+        # following, the code to avoid underflow
+        n = self.n
+        # adding start and end markers to the sentence, as done with corpus
+        actSent = ['<s>']*(n-1) + sent + ['</s>']
+        sentLogProb = 0
+        for i in range(n-1, len(actSent)):
+            actCondProb = self.cond_prob(actSent[i], actSent[(i-n+1):i])
+            # if the actCondProb == 0 then the total sentLogProb will be -inf
+            if (actCondProb == 0):
+                sentLogProb = float('-inf')
+                break
+            actLogCondProb = log(actCondProb, 2)
+            sentLogProb += actLogCondProb
         return sentLogProb
