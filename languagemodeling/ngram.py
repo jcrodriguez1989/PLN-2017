@@ -1,6 +1,8 @@
 # https://docs.python.org/3/library/collections.html
 from collections import defaultdict
-from math import log
+from math import ceil, log
+from numpy import cumsum
+from random import uniform
 
 class NGram(object):
 
@@ -11,8 +13,10 @@ class NGram(object):
         """
         assert n > 0
         self.n = n
+        # it would be nice to have counts for n grams and another for n-1 grams
+        # however to facilitate count function, we use just one dict for both
         self.counts = counts = defaultdict(int)
-
+        
         for sent in sents:
             # add n-1 starting and 1 ending markers to each sentence of the
             # corpus
@@ -77,7 +81,7 @@ class NGram(object):
 
         sent -- the sentence as a list of tokens.
         """
-        # well, this code could be used (and passes test ha), however, to avoid 
+        # well, this code could be used (and passes tests ha), however, to avoid
         # underflow, lets calculate log probability of each gram.
         #sentProb = self.sent_prob(sent)
         ## sentLogProb will be -inf if sentProb == 0
@@ -99,3 +103,70 @@ class NGram(object):
             actLogCondProb = log(actCondProb, 2)
             sentLogProb += actLogCondProb
         return sentLogProb
+
+class NGramGenerator:
+    
+    def __init__(self, model):
+        """
+        model -- n-gram model.
+        """
+        self.n = n = model.n
+        # nexttokenProb is a dict of dict of int, for each prevtokens it will 
+        # have the count for each nexttoken from the model
+        self.nexttokenProb = nexttokenProb = defaultdict(dict)
+        
+        counts = model.counts
+        for key, val in counts.items():
+            # just use the n grams (not n-1)
+            if (len(key) == n):
+                # here I could use cond_prob, however, as the prevtokens are 
+                # the same for each element of my dict, then I cant use the
+                # count (saving cpu :P )
+                nexttokenProb[ key[:-1] ][ key[-1] ] = val
+    
+    def generate_sent(self):
+        """
+        Randomly generate a sentence.
+        """
+        n = self.n
+        retSent = tuple(['<s>']*(n-1))
+        prevtokens = retSent
+        if (n == 1):
+            # with out this, it is very probable that sentences dont start with 
+            # the marker
+            retSent = ('<s>',)
+        acttoken = ""
+        while acttoken != '</s>':
+            acttoken = self.generate_token(prevtokens)
+            prevtokens = (prevtokens + (acttoken,))[1:]
+            retSent += (acttoken,)
+        return retSent
+    
+    def generate_token(self, prev_tokens=None):
+        """
+        Randomly generate a token, given prev_tokens.
+    
+        prev_tokens -- the previous n-1 tokens (optional only if n = 1).
+        """
+        n = self.n
+        nexttokenProb = self.nexttokenProb
+        if not prev_tokens:
+            prev_tokens = []
+        tokenLen = len(prev_tokens)
+        assert (tokenLen == (n-1))
+        # get the prob of each possible next token
+        nexttokensProb = nexttokenProb[ tuple(prev_tokens) ]
+        
+        # and the random part of the code
+        # example: if nexttokensProb = {'el': 1, 'holiiiiz': 5, 'la': 7}
+        # we get a uniform random number between 1-13
+        maxRandom = sum(nexttokensProb.values())
+        randomNum = ceil(uniform(0, maxRandom))
+        acttokens = nexttokensProb.keys()
+        # probsSum will have [ 1, 6, 13] so the probability of randomNum to be
+        # [0,1] is 1/13, [2,6] is 5/13 and [7,13] is 7/13
+        probsSum = cumsum(nexttokensProb.values())
+        # so with this we get the index of the last item that makes true
+        # i.e. the desired interval
+        nexttoken = acttokens[ sum(probsSum < randomNum) ]
+        return nexttoken
