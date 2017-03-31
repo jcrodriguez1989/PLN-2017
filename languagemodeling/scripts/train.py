@@ -1,4 +1,5 @@
-"""Train an n-gram model.
+"""
+Train an n-gram model.
 
 Usage:
   train.py -n <n> -o <file>

@@ -131,15 +131,14 @@ class NGramGenerator:
         n = self.n
         retSent = tuple(['<s>']*(n-1))
         prevtokens = retSent
-        if (n == 1):
-            # with out this, it is very probable that sentences dont start with 
-            # the marker
-            retSent = ('<s>',)
         acttoken = ""
         while acttoken != '</s>':
             acttoken = self.generate_token(prevtokens)
             prevtokens = (prevtokens + (acttoken,))[1:]
             retSent += (acttoken,)
+        # In test cases I see we should not return starting and ending markers
+        # so lets remove them
+        retSent = retSent[ (n-1):-1 ]
         return retSent
     
     def generate_token(self, prev_tokens=None):
@@ -162,11 +161,13 @@ class NGramGenerator:
         # we get a uniform random number between 1-13
         maxRandom = sum(nexttokensProb.values())
         randomNum = ceil(uniform(0, maxRandom))
-        acttokens = nexttokensProb.keys()
+        acttokens = list(nexttokensProb.keys())
         # probsSum will have [ 1, 6, 13] so the probability of randomNum to be
         # [0,1] is 1/13, [2,6] is 5/13 and [7,13] is 7/13
-        probsSum = cumsum(nexttokensProb.values())
+        probsSum = cumsum(list(nexttokensProb.values()))
         # so with this we get the index of the last item that makes true
         # i.e. the desired interval
         nexttoken = acttokens[ sum(probsSum < randomNum) ]
         return nexttoken
+        # En R no se usa casi nunca el for.. En que me he convertido!! :'(
+
