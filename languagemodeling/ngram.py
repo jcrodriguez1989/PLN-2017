@@ -4,8 +4,8 @@ from math import ceil, log
 from numpy import cumsum
 from random import uniform
 
-class NGram(object):
 
+class NGram(object):
     def __init__(self, n, sents):
         """
         n -- order of the model.
@@ -16,15 +16,15 @@ class NGram(object):
         # it would be nice to have counts for n grams and another for n-1 grams
         # however to facilitate count function, we use just one dict for both
         self.counts = counts = defaultdict(int)
-        
+
         for sent in sents:
             # add n-1 starting and 1 ending markers to each sentence of the
             # corpus
             sent = ['<s>']*(n-1) + sent + ['</s>']
-            for i in range(len(sent) -n+1):
+            for i in range(len(sent) - n+1):
                 ngram = tuple(sent[i:(i+n)])
-                counts[ngram] += 1 # n grams
-                counts[ ngram[:-1] ] += 1 # n-1 grams
+                counts[ngram] += 1  # n grams
+                counts[ngram[:-1]] += 1  # n-1 grams
 
     def count(self, tokens):
         """
@@ -81,15 +81,6 @@ class NGram(object):
 
         sent -- the sentence as a list of tokens.
         """
-        # well, this code could be used (and passes tests ha), however, to avoid
-        # underflow, lets calculate log probability of each gram.
-        #sentProb = self.sent_prob(sent)
-        ## sentLogProb will be -inf if sentProb == 0
-        #sentLogProb = float('-inf')
-        #if (sentProb != 0):
-            #sentLogProb = log(sentProb, 2)
-        #return sentLogProb
-        # following, the code to avoid underflow
         n = self.n
         # adding start and end markers to the sentence, as done with corpus
         actSent = ['<s>']*(n-1) + sent + ['</s>']
@@ -104,26 +95,27 @@ class NGram(object):
             sentLogProb += actLogCondProb
         return sentLogProb
 
+
 class NGramGenerator:
-    
+
     def __init__(self, model):
         """
         model -- n-gram model.
         """
         self.n = n = model.n
-        # nexttokenProb is a dict of dict of int, for each prevtokens it will 
+        # nexttokenProb is a dict of dict of int, for each prevtokens it will
         # have the count for each nexttoken from the model
         self.nexttokenProb = nexttokenProb = defaultdict(dict)
-        
+
         counts = model.counts
         for key, val in counts.items():
             # just use the n grams (not n-1)
             if (len(key) == n):
-                # here I could use cond_prob, however, as the prevtokens are 
+                # here I could use cond_prob, however, as the prevtokens are
                 # the same for each element of my dict, then I cant use the
                 # count (saving cpu :P )
-                nexttokenProb[ key[:-1] ][ key[-1] ] = val
-    
+                nexttokenProb[key[:-1]][key[-1]] = val
+
     def generate_sent(self):
         """
         Randomly generate a sentence.
@@ -138,13 +130,13 @@ class NGramGenerator:
             retSent += (acttoken,)
         # In test cases I see we should not return starting and ending markers
         # so lets remove them
-        retSent = retSent[ (n-1):-1 ]
+        retSent = retSent[(n-1):-1]
         return retSent
-    
+
     def generate_token(self, prev_tokens=None):
         """
         Randomly generate a token, given prev_tokens.
-    
+
         prev_tokens -- the previous n-1 tokens (optional only if n = 1).
         """
         n = self.n
@@ -154,8 +146,8 @@ class NGramGenerator:
         tokenLen = len(prev_tokens)
         assert (tokenLen == (n-1))
         # get the prob of each possible next token
-        nexttokensProb = nexttokenProb[ tuple(prev_tokens) ]
-        
+        nexttokensProb = nexttokenProb[tuple(prev_tokens)]
+
         # and the random part of the code
         # example: if nexttokensProb = {'el': 1, 'holiiiiz': 5, 'la': 7}
         # we get a uniform random number between 1-13
@@ -167,7 +159,6 @@ class NGramGenerator:
         probsSum = cumsum(list(nexttokensProb.values()))
         # so with this we get the index of the last item that makes true
         # i.e. the desired interval
-        nexttoken = acttokens[ sum(probsSum < randomNum) ]
+        nexttoken = acttokens[sum(probsSum < randomNum)]
         return nexttoken
         # En R no se usa casi nunca el for.. En que me he convertido!! :'(
-

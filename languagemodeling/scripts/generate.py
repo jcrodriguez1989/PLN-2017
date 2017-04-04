@@ -17,7 +17,7 @@ from languagemodeling.ngram import NGramGenerator
 
 if __name__ == '__main__':
     opts = docopt(__doc__)
-    
+
     # load the corpus
     genFile = opts['-i']
     with open(genFile, 'rb') as inFile:

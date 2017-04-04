@@ -13,8 +13,8 @@ Options:
 from docopt import docopt
 import pickle
 
-#from nltk.corpus import gutenberg
-from nltk.corpus import PlaintextCorpusReader # If I want to use my own corpus
+# from nltk.corpus import gutenberg
+from nltk.corpus import PlaintextCorpusReader  # If I want to use my own corpus
 from nltk.tokenize import RegexpTokenizer
 
 from languagemodeling.ngram import NGram
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     tokenizer = RegexpTokenizer(pattern)
 
     # uncomment the following if I want to use my own corpus
-    corpus = PlaintextCorpusReader('./languagemodeling/scripts/', 
+    corpus = PlaintextCorpusReader('./languagemodeling/scripts/',
                                    'myCorpus.txt', word_tokenizer=tokenizer)
     sents = corpus.sents()
 
