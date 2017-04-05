@@ -12,3 +12,16 @@ En resumen, se descargaron 350 (14MB, 96.224 oraciones) de los 9.158 artículos 
 ### Ejercicio 2
 Se implementó un modelo de n-gramas con marcadores de comienzo y fin de oración (\<s> y \</s>). Al momento de inicializar la clase, se toma el corpus y a cada oración se le agregan los n-1 marcadores de comienzo de oración \<s>, de esta manera se facilita el proceso de cálculo de conteos para las sub frases de comienzo. Adicionalmente, en la inicialización se van calculando los conteos de cada frase de tamaño n y n-1.
 Para evitar el problema del underflow al calcular probabilidades de cada sub frase, se utilizó la tecnica de log probabilidades.
+
+### Ejercicio 3
+Se implementó un generador de oraciones de lenguaje natural. El mismo, a partir de un modelo previamente construído con un corpus determinado y su valor n, permite generar oraciones siguiendo las características probabilísticas del modelo.
+En mi implementación, el generador, a partir del modelo, guarda en un diccionario por cada n-1 token la cantidad de veces que ocurre el siguiente token, por ejemplo, {('el', 'gato'): {'come': 6, 'negro': 2, 'juega': 3}, ..}. Ya que la probabilidad de cada token dentro de los mismos n-1 token previos presenta el mismo divisor, entonces puedo obviarlo, y de esta manera evitar un cálculo innecesario, es decir, P(('el', 'gato', x)) = P(x)/P(('el', 'gato')).
+De esta manera se genera un intervalo entre 1 y la sumatoria de estos conteos, en el ejemplo seria [1, 11], y se sortea un valor aleatorio uniforme en este intervalo, dependiendo en que sub intervalo cae el valor aleatorio se decide la palabra, ej come: [1,6], negro: [7,8], juega: [9,11].
+
+Adicionalmente se creó el script generate.py que carga un modelo de n-gramas y generar oraciones con él.
+A partir del corpus explicado en el Ejercicio 1 se generaron las siguientes oraciones para:
+
+
+****Completar****
+
+Generar oraciones usando n-gramas con n en {1, 2, 3, 4}. Armar una figura similar a la Figura 4.3 de Jurafsky & Martin (2008). Incluirla en el README.
