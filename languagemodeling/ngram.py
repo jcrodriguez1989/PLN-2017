@@ -116,7 +116,7 @@ class NGram(object):
         sents -- the sentences to get the cross-entropy.
 
         """
-        m = sum([ len(word) for word in sents ])
+        m = sum([len(word) for word in sents])
         return self.log_prob(sents) / m
 
     def perplexity(self, sents):

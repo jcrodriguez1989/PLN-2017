@@ -1,14 +1,15 @@
-from math import ceil, floor
+from math import ceil
 from nltk.corpus import PlaintextCorpusReader
 from nltk.tokenize import RegexpTokenizer
 from random import shuffle
+
 
 class MyCorpus(object):
     def __init__(self, fileName, path=".", trainPerc=1):
         """
         path -- path of the corpus file.
         fileName -- name of the corpus file.
-        trainPerc -- percentage [0,1] of sentences as train data, the rest is 
+        trainPerc -- percentage [0,1] of sentences as train data, the rest is
         test data.
         """
 
@@ -25,7 +26,8 @@ class MyCorpus(object):
             | [][.,;"'?():-_`]    # these are separate tokens; includes ], [
             '''
         tokenizer = RegexpTokenizer(pattern)
-        corpus = PlaintextCorpusReader(path, fileName, word_tokenizer=tokenizer)
+        corpus = PlaintextCorpusReader(path, fileName,
+                                       word_tokenizer=tokenizer)
         self.sents = sents = corpus.sents()
         self.trainIdx = []
         self.testIdx = []
@@ -38,14 +40,7 @@ class MyCorpus(object):
             # mezclamos los indices para que train y test sean aleatorios
             shuffle(sentsIdx)
             self.trainIdx = sentsIdx[:ceil(len(sents)*trainPerc)]
-            self.testIdx  = sentsIdx[ceil(len(sents)*trainPerc):]
-
-
-        #if (trainPerc < 1):
-            #ntrain = ceil(len(sents)*trainPerc)
-            #trainIndexes = random.sample(range(len(sents)), ntrain)
-            #self.trainSents = [ sents[i] for i in trainIndexes ]
-            #self.testSents = [ sents[i] for i not in trainIndexes ]
+            self.testIdx = sentsIdx[ceil(len(sents)*trainPerc):]
 
     def get_sents(self):
         """
@@ -59,7 +54,7 @@ class MyCorpus(object):
         """
         assert (self.trainIdx != []) | (self.testIdx != [])
         if (self.trainSents == []):
-            self.trainSents = [ self.sents[i] for i in self.trainIdx ]
+            self.trainSents = [self.sents[i] for i in self.trainIdx]
         return self.trainSents
 
     def get_test_sents(self):
@@ -68,6 +63,5 @@ class MyCorpus(object):
         """
         assert (self.trainIdx != []) | (self.testIdx != [])
         if (self.testSents == []):
-            self.testSents = [ self.sents[i] for i in self.testIdx ]
+            self.testSents = [self.sents[i] for i in self.testIdx]
         return self.testSents
-
