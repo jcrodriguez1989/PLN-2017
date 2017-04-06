@@ -20,7 +20,7 @@ if __name__ == '__main__':
     opts = docopt(__doc__)
 
     corpus = MyCorpus(path='./languagemodeling/scripts/',
-                      fileName='myCorpus.txt')
+                      fileName='myCorpusLittle.txt')  # delete "Little"
     sents = corpus.get_sents()
 
     # train the model

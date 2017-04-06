@@ -1,5 +1,7 @@
+from math import ceil, floor
 from nltk.corpus import PlaintextCorpusReader
 from nltk.tokenize import RegexpTokenizer
+from random import shuffle
 
 class MyCorpus(object):
     def __init__(self, fileName, path=".", trainPerc=1):
@@ -24,11 +26,48 @@ class MyCorpus(object):
             '''
         tokenizer = RegexpTokenizer(pattern)
         corpus = PlaintextCorpusReader(path, fileName, word_tokenizer=tokenizer)
-        self.sents = corpus.sents()
+        self.sents = sents = corpus.sents()
+        self.trainIdx = []
+        self.testIdx = []
+        self.trainSents = []
+        self.testSents = []
+
+        # esto consume tiempo, asi que lo hago solo si hay test data
+        if (trainPerc < 1):
+            sentsIdx = list(range(len(sents)))
+            # mezclamos los indices para que train y test sean aleatorios
+            shuffle(sentsIdx)
+            self.trainIdx = sentsIdx[:ceil(len(sents)*trainPerc)]
+            self.testIdx  = sentsIdx[ceil(len(sents)*trainPerc):]
+
+
+        #if (trainPerc < 1):
+            #ntrain = ceil(len(sents)*trainPerc)
+            #trainIndexes = random.sample(range(len(sents)), ntrain)
+            #self.trainSents = [ sents[i] for i in trainIndexes ]
+            #self.testSents = [ sents[i] for i not in trainIndexes ]
 
     def get_sents(self):
         """
-        Corpus sentences
+        Corpus sentences.
         """
         return self.sents
+
+    def get_train_sents(self):
+        """
+        training sentences, trainPerc must be < 1.
+        """
+        assert (self.trainIdx != []) | (self.testIdx != [])
+        if (self.trainSents == []):
+            self.trainSents = [ self.sents[i] for i in self.trainIdx ]
+        return self.trainSents
+
+    def get_test_sents(self):
+        """
+        test sentences, trainPerc must be < 1.
+        """
+        assert (self.trainIdx != []) | (self.testIdx != [])
+        if (self.testSents == []):
+            self.testSents = [ self.sents[i] for i in self.testIdx ]
+        return self.testSents
 

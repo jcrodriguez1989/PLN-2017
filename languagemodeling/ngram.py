@@ -95,6 +95,39 @@ class NGram(object):
             sentLogProb += actLogCondProb
         return sentLogProb
 
+    def log_prob(self, sents):
+        """
+        Log-probability of sents.
+
+        sents -- the sentences to get (sum) the log-probability.
+
+        """
+        logProb = 0
+        for sent in sents:
+            logProb += self.sent_log_prob(sent)
+            if (logProb == float('-inf')):
+                break
+        return logProb
+
+    def cross_entropy(self, sents):
+        """
+        Cross-entropy of sents.
+
+        sents -- the sentences to get the cross-entropy.
+
+        """
+        m = sum([ len(word) for word in sents ])
+        return self.log_prob(sents) / m
+
+    def perplexity(self, sents):
+        """
+        Perplexity of sents.
+
+        sents -- the sentences to get the perplexity.
+
+        """
+        return 2**(-self.cross_entropy(sents))
+
 
 class NGramGenerator:
 
