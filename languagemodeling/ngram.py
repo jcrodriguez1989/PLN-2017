@@ -129,6 +129,44 @@ class NGram(object):
         return 2**(-self.cross_entropy(sents))
 
 
+class AddOneNGram(NGram):
+
+    def __init__(self, n, sents):
+        """
+        n -- order of the model.
+        sents -- list of sentences, each one being a list of tokens.
+        """
+        super(AddOneNGram, self).__init__(n, sents)
+        alltokens = set([word for sent in sents for word in sent])
+        self.vocabSize = len(alltokens) + 1  # +1 por el </s>
+
+    def V(self):
+        """
+        Size of the vocabulary.
+        """
+        return self.vocabSize
+
+    def cond_prob(self, token, prev_tokens=None):
+        """
+        Conditional probability of a token.
+
+        token -- the token.
+        prev_tokens -- the previous n-1 tokens (optional only if n = 1).
+        """
+        n = self.n
+        if not prev_tokens:
+            prev_tokens = []
+        assert len(prev_tokens) == n-1
+
+        tokens = prev_tokens + [token]
+        prevtokensCount = self.count(prev_tokens) + self.V()
+        # actCondProb will be 0 if prevtokens have probability == 0
+        actCondProb = 0
+        if (prevtokensCount != 0):
+            actCondProb = (self.count(tokens)+1.) / prevtokensCount
+        return actCondProb
+
+
 class NGramGenerator:
 
     def __init__(self, model):

@@ -18,6 +18,7 @@ class MyCorpus(object):
         # load the data
         pattern = r'''(?ix)       # set flag to allow verbose regexps
             (?:sr\.|sra\.)
+            | Fig\.               # figures at papers
             | GO:[0-9]*           # gene ontology ids
             | (?:[A-Z]\.)+        # abbreviations, e.g. U.S.A.
             | \w+(?:-\w+)*        # words with optional internal hyphens
@@ -28,6 +29,7 @@ class MyCorpus(object):
         tokenizer = RegexpTokenizer(pattern)
         corpus = PlaintextCorpusReader(path, fileName,
                                        word_tokenizer=tokenizer)
+
         self.sents = sents = corpus.sents()
         self.trainIdx = []
         self.testIdx = []
