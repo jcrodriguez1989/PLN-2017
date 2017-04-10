@@ -30,19 +30,20 @@ class MyCorpus(object):
         corpus = PlaintextCorpusReader(path, fileName,
                                        word_tokenizer=tokenizer)
 
-        self.sents = sents = corpus.sents()
-        self.trainIdx = []
-        self.testIdx = []
-        self.trainSents = []
-        self.testSents = []
+        self.sents = corpus.sents()
+        self.trainPerc = trainPerc
+        #self.trainIdx = []
+        #self.testIdx = []
+        #self.trainSents = []
+        #self.testSents = []
 
         # esto consume tiempo, asi que lo hago solo si hay test data
-        if (trainPerc < 1):
-            sentsIdx = list(range(len(sents)))
-            # mezclamos los indices para que train y test sean aleatorios
-            shuffle(sentsIdx)
-            self.trainIdx = sentsIdx[:ceil(len(sents)*trainPerc)]
-            self.testIdx = sentsIdx[ceil(len(sents)*trainPerc):]
+        #if (trainPerc < 1):
+            #sentsIdx = list(range(len(sents)))
+            ## mezclamos los indices para que train y test sean aleatorios
+            #shuffle(sentsIdx)
+            #self.trainIdx = sentsIdx[:ceil(len(sents)*trainPerc)]
+            #self.testIdx = sentsIdx[ceil(len(sents)*trainPerc):]
 
     def get_sents(self):
         """
@@ -54,16 +55,22 @@ class MyCorpus(object):
         """
         training sentences, trainPerc must be < 1.
         """
-        assert (self.trainIdx != []) | (self.testIdx != [])
-        if (self.trainSents == []):
-            self.trainSents = [self.sents[i] for i in self.trainIdx]
-        return self.trainSents
+        #assert (self.trainIdx != []) | (self.testIdx != [])
+        #if (self.trainSents == []):
+            #self.trainSents = [self.sents[i] for i in self.trainIdx]
+        #return self.trainSents
+        sents = self.sents
+        trainPerc = self.trainPerc
+        return sents[:ceil(len(sents)*trainPerc)]
 
     def get_test_sents(self):
         """
         test sentences, trainPerc must be < 1.
         """
-        assert (self.trainIdx != []) | (self.testIdx != [])
-        if (self.testSents == []):
-            self.testSents = [self.sents[i] for i in self.testIdx]
-        return self.testSents
+        #assert (self.trainIdx != []) | (self.testIdx != [])
+        #if (self.testSents == []):
+            #self.testSents = [self.sents[i] for i in self.testIdx]
+        #return self.testSents
+        sents = self.sents
+        trainPerc = self.trainPerc
+        return sents[ceil(len(sents)*trainPerc):]

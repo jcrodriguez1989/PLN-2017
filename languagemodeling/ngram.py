@@ -116,6 +116,7 @@ class NGram(object):
         sents -- the sentences to get the cross-entropy.
 
         """
+        # todas las palabras (repetidas)
         m = sum([len(word) for word in sents])
         return self.log_prob(sents) / m
 
@@ -137,6 +138,7 @@ class AddOneNGram(NGram):
         sents -- list of sentences, each one being a list of tokens.
         """
         super(AddOneNGram, self).__init__(n, sents)
+        # todos los token posibles
         alltokens = set([word for sent in sents for word in sent])
         self.vocabSize = len(alltokens) + 1  # +1 por el </s>
 
