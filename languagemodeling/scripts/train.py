@@ -17,7 +17,7 @@ from docopt import docopt
 import pickle
 
 from languagemodeling.myCorpus import MyCorpus
-from languagemodeling.ngram import AddOneNGram, NGram
+from languagemodeling.ngram import AddOneNGram, NGram, InterpolatedNGram
 
 if __name__ == '__main__':
     opts = docopt(__doc__)
@@ -33,6 +33,9 @@ if __name__ == '__main__':
     if m == "addone":
         print("AddOne Model")
         model = AddOneNGram(n, sents)
+    if m == "interpolatedngram":
+        print("InterpolatedNGram Model")
+        model = InterpolatedNGram(n, sents)
     else:
         print("NGram Model")
         model = NGram(n, sents)

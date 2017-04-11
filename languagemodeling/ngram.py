@@ -100,7 +100,6 @@ class NGram(object):
         Log-probability of sents.
 
         sents -- the sentences to get (sum) the log-probability.
-
         """
         logProb = 0
         for sent in sents:
@@ -114,7 +113,6 @@ class NGram(object):
         Cross-entropy of sents.
 
         sents -- the sentences to get the cross-entropy.
-
         """
         # todas las palabras (repetidas)
         m = sum([len(word) for word in sents])
@@ -125,7 +123,6 @@ class NGram(object):
         Perplexity of sents.
 
         sents -- the sentences to get the perplexity.
-
         """
         return 2**(-self.cross_entropy(sents))
 
@@ -166,6 +163,116 @@ class AddOneNGram(NGram):
         actCondProb = 0
         if (prevtokensCount != 0):
             actCondProb = (self.count(tokens)+1.) / prevtokensCount
+        return actCondProb
+
+
+class InterpolatedNGram(NGram):
+
+    def __init__(self, n, sents, gamma=None, addone=True):
+        """
+        n -- order of the model.
+        sents -- list of sentences, each one being a list of tokens.
+        gamma -- interpolation hyper-parameter (if not given, estimate using
+            held-out data).
+        addone -- whether to use addone smoothing (default: True).
+        """
+        self.gamma = gamma
+        if not gamma:
+            # 10% de las sents son para heldOut
+            sents = sents[:int(ceil(90*len(sents)/100))]
+            heldOut = sents[int(ceil(90*len(sents)/100)):]
+        super(InterpolatedNGram, self).__init__(n, sents)
+
+        if (addone):
+            self.models = [AddOneNGram(1, sents)]
+        else:
+            self.models = [NGram(1, sents)]
+
+        for i in range(1, n):
+            self.models.append(NGram(i+1, sents))
+        if not gamma:
+            self.getGamma(heldOut)
+
+    def getGamma(self, heldOut, gammaStep=1, maxGamma=20):
+        """
+        Sets the best gamma, maximizing log_prob.
+
+        heldOut -- sentences to maximize log_prob
+        gammaStep -- factor to increment gamma
+        maxGamma -- maximum gamma to try
+        """
+        maxLogProb = float('-inf')
+        self.gamma = 1
+        bestGamma = self.gamma
+        actLogProb = self.log_prob(heldOut)
+        while (maxLogProb < actLogProb) & (self.gamma < maxGamma):
+            self.gamma += gammaStep
+            actLogProb = self.log_prob(heldOut)
+            if (actLogProb > maxLogProb):
+                maxLogProb = actLogProb
+                bestGamma = self.gamma
+        self.gamma = bestGamma
+
+    def count(self, tokens):
+        """
+        Count for an n-gram or (n-1)-gram.
+
+        tokens -- the n-gram or (n-1)-gram tuple.
+        """
+        # if tokens is a word then convert it to tuple (case n=1)
+        tokens = tuple(tokens)
+        n = self.n
+        tokenLen = len(tokens)
+        if (tokens == ()):
+            tokenLen = 1
+        assert (tokenLen == n) | (tokenLen == (n-1))
+        actModel = self.models[tokenLen-1]
+        actCount = actModel.count(tokens)
+        return actCount
+
+    def get_lambdas(self, sent):
+        """
+        Lambdas for each n-gram.
+
+        sent -- the sentence from which get the lambdas
+        """
+        gamma = self.gamma
+        assert gamma is not None
+        models = self.models
+        lambdas = []
+        sent = tuple(sent)
+        for i in range(0, len(sent)-1):
+            actSent = sent[i:-1]
+            actModel = models[len(actSent)-1]
+            actLambda = actModel.count(actSent)/(actModel.count(actSent)+gamma)
+            actLambda = (1-sum(lambdas))*actLambda
+            lambdas.append(actLambda)
+        lambdas.append(1-sum(lambdas))  # lambda 1,..,lambda n
+        return(lambdas)
+
+    def cond_prob(self, token, prev_tokens=None):
+        """
+        Conditional probability of a token.
+
+        token -- the token.
+        prev_tokens -- the previous n-1 tokens (optional only if n = 1).
+        """
+        n = self.n
+        models = self.models
+        if not prev_tokens:
+            prev_tokens = []
+        assert len(prev_tokens) == n-1
+
+        tokens = prev_tokens + [token]
+        lambdas = self.get_lambdas(tokens)
+        actCondProb = 0
+
+        for i in range(0, len(tokens)):
+            actLambda = lambdas[i]
+            acttoken = tokens[i:-1]
+            actN = len(acttoken)+1
+            actModel = models[actN-1]
+            actCondProb += actLambda * actModel.cond_prob(token, acttoken)
         return actCondProb
 
 
