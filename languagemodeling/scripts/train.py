@@ -17,14 +17,13 @@ from docopt import docopt
 import pickle
 
 from languagemodeling.myCorpus import MyCorpus
-from languagemodeling.ngram import NGram
+from languagemodeling.ngram import AddOneNGram,NGram
 
 if __name__ == '__main__':
     opts = docopt(__doc__)
 
     corpus = MyCorpus(path='./languagemodeling/scripts/',
-                        # fileName='myCorpusLittle.txt')  # delete "Little"
-                        fileName='myCorpus.txt')
+                        fileName='myCorpusTrain.txt')
     sents = corpus.get_sents()
 
     # train the model
