@@ -1,8 +1,9 @@
-from math import ceil
 from nltk.corpus import PlaintextCorpusReader
 from nltk.tokenize import RegexpTokenizer
 
+
 class MyCorpus(object):
+
     def __init__(self, fileName, path="."):
         """
         path -- path of the corpus file.

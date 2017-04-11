@@ -53,3 +53,13 @@ En el caso de los unigramas y bigramas, no se llega a generar ninguna oración q
 Se implementó un modelo de n-gramas que incorpora el suavizado "add-one". Esta clase hereda de la clase NGram, donde las unicas funciones que debieron ser creadas, modificadas o extendidas son __ init __ donde se ejecuta la función del padre y adicionalmente se calcula la cantidad de palabras en el vocabulario; la función V, que devuelve la cantidad de palabras del vocabulario; y la función cond_prob, ya que aquí es donde se diferencia de un NGram, donde P(wi | wi-1) = (C(wi-1, wi)+1)/(C(wi-1)+V).
 
 Además de esto, se debió agregar al script de entrenamiento (train.py) una opción de línea de comandos que permita seleccionar el momdelo a entrenar.
+
+### Ejercicio 5
+Para este ejercicio se debió implementar una función que calcule la perplejidad para cada modelo. Se separó el corpus en datos de entrenamiento (90%) y test (10%). Adicionalmente, se programó el script eval.py el cual carga un modelo de lenguajes y lo evalúa sobre el conjunto de test devolviendo la perplejidad en cada caso.
+
+Se evaluó la perplejidad para el modelo AddOne para n en {1,2,3,4}, obteniendo los siguientes resultados:
+
+| N ->   | 1         | 2         | 3         | 4         |
+| ------ |:--------- |:--------- |:--------- |:--------- |
+| AddOne | 1,450     | 3,237     | 17,107    | 31,243    |
+

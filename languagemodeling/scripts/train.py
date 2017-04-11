@@ -17,13 +17,13 @@ from docopt import docopt
 import pickle
 
 from languagemodeling.myCorpus import MyCorpus
-from languagemodeling.ngram import AddOneNGram,NGram
+from languagemodeling.ngram import AddOneNGram, NGram
 
 if __name__ == '__main__':
     opts = docopt(__doc__)
 
     corpus = MyCorpus(path='./languagemodeling/scripts/',
-                        fileName='myCorpusTrain.txt')
+                      fileName='myCorpusTrain.txt')
     sents = corpus.get_sents()
 
     # train the model
@@ -31,8 +31,10 @@ if __name__ == '__main__':
     m = opts['-m']
 
     if m == "addone":
+        print("AddOne Model")
         model = AddOneNGram(n, sents)
     else:
+        print("NGram Model")
         model = NGram(n, sents)
 
     # save it
