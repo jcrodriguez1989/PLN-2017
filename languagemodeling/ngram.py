@@ -191,7 +191,7 @@ class InterpolatedNGram(NGram):
         for i in range(1, n):
             self.models.append(NGram(i+1, sents))
         if not gamma:
-            self.getGamma(heldOut)
+            self.getGamma(heldOut, gammaStep=100, maxGamma=10000)
 
     def getGamma(self, heldOut, gammaStep=1, maxGamma=20):
         """

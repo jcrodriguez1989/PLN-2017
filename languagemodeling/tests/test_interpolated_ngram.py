@@ -9,7 +9,7 @@ class TestInterpolatedNGram(TestCase):
     def setUp(self):
         self.sents = [
             'el gato come pescado .'.split(),
-            'la gata come salmon .'.split(),
+            'la gata come salmón .'.split(),
         ]
 
     def test_count_1gram(self):
@@ -25,7 +25,7 @@ class TestInterpolatedNGram(TestCase):
             ('</s>',): 2,
             ('la',): 1,
             ('gata',): 1,
-            ('salmon',): 1,
+            ('salmón',): 1,
         }
         for gram, c in counts.items():
             self.assertEqual(model.count(gram), c, gram)
@@ -43,7 +43,7 @@ class TestInterpolatedNGram(TestCase):
             ('</s>',): 2,
             ('la',): 1,
             ('gata',): 1,
-            ('salmon',): 1,
+            ('salmón',): 1,
             ('<s>', 'el'): 1,
             ('el', 'gato'): 1,
             ('gato', 'come'): 1,
@@ -53,8 +53,8 @@ class TestInterpolatedNGram(TestCase):
             ('<s>', 'la'): 1,
             ('la', 'gata'): 1,
             ('gata', 'come'): 1,
-            ('come', 'salmon'): 1,
-            ('salmon', '.'): 1,
+            ('come', 'salmón'): 1,
+            ('salmón', '.'): 1,
         }
         for gram, c in counts.items():
             self.assertEqual(ngram.count(gram), c, gram)
@@ -80,7 +80,7 @@ class TestInterpolatedNGram(TestCase):
 
         probs = {
             ('pescado', 'come'): l1 * 0.5 + (1.0 - l1) * 1 / 12.0,
-            ('salmon', 'come'): l1 * 0.5 + (1.0 - l1) * 1 / 12.0,
+            ('salmón', 'come'): l1 * 0.5 + (1.0 - l1) * 1 / 12.0,
             ('salame', 'come'): 0.0,
             ('</s>', '.'): l1 * 1.0 + (1.0 - l1) * 2 / 12.0,
         }
@@ -101,7 +101,7 @@ class TestInterpolatedNGram(TestCase):
             InterpolatedNGram(1, self.sents, gamma=100.0, addone=True),
         ]
 
-        tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmon', '</s>'}
+        tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmón', '</s>'}
 
         for model in models:
             prob_sum = sum(model.cond_prob(token) for token in tokens)
@@ -122,8 +122,8 @@ class TestInterpolatedNGram(TestCase):
             InterpolatedNGram(2, self.sents, gamma=100.0, addone=True),
         ]
 
-        tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmon', '</s>'}
-        prevs = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmon', '<s>'}
+        tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmón', '</s>'}
+        prevs = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmón', '<s>'}
 
         for model in models:
             for prev in prevs:
@@ -145,8 +145,8 @@ class TestInterpolatedNGram(TestCase):
             InterpolatedNGram(3, self.sents, gamma=100.0, addone=True),
         ]
 
-        tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmon', '</s>'}
-        prev_tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmon', '<s>'}
+        tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmón', '</s>'}
+        prev_tokens = {'el', 'gato', 'come', 'pescado', '.', 'la', 'gata', 'salmón', '<s>'}
         prevs = [['<s>', '<s>']] + \
             [['<s>', t] for t in prev_tokens] + \
             [[t1, t2] for t1 in prev_tokens for t2 in prev_tokens]
