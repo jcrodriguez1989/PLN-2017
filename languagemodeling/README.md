@@ -9,7 +9,7 @@ Los conjuntos de genes que utilizamos son los que brinda el consorcio [Gene Onto
 
 En resumen, se descargaron 350 (14MB, 96.224 oraciones) de los 9.158 artículos científicos que proveía PMC que relacionaban "gene ontology" con "breast cancer". Mediante un correcto parseo de XML, se generó el corpus, al momento de tokenizar, lo único que se tuvo en cuenta fue informar que las palabras que comienzan con "GO:" y siguen con números; y la palabra Fig. eran un token.
 
-Se implementó la clase MyCorpus que a partir de el path del archivo de texto carga el corpus. Dicha clase utiliza el corpus reader de NLTK (PlaintextCorpusReader), y para tokenizar RegexpTokenizer. Esta clase permite obtener todas las oraciones (get_sents), las oraciones de test dado un porcentaje de entrenamiento (get_train_sents) y las oraciones de test (get_test_sents).
+Se implementó la clase MyCorpus que a partir de el path del archivo de texto carga el corpus. Dicha clase utiliza el corpus reader de NLTK (PlaintextCorpusReader), y para tokenizar RegexpTokenizer. Esta clase, mediante la función get_sents permite obtener todas las oraciones cargadas.
 
 ### Ejercicio 2
 Se implementó un modelo de n-gramas con marcadores de comienzo y fin de oración (\<s> y \</s>). Al momento de inicializar la clase, se toma el corpus y a cada oración se le agregan los n-1 marcadores de comienzo de oración \<s>, de esta manera se facilita el proceso de cálculo de conteos para las sub frases de comienzo. Adicionalmente, en la inicialización se van calculando los conteos de cada frase de tamaño n y n-1.
@@ -21,7 +21,7 @@ En mi implementación, el generador, a partir del modelo, guarda en un diccionar
 De esta manera se genera un intervalo entre 1 y la sumatoria de estos conteos, en el ejemplo seria [1, 11], y se sortea un valor aleatorio uniforme en este intervalo, dependiendo en que sub intervalo cae el valor aleatorio se decide la palabra, ej come: [1,6], negro: [7,8], juega: [9,11].
 
 Adicionalmente se creó el script generate.py que carga un modelo de n-gramas y genera oraciones con él.
-A partir del corpus explicado en el Ejercicio 1 se generaron las siguientes oraciones para n en {1,2,3,4}:
+A partir del corpus explicado en el Ejercicio 1 se generaron las siguientes oraciones para N en {1,2,3,4}:
 
 | N | Oraciones |
 | - |:--------- |
@@ -52,14 +52,16 @@ En el caso de los unigramas y bigramas, no se llega a generar ninguna oración q
 ### Ejercicio 4
 Se implementó un modelo de n-gramas que incorpora el suavizado "add-one". Esta clase hereda de la clase NGram, donde las unicas funciones que debieron ser creadas, modificadas o extendidas son __ init __ donde se ejecuta la función del padre y adicionalmente se calcula la cantidad de palabras en el vocabulario; la función V, que devuelve la cantidad de palabras del vocabulario; y la función cond_prob, ya que aquí es donde se diferencia de un NGram, donde P(wi | wi-1) = (C(wi-1, wi)+1)/(C(wi-1)+V).
 
-Además de esto, se debió agregar al script de entrenamiento (train.py) una opción de línea de comandos que permita seleccionar el momdelo a entrenar.
+Además de esto, se debió agregar al script de entrenamiento (train.py) una opción de línea de comandos que permita seleccionar el modelo a entrenar.
 
 ### Ejercicio 5
 Para este ejercicio se debió implementar una función que calcule la perplejidad para cada modelo. Se separó el corpus en datos de entrenamiento (90%) y test (10%). Adicionalmente, se programó el script eval.py el cual carga un modelo de lenguajes y lo evalúa sobre el conjunto de test devolviendo la perplejidad en cada caso.
 
-Se evaluó la perplejidad para el modelo AddOne para n en {1,2,3,4}, obteniendo los siguientes resultados:
+Se evaluó la perplejidad para el modelo AddOne para N en {1,2,3,4}, obteniendo los siguientes resultados:
 
 | N ->   | 1         | 2         | 3         | 4         |
 | ------ |:--------- |:--------- |:--------- |:--------- |
 | AddOne | 1,450     | 3,237     | 17,107    | 31,243    |
+
+Dados estos resultados, daría la impresión que AddOne no es un buen modelo, ya que al aumentar N, está aumentando la perplejidad. Lo que debería esperarse en un buen modelo es una función convexa.
 
