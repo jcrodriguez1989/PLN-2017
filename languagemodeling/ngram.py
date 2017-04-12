@@ -126,6 +126,22 @@ class NGram(object):
         """
         return 2**(-self.cross_entropy(sents))
 
+    def to_tuple(self, sents):
+        """
+        Converts list, tuple or string to tuple.
+        
+        sents -- the sentence/s to convert
+        """
+        if isinstance(sents, str):
+            res = (sents,)
+        elif isinstance(sents, list):
+            res = tuple(sents)
+        elif isinstance(sents, tuple):
+            res = sents
+        else:
+            res = None
+        return res
+
 
 class AddOneNGram(NGram):
 
@@ -182,18 +198,24 @@ class InterpolatedNGram(NGram):
             sents = sents[:int(ceil(90*len(sents)/100))]
             heldOut = sents[int(ceil(90*len(sents)/100)):]
         super(InterpolatedNGram, self).__init__(n, sents)
+        # esto lo hago mas que nada para pasar los test. Ya que el modelo para
+        # n lo tengo en self.models
 
+        # if addone then the unigram model is AddOne
         if (addone):
             self.models = [AddOneNGram(1, sents)]
         else:
             self.models = [NGram(1, sents)]
 
+        # the rest of the models are NGrams
         for i in range(1, n):
             self.models.append(NGram(i+1, sents))
-        if not gamma:
-            self.getGamma(heldOut, gammaStep=100, maxGamma=10000)
 
-    def getGamma(self, heldOut, gammaStep=1, maxGamma=20):
+        # get the best gamma from 1 to 10000, by 100
+        if not gamma:
+            self.get_gamma(heldOut, gammaStep=100, maxGamma=10000)
+
+    def get_gamma(self, heldOut, gammaStep=1, maxGamma=20):
         """
         Sets the best gamma, maximizing log_prob.
 
@@ -201,16 +223,19 @@ class InterpolatedNGram(NGram):
         gammaStep -- factor to increment gamma
         maxGamma -- maximum gamma to try
         """
+        assert (gammaStep > 0) & (maxGamma > 0)
         maxLogProb = float('-inf')
         self.gamma = 1
         bestGamma = self.gamma
         actLogProb = self.log_prob(heldOut)
         while (maxLogProb < actLogProb) & (self.gamma < maxGamma):
+            print(bestGamma, maxLogProb, self.gamma, actLogProb)  # todo: delete
+            maxLogProb = actLogProb
+            bestGamma = self.gamma
             self.gamma += gammaStep
             actLogProb = self.log_prob(heldOut)
-            if (actLogProb > maxLogProb):
-                maxLogProb = actLogProb
-                bestGamma = self.gamma
+            print(self.gamma, actLogProb)  # todo: delete
+        print("gamma calculated: ", bestGamma, ", with log-prob: ", maxLogProb)
         self.gamma = bestGamma
 
     def count(self, tokens):
@@ -223,10 +248,10 @@ class InterpolatedNGram(NGram):
         tokens = tuple(tokens)
         n = self.n
         tokenLen = len(tokens)
-        if (tokens == ()):
+        if (tokens == ()):  # to get the unigram model
             tokenLen = 1
         assert (tokenLen == n) | (tokenLen == (n-1))
-        actModel = self.models[tokenLen-1]
+        actModel = self.models[tokenLen-1]  # n-gram is in position n-1
         actCount = actModel.count(tokens)
         return actCount
 
@@ -244,7 +269,8 @@ class InterpolatedNGram(NGram):
         for i in range(0, len(sent)-1):
             actSent = sent[i:-1]
             actModel = models[len(actSent)-1]
-            actLambda = actModel.count(actSent)/(actModel.count(actSent)+gamma)
+            actCount = actModel.count(actSent)
+            actLambda = actCount/(actCount+gamma)
             actLambda = (1-sum(lambdas))*actLambda
             lambdas.append(actLambda)
         lambdas.append(1-sum(lambdas))  # lambda 1,..,lambda n
@@ -274,6 +300,157 @@ class InterpolatedNGram(NGram):
             actModel = models[actN-1]
             actCondProb += actLambda * actModel.cond_prob(token, acttoken)
         return actCondProb
+
+
+class BackOffNGram(NGram):
+
+    def __init__(self, n, sents, beta=None, addone=True):
+        """
+        Back-off NGram model with discounting as described by Michael Collins.
+
+        n -- order of the model.
+        sents -- list of sentences, each one being a list of tokens.
+        beta -- discounting hyper-parameter (if not given, estimate using
+            held-out data).
+        addone -- whether to use addone smoothing (default: True).
+        """
+        self.beta = beta
+        if not beta:
+            # 10% de las sents son para heldOut
+            sents = sents[:int(ceil(90*len(sents)/100))]
+            heldOut = sents[int(ceil(90*len(sents)/100)):]
+        super(BackOffNGram, self).__init__(n, sents)
+
+        # if addone then the unigram model is AddOne
+        if (addone):
+            self.models = [AddOneNGram(1, sents)]
+        else:
+            self.models = [NGram(1, sents)]
+
+        # the rest of the models are NGrams
+        for i in range(1, n):
+            self.models.append(NGram(i+1, sents))
+
+        # lets create the set for A using 1..n-grams
+        self.Acalc = A = defaultdict(set)
+        for i in range(2, n+1):
+            actModel = self.models[i-1]
+            actModel = NGram(i, sents)
+            actCounts = actModel.counts
+            actIgrams = dict( (k, actCounts[k]) 
+                             for k in actCounts if len(k) == i )
+            for key in actIgrams.keys():
+                actKey = key[:-1]
+                actVal = key[-1]
+                A[actKey].add(actVal)
+
+    def A(self, tokens):
+        """
+        Set of words with counts > 0 for a k-gram with 0 < k < n.
+
+        tokens -- the k-gram tuple.
+        """
+        n = self.n
+        tokens = tuple(tokens)
+        #assert (0 < len(tokens)) & (len(tokens) < n)
+        return self.Acalc[tokens]
+
+    def alpha(self, tokens):
+        """
+        Missing probability mass for a k-gram with 0 < k < n.
+
+        tokens -- the k-gram tuple.
+        """
+        n = self.n
+        beta = self.beta
+        #assert (0 < len(tokens)) & (len(tokens) < n)
+        assert beta is not None
+        nexttokensCount = len(self.A(tokens))
+        alpha = 1
+        if (nexttokensCount > 0):
+            alpha = beta * nexttokensCount / self.count(tokens)
+        return alpha
+
+    def count(self, tokens):
+        """
+        Count for an n-gram or (n-1)-gram.
+
+        tokens -- the n-gram or (n-1)-gram tuple.
+        """
+        # if tokens is a word then convert it to tuple (case n=1)
+        tokens = self.to_tuple(tokens)
+        n = self.n
+        tokenLen = len(tokens)
+
+        #assert (tokenLen == n) | (tokenLen == (n-1)) | (tokens == ())
+
+        # para solucionar que no se cuenta el start marker
+        #if (tokens == ('<s>',)):
+            #tokenLen += 1
+        if (tokenLen < n):
+            tokenLen += 1
+
+        if (tokens == ()):  # to get the unigram model
+            tokenLen = 1
+
+        actModel = self.models[tokenLen-1]  # n-gram is in position n-1
+        actCount = actModel.count(tokens)
+        return actCount
+
+    def count_star(self, tokens):
+        """
+        Discounted count for an n-gram or (n-1)-gram.
+
+        tokens -- the n-gram or (n-1)-gram tuple.
+        """
+        beta = self.beta
+        assert beta is not None
+        return (self.count(tokens)-beta)
+
+    def denom(self, tokens):
+        """
+        Normalization factor for a k-gram with 0 < k < n.
+
+        tokens -- the k-gram tuple.
+        """
+        n = self.n
+        #assert (0 < len(tokens)) & (len(tokens) < n)
+        followtokens = self.A(tokens)
+        tokens = tokens[1:]  # remove x1
+        probs = []
+        for nexttoken in followtokens:
+            actProb = self.cond_prob(nexttoken, tokens)
+            #acttokens = self.to_tuple(tokens) + self.to_tuple(nexttoken)
+            #actProb = self.count_star(acttokens)
+            probs.append(actProb)
+        #return (1-(sum(probs) / self.count(tokens)))
+        return (1-sum(probs))
+
+    def cond_prob(self, token, prev_tokens=None):
+        """
+        Conditional probability of a token.
+
+        token -- the token.
+        prev_tokens -- the previous n-1 tokens (optional only if n = 1).
+        """
+        n = self.n
+        prev_tokens = self.to_tuple(prev_tokens)
+
+        if not prev_tokens: # i = 1
+            return self.count(token) / self.count(())
+        #assert len(prev_tokens) == n-1
+
+        followtokens = self.A(prev_tokens)
+        if token in followtokens:
+            acttokens = prev_tokens + self.to_tuple(token)
+            actProb = self.count_star(acttokens) / self.count(prev_tokens)
+        else:
+            actAlpha = self.alpha(prev_tokens)
+            actDenom = self.denom(prev_tokens)
+            actProb = self.cond_prob(token, prev_tokens[1:])
+            if (actProb != 0) & (actAlpha != 0):
+                actProb *= actAlpha/actDenom
+        return actProb
 
 
 class NGramGenerator:
