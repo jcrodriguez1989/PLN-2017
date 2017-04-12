@@ -193,10 +193,10 @@ class InterpolatedNGram(NGram):
         addone -- whether to use addone smoothing (default: True).
         """
         self.gamma = gamma
-        if not gamma:
+        if gamma is None:
             # 10% de las sents son para heldOut
-            sents = sents[:int(ceil(90*len(sents)/100))]
-            heldOut = sents[int(ceil(90*len(sents)/100)):]
+            sents = sents[:int(90*len(sents)/100)]
+            heldOut = sents[int(90*len(sents)/100):]
         super(InterpolatedNGram, self).__init__(n, sents)
         # esto lo hago mas que nada para pasar los test. Ya que el modelo para
         # n lo tengo en self.models
@@ -212,7 +212,7 @@ class InterpolatedNGram(NGram):
             self.models.append(NGram(i+1, sents))
 
         # get the best gamma from 1 to 10000, by 100
-        if not gamma:
+        if gamma is None:
             self.get_gamma(heldOut, gammaStep=100, maxGamma=10000)
 
     def get_gamma(self, heldOut, gammaStep=1, maxGamma=20):
@@ -315,10 +315,10 @@ class BackOffNGram(NGram):
         addone -- whether to use addone smoothing (default: True).
         """
         self.beta = beta
-        if not beta:
+        if beta is None:
             # 10% de las sents son para heldOut
-            sents = sents[:int(ceil(90*len(sents)/100))]
-            heldOut = sents[int(ceil(90*len(sents)/100)):]
+            sents = sents[:int(90*len(sents)/100)]
+            heldOut = sents[int(90*len(sents)/100):]
         super(BackOffNGram, self).__init__(n, sents)
 
         # if addone then the unigram model is AddOne
@@ -343,6 +343,33 @@ class BackOffNGram(NGram):
                 actKey = key[:-1]
                 actVal = key[-1]
                 A[actKey].add(actVal)
+
+        # get the best beta from 1 to 10000, by 100
+        if beta is None:
+            self.get_beta(heldOut, betaStep=100, maxbeta=10000)
+
+    def get_beta(self, heldOut, betaStep=1, maxbeta=20):
+        """
+        Sets the best beta, maximizing log_prob.
+
+        heldOut -- sentences to maximize log_prob
+        betaStep -- factor to increment beta
+        maxbeta -- maximum beta to try
+        """
+        assert (betaStep > 0) & (maxbeta > 0)
+        maxLogProb = float('-inf')
+        self.beta = 1
+        bestbeta = self.beta
+        actLogProb = self.log_prob(heldOut)
+        while (maxLogProb < actLogProb) & (self.beta < maxbeta):
+            print(bestbeta, maxLogProb, self.beta, actLogProb)  # todo: delete
+            maxLogProb = actLogProb
+            bestbeta = self.beta
+            self.beta += betaStep
+            actLogProb = self.log_prob(heldOut)
+            print(self.beta, actLogProb)  # todo: delete
+        print("beta calculated: ", bestbeta, ", with log-prob: ", maxLogProb)
+        self.beta = bestbeta
 
     def A(self, tokens):
         """
@@ -387,7 +414,7 @@ class BackOffNGram(NGram):
         # para solucionar que no se cuenta el start marker
         #if (tokens == ('<s>',)):
             #tokenLen += 1
-        if (tokenLen < n):
+        if (tokenLen < n) & (tokens != ('</s>',)):
             tokenLen += 1
 
         if (tokens == ()):  # to get the unigram model
@@ -445,10 +472,10 @@ class BackOffNGram(NGram):
             acttokens = prev_tokens + self.to_tuple(token)
             actProb = self.count_star(acttokens) / self.count(prev_tokens)
         else:
-            actAlpha = self.alpha(prev_tokens)
-            actDenom = self.denom(prev_tokens)
             actProb = self.cond_prob(token, prev_tokens[1:])
-            if (actProb != 0) & (actAlpha != 0):
+            if (actProb != 0):
+                actAlpha = self.alpha(prev_tokens)
+                actDenom = self.denom(prev_tokens)
                 actProb *= actAlpha/actDenom
         return actProb
 
