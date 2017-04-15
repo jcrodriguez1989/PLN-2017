@@ -2,17 +2,12 @@
 Train an n-gram model.
 
 Usage:
-  #authorship.py -n <n> [-m <model>] -o <file>
-  #authorship.py -h | --help
+  authorship.py -a <author1> -b <author2>
+  authorship.py -h | --help
 
 Options:
-  #-n <n>        Order of the model.
-  #-m <model>    Model to use [default: ngram]:
-                  #ngram: Unsmoothed n-grams.
-                  #addone: N-grams with add-one smoothing.
-                  #interpolated: N-grams with interpolated smoothing.
-                  #backoff: N-grams with backoff smoothing.
-  #-o <file>     Output model file.
+  -a <author1>        Name of author1 (as listed in gutenberg.fileids()).
+  -b <author2>        Name of author2 (as listed in gutenberg.fileids()).
   -h --help     Show this screen.
 """
 from docopt import docopt
@@ -24,49 +19,69 @@ from nltk.corpus import gutenberg
 if __name__ == '__main__':
     opts = docopt(__doc__)
 
+    author1 = opts['-a']
+    author2 = opts['-b']
+
     files = gutenberg.fileids()
-    shakesSents = [ gutenberg.sents(file)
-                   for file in files if file.startswith("shakespeare") ]
-    shakesSents = [ item for sublist in shakesSents for item in sublist ]
+    a1Sents = [ gutenberg.sents(file)
+                   for file in files if file.startswith(author1) ]
+    a1Sents = [ item for sublist in a1Sents for item in sublist ]
 
-    chesterSents = [ gutenberg.sents(file)
-                   for file in files if file.startswith("chesterton") ]
-    chesterSents = [ item for sublist in chesterSents for item in sublist ]
+    a2Sents = [ gutenberg.sents(file)
+                   for file in files if file.startswith(author2) ]
+    a2Sents = [ item for sublist in a2Sents for item in sublist ]
 
-    shakestrain = shakesSents[:int(90*len(shakesSents)/100)]
-    shakesUnk = shakesSents[int(90*len(shakesSents)/100):]
-    chestertrain = chesterSents[:int(90*len(chesterSents)/100)]
-    chesterUnk = chesterSents[int(90*len(chesterSents)/100):]
+    trainPerc = 90
+    a1train = a1Sents[:int(trainPerc*len(a1Sents)/100)]
+    a1Unk = a1Sents[int(trainPerc*len(a1Sents)/100):]
+    a2train = a2Sents[:int(trainPerc*len(a2Sents)/100)]
+    a2Unk = a2Sents[int(trainPerc*len(a2Sents)/100):]
 
-    shakesModel = AddOneNGram(1, shakestrain)
-    chesterModel = AddOneNGram(1, chestertrain)
+    a1Model = AddOneNGram(1, a1train)
+    a2Model = AddOneNGram(1, a2train)
 
     # multiplying together the the probabilities of all the unigrams that only
     # occur once in the 'unknown' text
-    shakesUnkCounts = NGram(1, shakesUnk).counts
-    chesterUnkCounts = NGram(1, chesterUnk).counts
+    a1UnkCounts = NGram(1, a1Unk).counts
+    a2UnkCounts = NGram(1, a2Unk).counts
 
-    shakesUnkOnce = [k for k in shakesUnkCounts.keys() if 
-                     shakesUnkCounts[k] == 1]
-    chesterUnkOnce = [k for k in chesterUnkCounts.keys() if 
-                     chesterUnkCounts[k] == 1]
+    a1UnkOnce = [k for k in a1UnkCounts.keys() if a1UnkCounts[k] == 1]
+    a2UnkOnce = [k for k in a2UnkCounts.keys() if a2UnkCounts[k] == 1]
 
-    probShakesIsChester = 1
-    probShakesIsShakes = 1
-    for onceWord in shakesUnkOnce[:100]:
-        probShakesIsShakes *= shakesModel.cond_prob(onceWord)
-        probShakesIsChester *= chesterModel.cond_prob(onceWord)
-        print(probShakesIsShakes)
+    #probA1IsA2 = 1
+    #probA1IsA1 = 1
+    #for onceWord in a1UnkOnce:
+        #probA1IsA1 *= a1Model.cond_prob(onceWord)
+        #probA1IsA2 *= a2Model.cond_prob(onceWord)
 
-    probShakesIsChester = 0
-    probShakesIsShakes = 0
-    for onceWord in shakesUnkOnce[:100]:
-        probShakesIsShakes += shakesModel.sent_log_prob(list(onceWord))
-        probShakesIsChester *= chesterModel.sent_log_prob(list(onceWord))
-        print(probShakesIsChester)
+    # multiplying these probabilities makes it 0, so lets try log prob
+    probA1IsA2 = 0
+    probA1IsA1 = 0
+    for onceWord in a1UnkOnce:
+        probA1IsA1 += a1Model.sent_log_prob(list(onceWord))
+        probA1IsA2 += a2Model.sent_log_prob(list(onceWord))
 
+    # taking the geometric mean of these (i.e. the wth root, where n is the 
+    # number of probabilities you multiplied).
+    ## nthRoot(p(s1)*...*p(sn)) == 2**(log2( nthRoot(p(s1)*...*p(sn)) )) ==
+    ## 2**(log2( p(s1)*...*p(sn) ) / n) == 
+    ## 2**(( log2(p(s1))+...+log2(p(sn)) ) / n)
+    probA1IsA1 = 2**(probA1IsA1/len(a1UnkOnce))
+    probA1IsA2 = 2**(probA1IsA2/len(a1UnkOnce))
+    print(probA1IsA1, probA1IsA2, 
+          probA1IsA1 > probA1IsA2)
 
-probShakesIsShakes
-probShakesIsChester
+    # And for the other text
+    probA2IsA1 = 0
+    probA2IsA2 = 0
+    for onceWord in a2UnkOnce:
+        probA2IsA1 += a1Model.sent_log_prob(list(onceWord))
+        probA2IsA2 += a2Model.sent_log_prob(list(onceWord))
+
+    probA2IsA1 = 2**(probA2IsA1/len(a2UnkOnce))
+    probA2IsA2 = 2**(probA2IsA2/len(a2UnkOnce))
+    print(probA2IsA1, probA2IsA2, 
+          probA2IsA1 > probA2IsA2)
+
 
 
