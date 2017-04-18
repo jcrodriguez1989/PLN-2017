@@ -59,23 +59,76 @@ Para este ejercicio se debió implementar una función que calcule la perplejida
 
 Se evaluó la perplejidad para el modelo AddOne para N en {1,2,3,4}, obteniendo los siguientes resultados:
 
-| N ->   | 1         | 2         | 3         | 4         |
-| ------ |:--------- |:--------- |:--------- |:--------- |
-| AddOne | 1,450     | 3,237     | 17,107    | 31,243    |
+| N ->        | 1         | 2         | 3         | 4         |
+| ----------- |:--------- |:--------- |:--------- |:--------- |
+| Perplejidad | 1,450     | 3,237     | 17,107    | 31,243    |
 
 Dados estos resultados, daría la impresión que AddOne no es un buen modelo, ya que al aumentar N, está aumentando la perplejidad. Lo que debería esperarse en un buen modelo es una función convexa.
 
 ### Ejercicio 6
 
-Gamma
-| N ->         | 1   | 2   | 3   | 4   |
-| ------------ |:--- |:--- |:----|:--- |
-| Interpolated | 1   | 300 | 300 | 400 |
+Se implementó el suavizado por interpolación como la clase InterpolatedNGram. Dicha clase calcula los lambdas en términos de un único parámetro gamma, el cual se obtiene mediante un barrido en valores (probé de 1 a 1000 en pasos de a 100), minimizando la perplejidad (en realidad maximizando la log-probabilidad). Para este barrido se utilizan datos held-out, es decir las sentencias de la clase se utiliza el 10% para cálculo de de gamma, y el resto para el modelo en sí. Dicha implementación permite utilizar add-one para el nivel de unigramas (tal como se utiliza en el script train.py).
+
+Particularidades de la implementación:
+Ya que el suavizado por interpolación de grado N utiliza modelos en {1,..,N}, entonces se decidió que esta clase construya estos N modelos y los guarde en una lista. De esta manera al calcular la probabilidad condicional de cualquier prev_tokens se llama al modelo respectivo.
+
+Para los distintos valores de N se obtuvieron los siguientes valores de gamma:
+| N ->  | 1   | 2   | 3   | 4   |
+| ----- |:--- |:--- |:----|:--- |
+| Gamma | 1   | 300 | 300 | 400 |
+
+Luego de entrenar dichos modelos se llevo a cabo el cálculo de la perplejidad, se obtuvieron los siguientes valores:
+| N ->        | 1     | 2   | 3   | 4   |
+| ----------- |:----- |:--- |:--- |:--- |
+| Perplejidad | 1,437 | 138 | 58  | 48  |
+
+En estos resultados, se observa que este suavizado claramente es superior a AddOne ya que en este caso, al aumentar N, está disminuyendo la perplejidad. Se vé que baja, y pareciera que comienza a estabilizarse con un valor N de 3, ya que el salto en 4 no es tan abrupto, sería bueno ver que pasa con N=5 (aunque ya este modelo me parece exagerado, debería tener un corpus muy extenso).
 
 ### Ejercicio 7
 
+Se implementó el suavizado por back-off con discounting en la clase BackOffNGram. Dicha clase calcula el valor del parámetro beta, mediante un barrido en valores (probé de 0 a 1 en pasos de a 0.2), minimizando la perplejidad (en realidad maximizando la log-probabilidad). Para este barrido se utilizan datos held-out, es decir las sentencias de la clase se utiliza el 10% para cálculo de de beta, y el resto para el modelo en sí. Dicha implementación permite utilizar add-one para el nivel de unigramas (tal como se utiliza en el script train.py).
+
+Particularidades de la implementación:
+Ya que el suavizado por back-off con discounting de grado N utiliza modelos en {1,..,N}, entonces se decidió que esta clase construya estos N modelos y los guarde en una lista. De esta manera al calcular la probabilidad condicional de cualquier prev_tokens se llama al modelo respectivo.
+Esta estrategia ayudó tambien a la construcción del conjunto A, ya que cada modelo (1,..,N-1) proveía los tokens con conteos > 0.
+
 beta
-| N ->    | 1   | 2   | 3   | 4   |
-| ------- |:--- |:--- |:----|:--- |
-| backoff | 1   | 300 | 300 | 400 |
+| N -> | 1   | 2   | 3   | 4   |
+| ---- |:--- |:--- |:--- |:--- |
+| beta | 0.8 | 0.8 | 0.8 | 0.8 |
+
+Luego de entrenar dichos modelos se llevo a cabo el cálculo de la perplejidad, se obtuvieron los siguientes valores:
+| N ->        | 1     | 2   | 3   | 4   |
+| ----------- |:----- |:--- |:--- |:--- |
+| Perplejidad | 1,437 | 97  | 18  | 8   |
+
+Estos resultados, muestran resultados muy similares a los provistos por InterpolatedNGram.
+
+### Ejercicio 8 Atribución de Autoría
+
+Para este ejercicio se requiere tener documentos de dos o más clases diferentes, por lo tanto se utilizaron diversos autores provistos por gutenberg.fileids() .
+Para cada autor (a1 y a2) se definen conjuntos de entrenamiento y test para cada clase (90% y 10% respectivamente), donde al conjunto de test también llamaremos texto desconocido (el cuál consultaremos quien es el autor).
+Para dar una probabilidad de autoría de un texto a un autor, es decir P(unknown text | modelo autor ai), se utilizó la técnica de "uso de palabras raras". Esta técnica, en resumen, lo que hace es obtener aquellas palabras utilizadas exactamente una vez en el texto desconocido (raras), y de esta manera se calcula P(unknown text | modelo autor ai) = nthRoot( multiplicar desde 1 a n ( P(rara j | ai) ) ), con n = 1,..,#palabras raras.
+
+Se implementó el script authorship.py que toma dos nombres de autores de gutenberg, les quita un 10% de sentencias como texto desconocido. Y la probabilidad de que pertenezca a cada autor.
+
+--------------------------------------------------------------
+$ python languagemodeling/scripts/eval.py  --help
+Decide authorship of unknown texts.
+
+Usage:
+  authorship.py -a <author1> -b <author2>
+  authorship.py -h | --help
+
+Options:
+  -a <author1>        Name of author1 (as listed in gutenberg.fileids()).
+  -b <author2>        Name of author2 (as listed in gutenberg.fileids()).
+  -h --help     Show this screen.
+--------------------------------------------------------------
+
+Particularidades de la implementación:
+Dado que las palabras desconocidas es muy probable que no aparezcan en los textos, se utilizó modelos AddOne para entrenar con los datos de train.
+Dado que "multiplicar desde 1 a n ( P(rara j | ai) )" por lo general tiene problemas de underflow. Se calculó  nthRoot(p(s1)*...*p(sn)) == 2**(log2( nthRoot(p(s1)*...*p(sn)) )) == 2**(log2( p(s1)*...*p(sn) ) / n) == 2**(( log2(p(s1))+...+log2(p(sn)) ) / n) .
+Es decir, se sumaron las log probabilidades.
+
 

@@ -1,7 +1,7 @@
 # https://docs.python.org/3/library/collections.html
 from collections import defaultdict
 from math import ceil, log
-from numpy import cumsum
+#from numpy import cumsum
 from random import uniform
 
 
@@ -142,51 +142,84 @@ class NGram(object):
             res = None
         return res
 
-    #def viterbi(self, sent):
-        #"""
-        #Find the best segmentation of the sentence.
-        #"""
-        ## best[i] = best probability for sent[0:i]
-        ## words[i] = best word ending at position i
-        #n = self.n
-        #fsttok = ['<s>']*(n-1)
-        #sent = set(sent)
-        #sent.add('</s>')
-        #actProbs = []
-        #fstProb = defaultdict(int)
-        #fstProb[tuple(fsttok)] = 1
-        #actProbs = [fstProb]
+    def viterbi(self, sent):
+        """
+        Find the best reordering of the sentence.
+        """
+        n = self.n
+        # Initializing
+        prevtoken = ['<s>']*(n-1)
+        prevState = []
+        for i in range(len(sent)):
+            actWord = sent[i]
+            restWords = sent[:i] + sent[(i+1):]
+            actProb = self.cond_prob(actWord, prevtoken)
+            if (actProb > 0):
+                # Ill save also the rest of words that can be used
+                prevState.append((prevtoken + [actWord], actProb, restWords))
 
-        #actDict = actProbs[-1]
-        #for prevtokens in actDict.keys():
-            #fstProb.clear()
-            #for word in sent:
-                #actProb = self.cond_prob(word, list(prevtokens[:(n-1)]))
-                #if (actProb != 0):
-                    #fstProb[tuple(list(prevtokens) + word)] = actProb * actDict[prevtokens]
-            #actProbs.append(fstProb)
+        anyAdded = len(prevState) > 0
+        stop = False
+        while ((not stop) & anyAdded):
+            newState = []
+            anyAdded = False # if no longer word was added then stop
+            for i in range(len(prevState)):
+                actPath = prevState[i]
+                actPathtokens = actPath[0]
+                actPathProb = actPath[1]
+                actPathNexttokens = actPath[2]
+                if (len(actPathNexttokens) == 1):
+                    # we have got to the end! (last loop execution)
+                    stop = not False
+                maxProb = 0
+                maxIndex = None
+                prevtoken = actPathtokens[(-n+1):]
+                if (n == 1):
+                    prevtoken = None
+                for i in range(len(actPathNexttokens)):
+                    actWord = actPathNexttokens[i]
+                    actProb = self.cond_prob(actWord, prevtoken)
+                    if (maxProb < actProb):
+                        maxProb = actProb
+                        maxIndex = i
+                if (maxProb > 0):
+                    anyAdded = not False
+                    actWord = actPathNexttokens[maxIndex]
+                    restWords = actPathNexttokens[:maxIndex] + actPathNexttokens[(maxIndex+1):]
+                    newState.append((actPathtokens + [actWord], actPathProb*maxProb, restWords))
+            prevState = newState
 
+        if (not anyAdded):
+            print("No se pudo llegar a ningun reordenamiento a partir de esas palabras")
 
-        #n = len(sent)
-        #words = list(sent)
-        #best = [1.0] + [0.0] * n
-        #stop = False
-        #while !stop:
-            
-        ### Fill in the vectors best, words via dynamic programming
-        #for i in range(n+1):
-            #for j in range(0, i):
-                #w = sent[j:i]
-                #if self.cond_prob(w[-1], w[:-1]) * best[i - len(w)] >= best[i]:
-                    #best[i] = self.cond_prob(w) * best[i - len(w)]
-                    #words[i] = w
-        ### Now recover the sequence of best words
-        #sequence = []; i = len(words)-1
-        #while i > 0:
-            #sequence[0:0] = [words[i]]
-            #i = i - len(words[i])
-        ### Return sequence of best words and overall probability
-        #return sequence, best[-1]
+        # this should be done, however it removes too many possibilities so Ill comment
+        # it
+        # Lets discard these results that could not end as sentence (</s>)
+        #newState = []
+        #for i in range(len(prevState)):
+            #actPath = prevState[i]
+            #actPathtokens = actPath[0]
+            #actPathProb = actPath[1]
+            #prevtoken = actPathtokens[(-n+1):]
+            #if (n == 1):
+                #prevtoken = None
+            #actProb = self.cond_prob('</s>', prevtoken)
+            #if (actProb > 0):
+                #newState.append((actPathtokens + ['</s>'], actPathProb*actProb, []))
+
+        print("Los posibles reordenamientos son:")
+        for actPath in newState:
+            print("Con probabilidad", actPath[1], actPath[0])
+
+        # Return the most probable sentence
+        maxSent = None
+        maxProb = 0
+        for actPath in newState:
+            actProb = actPath[1]
+            if (actProb > maxProb):
+                maxProb = actProb
+                maxSent = actPath[0]
+        return maxSent
 
 
 class AddOneNGram(NGram):
@@ -258,9 +291,9 @@ class InterpolatedNGram(NGram):
         for i in range(1, n):
             self.models.append(NGram(i+1, sents))
 
-        # get the best gamma from 1 to 10000, by 100
+        # get the best gamma from 1 to 1000, by 100
         if gamma is None:
-            self.get_gamma(heldOut, gammaStep=100, maxGamma=10000)
+            self.get_gamma(heldOut, gammaStep=100, maxGamma=1000)
 
     def get_gamma(self, heldOut, gammaStep=1, maxGamma=20):
         """
@@ -280,7 +313,7 @@ class InterpolatedNGram(NGram):
             bestGamma = self.gamma
             self.gamma += gammaStep
             actLogProb = self.log_prob(heldOut)
-        print("gamma calculated: ", bestGamma, ", with log-prob: ", maxLogProb)
+        print("Gamma calculated: ", bestGamma, ", with log-prob: ", maxLogProb)
         self.gamma = bestGamma
 
     def count(self, tokens):
@@ -295,7 +328,6 @@ class InterpolatedNGram(NGram):
         tokenLen = len(tokens)
         if (tokens == ()):  # to get the unigram model
             tokenLen = 1
-        assert (tokenLen == n) | (tokenLen == (n-1))
         actModel = self.models[tokenLen-1]  # n-gram is in position n-1
         actCount = actModel.count(tokens)
         return actCount
@@ -313,6 +345,7 @@ class InterpolatedNGram(NGram):
         sent = tuple(sent)
         for i in range(0, len(sent)-1):
             actSent = sent[i:-1]
+            # I could use self.count, instead of this
             actModel = models[len(actSent)-1]
             actCount = actModel.count(actSent)
             actLambda = actCount/(actCount+gamma)
@@ -409,12 +442,11 @@ class BackOffNGram(NGram):
         bestbeta = self.beta
         actLogProb = self.log_prob(heldOut)
         while (maxLogProb <= actLogProb) & (self.beta < maxbeta):
-            print(bestbeta, maxLogProb, self.beta, actLogProb)  # todo: delete
             maxLogProb = actLogProb
             bestbeta = self.beta
             self.beta += betaStep
             actLogProb = self.log_prob(heldOut)
-            print(self.beta, actLogProb)  # todo: delete
+            print(self.beta, actLogProb) # todo: delete
         print("beta calculated: ", bestbeta, ", with log-prob: ", maxLogProb)
         self.beta = bestbeta
 
@@ -429,22 +461,6 @@ class BackOffNGram(NGram):
         #assert (0 < len(tokens)) & (len(tokens) < n)
         return self.Acalc[tokens]
 
-    def alpha(self, tokens):
-        """
-        Missing probability mass for a k-gram with 0 < k < n.
-
-        tokens -- the k-gram tuple.
-        """
-        n = self.n
-        beta = self.beta
-        #assert (0 < len(tokens)) & (len(tokens) < n)
-        assert beta is not None
-        nexttokensCount = len(self.A(tokens))
-        alpha = 1
-        if (nexttokensCount > 0):
-            alpha = beta * nexttokensCount / self.count(tokens)
-        return alpha
-
     def count(self, tokens):
         """
         Count for an n-gram or (n-1)-gram.
@@ -456,9 +472,7 @@ class BackOffNGram(NGram):
         n = self.n
         tokenLen = len(tokens)
 
-        #assert (tokenLen == n) | (tokenLen == (n-1)) | (tokens == ())
-
-        # para solucionar que no se cuenta el start marker
+        # to solve that starting marker is not counted
         if (tokens == tokenLen*('<s>',)):
             tokenLen += 1
 
@@ -468,6 +482,20 @@ class BackOffNGram(NGram):
         actModel = self.models[tokenLen-1]  # n-gram is in position n-1
         actCount = actModel.count(tokens)
         return actCount
+
+    def alpha(self, tokens):
+        """
+        Missing probability mass for a k-gram with 0 < k < n.
+
+        tokens -- the k-gram tuple.
+        """
+        beta = self.beta
+        assert beta is not None
+        nexttokensCount = len(self.A(tokens))
+        alpha = 1
+        if (nexttokensCount > 0):
+            alpha = beta * nexttokensCount / self.count(tokens)
+        return alpha
 
     def count_star(self, tokens):
         """
@@ -485,13 +513,12 @@ class BackOffNGram(NGram):
 
         tokens -- the k-gram tuple.
         """
-        n = self.n
-        #assert (0 < len(tokens)) & (len(tokens) < n)
         followtokens = self.A(tokens)
         tokens = tokens[1:]  # remove x1
         probs = []
         for nexttoken in followtokens:
             actProb = self.cond_prob(nexttoken, tokens)
+            # this alternative did not passed tests
             #acttokens = self.to_tuple(tokens) + self.to_tuple(nexttoken)
             #actProb = self.count_star(acttokens)
             probs.append(actProb)
@@ -586,7 +613,7 @@ class NGramGenerator:
         acttokens = list(nexttokensProb.keys())
         # probsSum will have [ 1, 6, 13] so the probability of randomNum to be
         # [0,1] is 1/13, [2,6] is 5/13 and [7,13] is 7/13
-        probsSum = cumsum(list(nexttokensProb.values()))
+        #probsSum = cumsum(list(nexttokensProb.values()))
         # so with this we get the index of the last item that makes true
         # i.e. the desired interval
         nexttoken = acttokens[sum(probsSum < randomNum)]

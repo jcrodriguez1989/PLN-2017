@@ -1,5 +1,5 @@
 """
-Train an n-gram model.
+Decide authorship of unknown texts.
 
 Usage:
   authorship.py -a <author1> -b <author2>
@@ -33,8 +33,10 @@ if __name__ == '__main__':
 
     trainPerc = 90
     a1train = a1Sents[:int(trainPerc*len(a1Sents)/100)]
-    a1Unk = a1Sents[int(trainPerc*len(a1Sents)/100):]
     a2train = a2Sents[:int(trainPerc*len(a2Sents)/100)]
+
+    # we will test to which author is given authorship of a1Unk and a2Unk
+    a1Unk = a1Sents[int(trainPerc*len(a1Sents)/100):]
     a2Unk = a2Sents[int(trainPerc*len(a2Sents)/100):]
 
     a1Model = AddOneNGram(1, a1train)
