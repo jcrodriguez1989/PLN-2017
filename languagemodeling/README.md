@@ -113,7 +113,7 @@ Para dar una probabilidad de autoría de un texto a un autor, es decir P(unknown
 Se implementó el script authorship.py que toma dos nombres de autores de gutenberg, les quita un 10% de sentencias como texto desconocido. Y la probabilidad de que pertenezca a cada autor.
 
 --------------------------------------------------------------
-$ python languagemodeling/scripts/eval.py  --help
+$ python languagemodeling/scripts/authorship.py  --help
 Decide authorship of unknown texts.
 
 Usage:
@@ -131,4 +131,28 @@ Dado que las palabras desconocidas es muy probable que no aparezcan en los texto
 Dado que "multiplicar desde 1 a n ( P(rara j | ai) )" por lo general tiene problemas de underflow. Se calculó  nthRoot(p(s1)*...*p(sn)) == 2**(log2( nthRoot(p(s1)*...*p(sn)) )) == 2**(log2( p(s1)*...*p(sn) ) / n) == 2**(( log2(p(s1))+...+log2(p(sn)) ) / n) .
 Es decir, se sumaron las log probabilidades.
 
+### Ejercicio 8 Reordenamiento de Palabras
 
+Dicho ejercicio consiste en a partir de un conjunto de palabras, obtener el ordenamiento más probable para un modelo dado. Para esto se implementó la función viterbi en el modelo NGram.
+Adicionalmente se implementó el script reordering.py que toma el modelo a testear, y utiliza las sentencias de test para reordenarlas. Se evaluaron las métricas de distancia de caracteres y bleu.
+
+--------------------------------------------------------------
+$ python languagemodeling/scripts/reordering.py  --help
+Get the most probable reordering of sentences given an n-gram model.
+
+Usage:
+  eval.py -i <file>
+  eval.py -h | --help
+
+Options:
+  -i <file>     Language model file.
+  -h --help     Show this screen.
+--------------------------------------------------------------
+
+Se testeo este algoritmo utilizando el modelo AddOne, ya que NGram hubiera devuelto muy pocos reordenamientos ya que el algoritmo al encontrar un path con probabilidad 0 lo descarta totalmente. Para los distintos valores de N en {1,..,4} se presentan los valores medios de la distancia de caracter y de bleu.
+Cabe aclarar que la distancia de caracter se calculó de la siguiente manera: dada la sentencia [palabra1, .., palabrak] se unieron en un unico string sin separador. Lo mismo se hizo con la sentencia reordenada, y a partir de aqui se calcula la distancia de caracter (la cual cuenta la cantidad de caracteres que difieren). Esta distancia se la dividio por la cantidad de caracteres totales, de manera de normalizar las sentencias (y no depender de la longitud de las mismas).
+
+| N ->               | 1     | 2   | 3     | 4    |
+| ------------------ |:----- |:--- |:----- |:---- |
+| Distancia caracter | 0.76 | 0.65 | 0.40  | 0.18 |
+| Distancia bleu     | 0.74 | 0.37 | 0.52  | 0.74 |

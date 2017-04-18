@@ -142,7 +142,7 @@ class NGram(object):
             res = None
         return res
 
-    def viterbi(self, sent):
+    def viterbi(self, sent, verbose=False):
         """
         Find the best reordering of the sentence.
         """
@@ -191,6 +191,7 @@ class NGram(object):
 
         if (not anyAdded):
             print("No se pudo llegar a ningun reordenamiento a partir de esas palabras")
+            return []
 
         # this should be done, however it removes too many possibilities so Ill comment
         # it
@@ -207,9 +208,10 @@ class NGram(object):
             #if (actProb > 0):
                 #newState.append((actPathtokens + ['</s>'], actPathProb*actProb, []))
 
-        print("Los posibles reordenamientos son:")
-        for actPath in newState:
-            print("Con probabilidad", actPath[1], actPath[0])
+        if (verbose):
+            print("Los posibles reordenamientos son:")
+            for actPath in newState:
+                print("Con probabilidad", actPath[1], actPath[0])
 
         # Return the most probable sentence
         maxSent = None

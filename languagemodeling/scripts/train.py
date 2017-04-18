@@ -46,7 +46,7 @@ if __name__ == '__main__':
         print("NGram Model")
         model = NGram(n, sents)
 
-    print("Saving")
+    print("Saving model")
     # save it
     filename = opts['-o']
     f = open(filename, 'wb')
