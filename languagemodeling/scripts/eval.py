@@ -26,4 +26,5 @@ if __name__ == '__main__':
     with open(modelFile, 'rb') as inFile:
         model = pickle.load(inFile)
 
+    print(type(model), model.n)
     print(model.perplexity(sents))

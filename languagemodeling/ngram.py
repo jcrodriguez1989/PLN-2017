@@ -142,6 +142,52 @@ class NGram(object):
             res = None
         return res
 
+    #def viterbi(self, sent):
+        #"""
+        #Find the best segmentation of the sentence.
+        #"""
+        ## best[i] = best probability for sent[0:i]
+        ## words[i] = best word ending at position i
+        #n = self.n
+        #fsttok = ['<s>']*(n-1)
+        #sent = set(sent)
+        #sent.add('</s>')
+        #actProbs = []
+        #fstProb = defaultdict(int)
+        #fstProb[tuple(fsttok)] = 1
+        #actProbs = [fstProb]
+
+        #actDict = actProbs[-1]
+        #for prevtokens in actDict.keys():
+            #fstProb.clear()
+            #for word in sent:
+                #actProb = self.cond_prob(word, list(prevtokens[:(n-1)]))
+                #if (actProb != 0):
+                    #fstProb[tuple(list(prevtokens) + word)] = actProb * actDict[prevtokens]
+            #actProbs.append(fstProb)
+
+
+        #n = len(sent)
+        #words = list(sent)
+        #best = [1.0] + [0.0] * n
+        #stop = False
+        #while !stop:
+            
+        ### Fill in the vectors best, words via dynamic programming
+        #for i in range(n+1):
+            #for j in range(0, i):
+                #w = sent[j:i]
+                #if self.cond_prob(w[-1], w[:-1]) * best[i - len(w)] >= best[i]:
+                    #best[i] = self.cond_prob(w) * best[i - len(w)]
+                    #words[i] = w
+        ### Now recover the sequence of best words
+        #sequence = []; i = len(words)-1
+        #while i > 0:
+            #sequence[0:0] = [words[i]]
+            #i = i - len(words[i])
+        ### Return sequence of best words and overall probability
+        #return sequence, best[-1]
+
 
 class AddOneNGram(NGram):
 
@@ -195,8 +241,9 @@ class InterpolatedNGram(NGram):
         self.gamma = gamma
         if gamma is None:
             # 10% de las sents son para heldOut
-            sents = sents[:int(90*len(sents)/100)]
+            aux = sents[:int(90*len(sents)/100)]
             heldOut = sents[int(90*len(sents)/100):]
+            sents = aux
         super(InterpolatedNGram, self).__init__(n, sents)
         # esto lo hago mas que nada para pasar los test. Ya que el modelo para
         # n lo tengo en self.models
@@ -229,12 +276,10 @@ class InterpolatedNGram(NGram):
         bestGamma = self.gamma
         actLogProb = self.log_prob(heldOut)
         while (maxLogProb < actLogProb) & (self.gamma < maxGamma):
-            print(bestGamma, maxLogProb, self.gamma, actLogProb)  # todo: delete
             maxLogProb = actLogProb
             bestGamma = self.gamma
             self.gamma += gammaStep
             actLogProb = self.log_prob(heldOut)
-            print(self.gamma, actLogProb)  # todo: delete
         print("gamma calculated: ", bestGamma, ", with log-prob: ", maxLogProb)
         self.gamma = bestGamma
 
@@ -317,8 +362,9 @@ class BackOffNGram(NGram):
         self.beta = beta
         if beta is None:
             # 10% de las sents son para heldOut
-            sents = sents[:int(90*len(sents)/100)]
+            aux = sents[:int(90*len(sents)/100)]
             heldOut = sents[int(90*len(sents)/100):]
+            sents = aux
         super(BackOffNGram, self).__init__(n, sents)
 
         # if addone then the unigram model is AddOne
@@ -335,7 +381,6 @@ class BackOffNGram(NGram):
         self.Acalc = A = defaultdict(set)
         for i in range(2, n+1):
             actModel = self.models[i-1]
-            actModel = NGram(i, sents)
             actCounts = actModel.counts
             actIgrams = dict( (k, actCounts[k]) 
                              for k in actCounts if len(k) == i )
@@ -343,12 +388,14 @@ class BackOffNGram(NGram):
                 actKey = key[:-1]
                 actVal = key[-1]
                 A[actKey].add(actVal)
+                if(actKey == '.'):
+                    print(key)
 
-        # get the best beta from 1 to 10000, by 100
+        # get the best beta from 0 to 1, by 0.2
         if beta is None:
-            self.get_beta(heldOut, betaStep=100, maxbeta=10000)
+            self.get_beta(heldOut, betaStep=0.2, maxbeta=1)
 
-    def get_beta(self, heldOut, betaStep=1, maxbeta=20):
+    def get_beta(self, heldOut, betaStep=0.1, maxbeta=1):
         """
         Sets the best beta, maximizing log_prob.
 
@@ -358,10 +405,10 @@ class BackOffNGram(NGram):
         """
         assert (betaStep > 0) & (maxbeta > 0)
         maxLogProb = float('-inf')
-        self.beta = 1
+        self.beta = 0
         bestbeta = self.beta
         actLogProb = self.log_prob(heldOut)
-        while (maxLogProb < actLogProb) & (self.beta < maxbeta):
+        while (maxLogProb <= actLogProb) & (self.beta < maxbeta):
             print(bestbeta, maxLogProb, self.beta, actLogProb)  # todo: delete
             maxLogProb = actLogProb
             bestbeta = self.beta
@@ -378,7 +425,7 @@ class BackOffNGram(NGram):
         tokens -- the k-gram tuple.
         """
         n = self.n
-        tokens = tuple(tokens)
+        tokens = self.to_tuple(tokens)
         #assert (0 < len(tokens)) & (len(tokens) < n)
         return self.Acalc[tokens]
 
@@ -412,9 +459,7 @@ class BackOffNGram(NGram):
         #assert (tokenLen == n) | (tokenLen == (n-1)) | (tokens == ())
 
         # para solucionar que no se cuenta el start marker
-        #if (tokens == ('<s>',)):
-            #tokenLen += 1
-        if (tokenLen < n) & (tokens != ('</s>',)):
+        if (tokens == tokenLen*('<s>',)):
             tokenLen += 1
 
         if (tokens == ()):  # to get the unigram model
@@ -464,7 +509,8 @@ class BackOffNGram(NGram):
         prev_tokens = self.to_tuple(prev_tokens)
 
         if not prev_tokens: # i = 1
-            return self.count(token) / self.count(())
+            # use the unigram model
+            return self.models[0].cond_prob(token)
         #assert len(prev_tokens) == n-1
 
         followtokens = self.A(prev_tokens)

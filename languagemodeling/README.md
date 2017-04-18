@@ -65,3 +65,17 @@ Se evaluó la perplejidad para el modelo AddOne para N en {1,2,3,4}, obteniendo 
 
 Dados estos resultados, daría la impresión que AddOne no es un buen modelo, ya que al aumentar N, está aumentando la perplejidad. Lo que debería esperarse en un buen modelo es una función convexa.
 
+### Ejercicio 6
+
+Gamma
+| N ->         | 1   | 2   | 3   | 4   |
+| ------------ |:--- |:--- |:----|:--- |
+| Interpolated | 1   | 300 | 300 | 400 |
+
+### Ejercicio 7
+
+beta
+| N ->    | 1   | 2   | 3   | 4   |
+| ------- |:--- |:--- |:----|:--- |
+| backoff | 1   | 300 | 300 | 400 |
+

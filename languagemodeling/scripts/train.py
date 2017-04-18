@@ -36,16 +36,17 @@ if __name__ == '__main__':
     if m == "addone":
         print("AddOne Model")
         model = AddOneNGram(n, sents)
-    if m == "interpolated":
+    elif m == "interpolated":
         print("Interpolated Model")
         model = InterpolatedNGram(n, sents)
-    if m == "backoff":
-        print("BackOffNGram Model")
+    elif m == "backoff":
+        print("BackOff Model")
         model = BackOffNGram(n, sents)
     else:
         print("NGram Model")
         model = NGram(n, sents)
 
+    print("Saving")
     # save it
     filename = opts['-o']
     f = open(filename, 'wb')
