@@ -1,7 +1,7 @@
 # https://docs.python.org/3/library/collections.html
 from collections import defaultdict
 from math import ceil, log
-#from numpy import cumsum
+from numpy import cumsum
 from random import uniform
 
 
@@ -129,7 +129,7 @@ class NGram(object):
     def to_tuple(self, sents):
         """
         Converts list, tuple or string to tuple.
-        
+
         sents -- the sentence/s to convert
         """
         if isinstance(sents, str):
@@ -162,7 +162,7 @@ class NGram(object):
         stop = False
         while ((not stop) & anyAdded):
             newState = []
-            anyAdded = False # if no longer word was added then stop
+            anyAdded = False  # if no longer word was added then stop
             for i in range(len(prevState)):
                 actPath = prevState[i]
                 actPathtokens = actPath[0]
@@ -185,28 +185,30 @@ class NGram(object):
                 if (maxProb > 0):
                     anyAdded = not False
                     actWord = actPathNexttokens[maxIndex]
-                    restWords = actPathNexttokens[:maxIndex] + actPathNexttokens[(maxIndex+1):]
-                    newState.append((actPathtokens + [actWord], actPathProb*maxProb, restWords))
+                    restWords = actPathNexttokens[:maxIndex] + \
+                        actPathNexttokens[(maxIndex+1):]
+                    newState.append((actPathtokens + [actWord],
+                                     actPathProb*maxProb, restWords))
             prevState = newState
 
         if (not anyAdded):
-            print("No se pudo llegar a ningun reordenamiento a partir de esas palabras")
+            print("No se pudo llegar a ningun reordenamiento a partir de esas",
+                  "palabras")
             return []
 
-        # this should be done, however it removes too many possibilities so Ill comment
-        # it
         # Lets discard these results that could not end as sentence (</s>)
-        #newState = []
-        #for i in range(len(prevState)):
-            #actPath = prevState[i]
-            #actPathtokens = actPath[0]
-            #actPathProb = actPath[1]
-            #prevtoken = actPathtokens[(-n+1):]
-            #if (n == 1):
-                #prevtoken = None
-            #actProb = self.cond_prob('</s>', prevtoken)
-            #if (actProb > 0):
-                #newState.append((actPathtokens + ['</s>'], actPathProb*actProb, []))
+        newState = []
+        for i in range(len(prevState)):
+            actPath = prevState[i]
+            actPathtokens = actPath[0]
+            actPathProb = actPath[1]
+            prevtoken = actPathtokens[(-n+1):]
+            if (n == 1):
+                prevtoken = None
+            actProb = self.cond_prob('</s>', prevtoken)
+            if (actProb > 0):
+                newState.append((actPathtokens + ['</s>'],
+                                 actPathProb*actProb, []))
 
         if (verbose):
             print("Los posibles reordenamientos son:")
@@ -326,7 +328,6 @@ class InterpolatedNGram(NGram):
         """
         # if tokens is a word then convert it to tuple (case n=1)
         tokens = tuple(tokens)
-        n = self.n
         tokenLen = len(tokens)
         if (tokens == ()):  # to get the unigram model
             tokenLen = 1
@@ -417,8 +418,8 @@ class BackOffNGram(NGram):
         for i in range(2, n+1):
             actModel = self.models[i-1]
             actCounts = actModel.counts
-            actIgrams = dict( (k, actCounts[k]) 
-                             for k in actCounts if len(k) == i )
+            actIgrams = dict((k, actCounts[k])
+                             for k in actCounts if len(k) == i)
             for key in actIgrams.keys():
                 actKey = key[:-1]
                 actVal = key[-1]
@@ -448,7 +449,6 @@ class BackOffNGram(NGram):
             bestbeta = self.beta
             self.beta += betaStep
             actLogProb = self.log_prob(heldOut)
-            print(self.beta, actLogProb) # todo: delete
         print("beta calculated: ", bestbeta, ", with log-prob: ", maxLogProb)
         self.beta = bestbeta
 
@@ -458,9 +458,7 @@ class BackOffNGram(NGram):
 
         tokens -- the k-gram tuple.
         """
-        n = self.n
         tokens = self.to_tuple(tokens)
-        #assert (0 < len(tokens)) & (len(tokens) < n)
         return self.Acalc[tokens]
 
     def count(self, tokens):
@@ -471,7 +469,6 @@ class BackOffNGram(NGram):
         """
         # if tokens is a word then convert it to tuple (case n=1)
         tokens = self.to_tuple(tokens)
-        n = self.n
         tokenLen = len(tokens)
 
         # to solve that starting marker is not counted
@@ -521,10 +518,10 @@ class BackOffNGram(NGram):
         for nexttoken in followtokens:
             actProb = self.cond_prob(nexttoken, tokens)
             # this alternative did not passed tests
-            #acttokens = self.to_tuple(tokens) + self.to_tuple(nexttoken)
-            #actProb = self.count_star(acttokens)
+            # acttokens = self.to_tuple(tokens) + self.to_tuple(nexttoken)
+            # actProb = self.count_star(acttokens)
             probs.append(actProb)
-        #return (1-(sum(probs) / self.count(tokens)))
+        # return (1-(sum(probs) / self.count(tokens)))
         return (1-sum(probs))
 
     def cond_prob(self, token, prev_tokens=None):
@@ -534,13 +531,10 @@ class BackOffNGram(NGram):
         token -- the token.
         prev_tokens -- the previous n-1 tokens (optional only if n = 1).
         """
-        n = self.n
         prev_tokens = self.to_tuple(prev_tokens)
 
-        if not prev_tokens: # i = 1
-            # use the unigram model
-            return self.models[0].cond_prob(token)
-        #assert len(prev_tokens) == n-1
+        if not prev_tokens:  # i = 1
+            return self.models[0].cond_prob(token)  # use the unigram model
 
         followtokens = self.A(prev_tokens)
         if token in followtokens:
@@ -615,7 +609,7 @@ class NGramGenerator:
         acttokens = list(nexttokensProb.keys())
         # probsSum will have [ 1, 6, 13] so the probability of randomNum to be
         # [0,1] is 1/13, [2,6] is 5/13 and [7,13] is 7/13
-        #probsSum = cumsum(list(nexttokensProb.values()))
+        probsSum = cumsum(list(nexttokensProb.values()))
         # so with this we get the index of the last item that makes true
         # i.e. the desired interval
         nexttoken = acttokens[sum(probsSum < randomNum)]

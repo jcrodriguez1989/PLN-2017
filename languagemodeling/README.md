@@ -67,42 +67,44 @@ Dados estos resultados, daría la impresión que AddOne no es un buen modelo, ya
 
 ### Ejercicio 6
 
-Se implementó el suavizado por interpolación como la clase InterpolatedNGram. Dicha clase calcula los lambdas en términos de un único parámetro gamma, el cual se obtiene mediante un barrido en valores (probé de 1 a 1000 en pasos de a 100), minimizando la perplejidad (en realidad maximizando la log-probabilidad). Para este barrido se utilizan datos held-out, es decir las sentencias de la clase se utiliza el 10% para cálculo de de gamma, y el resto para el modelo en sí. Dicha implementación permite utilizar add-one para el nivel de unigramas (tal como se utiliza en el script train.py).
+Se implementó el suavizado por interpolación como la clase InterpolatedNGram. Dicha clase calcula los lambdas en términos de un único parámetro gamma, el cual se obtiene mediante un barrido en valores (probé de 1 a 1000 en pasos de a 100), minimizando la perplejidad (en realidad maximizando la log-probabilidad). Para este barrido se utilizan datos held-out, es decir, de las sentencias de entrenamiento de la clase se utiliza el 10% para cálculo de de gamma, y el resto para el entrenamiento del modelo en sí. Dicha implementación permite utilizar add-one para el nivel de unigramas (tal como se utiliza en el script train.py).
 
 Particularidades de la implementación:
 Ya que el suavizado por interpolación de grado N utiliza modelos en {1,..,N}, entonces se decidió que esta clase construya estos N modelos y los guarde en una lista. De esta manera al calcular la probabilidad condicional de cualquier prev_tokens se llama al modelo respectivo.
 
 Para los distintos valores de N se obtuvieron los siguientes valores de gamma:
+
 | N ->  | 1   | 2   | 3   | 4   |
 | ----- |:--- |:--- |:----|:--- |
 | Gamma | 1   | 300 | 300 | 400 |
 
 Luego de entrenar dichos modelos se llevo a cabo el cálculo de la perplejidad, se obtuvieron los siguientes valores:
+
 | N ->        | 1     | 2   | 3   | 4   |
 | ----------- |:----- |:--- |:--- |:--- |
 | Perplejidad | 1,437 | 138 | 58  | 48  |
 
-En estos resultados, se observa que este suavizado claramente es superior a AddOne ya que en este caso, al aumentar N, está disminuyendo la perplejidad. Se vé que baja, y pareciera que comienza a estabilizarse con un valor N de 3, ya que el salto en 4 no es tan abrupto, sería bueno ver que pasa con N=5 (aunque ya este modelo me parece exagerado, debería tener un corpus muy extenso).
+En estos resultados, se observa que este suavizado claramente es superior a AddOne ya que en este caso, al aumentar N, está disminuyendo la perplejidad. Se vé que decrementa, y pareciera que comienza a estabilizarse con un valor N de 3, ya que el salto en 4 no es tan abrupto, sería bueno ver que pasa con N=5 (aunque ya este modelo me parece exagerado, debería tener un corpus muy extenso).
 
 ### Ejercicio 7
 
-Se implementó el suavizado por back-off con discounting en la clase BackOffNGram. Dicha clase calcula el valor del parámetro beta, mediante un barrido en valores (probé de 0 a 1 en pasos de a 0.2), minimizando la perplejidad (en realidad maximizando la log-probabilidad). Para este barrido se utilizan datos held-out, es decir las sentencias de la clase se utiliza el 10% para cálculo de de beta, y el resto para el modelo en sí. Dicha implementación permite utilizar add-one para el nivel de unigramas (tal como se utiliza en el script train.py).
+Se implementó el suavizado por back-off con discounting en la clase BackOffNGram. Dicha clase calcula el valor del parámetro beta mediante un barrido en valores (probé de 0 a 1 en pasos de a 0.2), minimizando la perplejidad (en realidad maximizando la log-probabilidad). Para este barrido se utilizan datos held-out, es decir, de las sentencias de entrenamiento de la clase se utiliza el 10% para cálculo de de beta, y el resto para el entrenamiento del modelo en sí. Dicha implementación permite utilizar add-one para el nivel de unigramas (tal como se utiliza en el script train.py).
 
 Particularidades de la implementación:
 Ya que el suavizado por back-off con discounting de grado N utiliza modelos en {1,..,N}, entonces se decidió que esta clase construya estos N modelos y los guarde en una lista. De esta manera al calcular la probabilidad condicional de cualquier prev_tokens se llama al modelo respectivo.
 Esta estrategia ayudó tambien a la construcción del conjunto A, ya que cada modelo (1,..,N-1) proveía los tokens con conteos > 0.
 
-beta
 | N -> | 1   | 2   | 3   | 4   |
 | ---- |:--- |:--- |:--- |:--- |
 | beta | 0.8 | 0.8 | 0.8 | 0.8 |
 
 Luego de entrenar dichos modelos se llevo a cabo el cálculo de la perplejidad, se obtuvieron los siguientes valores:
+
 | N ->        | 1     | 2   | 3   | 4   |
 | ----------- |:----- |:--- |:--- |:--- |
 | Perplejidad | 1,437 | 97  | 18  | 8   |
 
-Estos resultados, muestran resultados muy similares a los provistos por InterpolatedNGram.
+Estos resultados, muestran resultados muy similares a los provistos por InterpolatedNGram, obteniendo valores muy bajos de perplejidad para N=3 y N=4.
 
 ### Ejercicio 8 Atribución de Autoría
 
@@ -110,49 +112,81 @@ Para este ejercicio se requiere tener documentos de dos o más clases diferentes
 Para cada autor (a1 y a2) se definen conjuntos de entrenamiento y test para cada clase (90% y 10% respectivamente), donde al conjunto de test también llamaremos texto desconocido (el cuál consultaremos quien es el autor).
 Para dar una probabilidad de autoría de un texto a un autor, es decir P(unknown text | modelo autor ai), se utilizó la técnica de "uso de palabras raras". Esta técnica, en resumen, lo que hace es obtener aquellas palabras utilizadas exactamente una vez en el texto desconocido (raras), y de esta manera se calcula P(unknown text | modelo autor ai) = nthRoot( multiplicar desde 1 a n ( P(rara j | ai) ) ), con n = 1,..,#palabras raras.
 
-Se implementó el script authorship.py que toma dos nombres de autores de gutenberg, les quita un 10% de sentencias como texto desconocido. Y la probabilidad de que pertenezca a cada autor.
+Se implementó el script authorship.py que toma dos nombres de autores de gutenberg, les quita un 10% de sentencias (utilizadas como texto desconocido). Y devuelve la probabilidad de que cada uno de los dos textos desconocidos pertenezca a cada autor.
 
 --------------------------------------------------------------
+
 $ python languagemodeling/scripts/authorship.py  --help
+
 Decide authorship of unknown texts.
 
 Usage:
+
   authorship.py -a <author1> -b <author2>
+
   authorship.py -h | --help
 
 Options:
+
   -a <author1>        Name of author1 (as listed in gutenberg.fileids()).
+
   -b <author2>        Name of author2 (as listed in gutenberg.fileids()).
+
   -h --help     Show this screen.
+
 --------------------------------------------------------------
 
 Particularidades de la implementación:
-Dado que las palabras desconocidas es muy probable que no aparezcan en los textos, se utilizó modelos AddOne para entrenar con los datos de train.
-Dado que "multiplicar desde 1 a n ( P(rara j | ai) )" por lo general tiene problemas de underflow. Se calculó  nthRoot(p(s1)*...*p(sn)) == 2**(log2( nthRoot(p(s1)*...*p(sn)) )) == 2**(log2( p(s1)*...*p(sn) ) / n) == 2**(( log2(p(s1))+...+log2(p(sn)) ) / n) .
+* Dado que es muy probable que las palabras desconocidas no aparezcan en los textos de entrenamiento, se utilizaron modelos AddOne.
+* Dado que "multiplicar desde 1 a n ( P(rara j | ai) )" por lo general tiene problemas de underflow. Se calculó nthRoot(p(s1)\*...\*p(sn)) == 2\*\*(log2( nthRoot(p(s1)\*...\*p(sn)) )) == 2\*\*(log2( p(s1)*...*p(sn) ) / n) == 2\*\*(( log2(p(s1))+...+log2(p(sn)) ) / n) .
 Es decir, se sumaron las log probabilidades.
+
+## Ejemplo de ejecución
+
+--------------------------------------------------------------
+$ python languagemodeling/scripts/authorship.py -a "chester" -b "austen"
+
+La probabilidad de que el texto de chester sea de chester es de 6.761696626668139e-07 y que sea de austen es de 2.809102891594476e-07 por lo tanto el resultado es True
+
+La probabilidad de que el texto de austen sea de chester es de 4.15577416868719e-07 y que sea de austen es de 3.2308087745025626e-07 por lo tanto el resultado es False
+
+--------------------------------------------------------------
+
+En este ejemplo se observa que nuestro algoritmo encontró correctamente que el texto desconocido de Chester pertenecia a él. Sin embargo, detectó que el texto desconocido de Austen pertenecia a Chester también.
 
 ### Ejercicio 8 Reordenamiento de Palabras
 
-Dicho ejercicio consiste en a partir de un conjunto de palabras, obtener el ordenamiento más probable para un modelo dado. Para esto se implementó la función viterbi en el modelo NGram.
+Dicho ejercicio consiste en que a partir de un conjunto de palabras, obtener el ordenamiento más probable para un modelo dado. Para esto se implementó la función viterbi en el modelo NGram.
 Adicionalmente se implementó el script reordering.py que toma el modelo a testear, y utiliza las sentencias de test para reordenarlas. Se evaluaron las métricas de distancia de caracteres y bleu.
 
 --------------------------------------------------------------
 $ python languagemodeling/scripts/reordering.py  --help
+
 Get the most probable reordering of sentences given an n-gram model.
 
 Usage:
+
   eval.py -i <file>
+
   eval.py -h | --help
 
 Options:
+
   -i <file>     Language model file.
+
   -h --help     Show this screen.
+
 --------------------------------------------------------------
 
-Se testeo este algoritmo utilizando el modelo AddOne, ya que NGram hubiera devuelto muy pocos reordenamientos ya que el algoritmo al encontrar un path con probabilidad 0 lo descarta totalmente. Para los distintos valores de N en {1,..,4} se presentan los valores medios de la distancia de caracter y de bleu.
-Cabe aclarar que la distancia de caracter se calculó de la siguiente manera: dada la sentencia [palabra1, .., palabrak] se unieron en un unico string sin separador. Lo mismo se hizo con la sentencia reordenada, y a partir de aqui se calcula la distancia de caracter (la cual cuenta la cantidad de caracteres que difieren). Esta distancia se la dividio por la cantidad de caracteres totales, de manera de normalizar las sentencias (y no depender de la longitud de las mismas).
+Se testeo este algoritmo utilizando el modelo AddOne, ya que NGram hubiera devuelto muy pocos reordenamientos dado que el algoritmo al encontrar un path con probabilidad 0 lo descarta totalmente. Para los distintos valores de N en {1,2,3,4} se presentan los valores medios de la distancia de caracter y de bleu.
+Cabe aclarar que la distancia de caracter se calculó de la siguiente manera: dada la sentencia [palabra1,..,palabrak] se unieron en un unico string sin separador. Lo mismo se hizo con la sentencia reordenada, y a partir de aquí se calcula la distancia de caracter (la cual cuenta la cantidad de caracteres que difieren). Esta distancia se la dividió por la cantidad de caracteres totales, de manera de normalizar las sentencias (y no depender de la longitud de las mismas).
 
-| N ->               | 1     | 2   | 3     | 4    |
-| ------------------ |:----- |:--- |:----- |:---- |
-| Distancia caracter | 0.76 | 0.65 | 0.40  | 0.18 |
-| Distancia bleu     | 0.74 | 0.37 | 0.52  | 0.74 |
+| N ->               | 1     | 2    | 3     | 4    |
+| ------------------ |:----- |:---- |:----- |:---- |
+| Distancia caracter | 0.71  | 0.62 | 0.36  | 0.12 |
+| Distancia bleu     | 0.72  | 0.39 | 0.54  | 0.79 |
+
+En los resultados se observa que al aumentar el N, la distancia de caracter disminuye, en principio sospecho que esto se debe a que las palabras en sí están siendo reordenadas "correctamente" al aumentar N y por ello es que hay mucho menos distancia entre caracteres. Esta sospecha se basa en que si una palabra cambia de posición con otra entonces tendríamos posiblemente hasta len(palabra1)+len(palabra2) cambios de caracter.
+
+Algo que me llama la atención es que en cuanto a distancias de bleu, la menor distancia se obtiene con N=2. Y con N=4 se comporta igual que N=1.
+Notar que con N=1, el reordenamiento siempre será ordenar las palabras de mayor a menor probabilidad.

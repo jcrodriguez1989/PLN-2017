@@ -37,15 +37,15 @@ if __name__ == '__main__':
         actReordering = model.viterbi(sent)
         if (actReordering == []) | (actReordering is None):
             continue
-        # remove trailing <s>
-        actReordering = actReordering[(n-1):]
+        # remove trailing <s> and </s>
+        actReordering = actReordering[(n-1):(-1)]
         actReorderingJoin = ''.join(actReordering)
         actSentJoin = ''.join(sent)
         assert len(actSentJoin) == len(actReorderingJoin)
         actDist = distance.edit_distance(actReorderingJoin, actSentJoin)
         distances.append(actDist / len(actSentJoin))
         # and now bleus
-        actbleu = sentence_bleu([ actReordering ], sent)
+        actbleu = sentence_bleu([sent], actReordering)
         bleus.append(actbleu)
 
     print("Distancia media:", sum(distances)/len(distances))
