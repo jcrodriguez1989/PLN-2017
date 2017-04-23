@@ -1,4 +1,6 @@
+from collections import defaultdict
 
+from corpus.ancora import SimpleAncoraCorpusReader
 
 class BaselineTagger:
 
@@ -6,25 +8,43 @@ class BaselineTagger:
         """
         tagged_sents -- training sentences, each one being a list of pairs.
         """
-        pass
+        # load the data
+        word_tags = defaultdict(lambda : defaultdict(int))
+        self.tags = tags = defaultdict(str)
+        for sent in tagged_sents:
+            for key,val in sent:
+                val = val[:2]
+                key = key.lower()
+                word_tags[key][val] += 1
+        for word,tag in word_tags.items():
+            word_tag = list(tag.items())
+            word_tag.sort(key=lambda x: x[1], reverse=not False)
+            tags[word] = word_tag[0][0]
 
     def tag(self, sent):
-        """Tag a sentence.
+        """
+        Tag a sentence.
 
         sent -- the sentence.
         """
         return [self.tag_word(w) for w in sent]
 
     def tag_word(self, w):
-        """Tag a word.
+        """
+        Tag a word.
 
         w -- the word.
         """
-        return 'nc'
+        act_tag = self.tags[w]
+        if (act_tag == ''):
+            return 'nc'
+        return act_tag
 
     def unknown(self, w):
-        """Check if a word is unknown for the model.
+        """
+        Check if a word is unknown for the model.
 
         w -- the word.
         """
-        return True
+        act_tag = self.tags[w]
+        return act_tag == ''

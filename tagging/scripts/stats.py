@@ -30,6 +30,7 @@ if __name__ == '__main__':
     for sent in sents:
         for key,val in sent:
             val = val[:2]
+            key = key.lower()
             word_counts[key] += 1
             tag_counts[val] += 1
             word_tags[key][val] += 1
