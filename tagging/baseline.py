@@ -1,7 +1,5 @@
 from collections import defaultdict
 
-from corpus.ancora import SimpleAncoraCorpusReader
-
 class BaselineTagger:
 
     def __init__(self, tagged_sents):
@@ -21,6 +19,9 @@ class BaselineTagger:
             word_tag.sort(key=lambda x: x[1], reverse=not False)
             tags[word] = word_tag[0][0]
 
+        lst = [ tags[key] for key in tags.keys() ]
+        self.unknown_tag = max(set(lst), key=lst.count)
+
     def tag(self, sent):
         """
         Tag a sentence.
@@ -37,7 +38,7 @@ class BaselineTagger:
         """
         act_tag = self.tags[w]
         if (act_tag == ''):
-            return 'nc'
+            return self.unknown_tag
         return act_tag
 
     def unknown(self, w):
