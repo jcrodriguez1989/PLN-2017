@@ -26,20 +26,20 @@ def progress(msg, width=None):
     print('\b' * width + msg, end='')
     sys.stdout.flush()
 
-def data_frame_to_md(data_frame):
+def cnd_matrix_to_md(cnf_matrix, classes):
     line = "| | "
-    for i in data_frame.columns:
+    for i in classes:
         line += i + " | "
     print(line)
-    line = "| ---- | " + "---- | " * len(data_frame.columns)
+    line = "| ---- | " + "---- | " * len(classes)
     print(line)
-    for i in data_frame.columns:
-        line = "| " + i + " |"
-        for j in data_frame.index:
-            line += " " + str(conf_matrix[i][j]) + " |"
+    for i in range(len(classes)):
+        line = "| " + classes[i] + " |"
+        for j in range(len(classes)):
+            line += " " + str(cnf_matrix[i][j]) + " |"
         print(line)
 
-def plot_confusion_matrix(cm, classes, filename="cnf_matrix.pdf",
+def plot_confusion_matrix(cm, classes, filename="cnf_matrix.png",
                           normalize=False,
                           title='Confusion matrix',
                           cmap=plt.cm.Blues):
@@ -93,13 +93,6 @@ if __name__ == '__main__':
     unknown_hits, unknown_total = 0, 0
     n = len(sents)
 
-    #model_tags = set(model.tags.values())
-    #gold_tags = [ [word[1][:2] for word in sent] for sent in sents ]
-    #gold_tags = set([item for sublist in gold_tags for item in sublist])
-    #all_tags = model_tags | gold_tags
-    #all_tags = [ _ for _ in all_tags]
-    #conf_matrix = DataFrame(0, index=all_tags, columns=all_tags)
-
     # for confusion matrix
     y_test = []
     y_pred = []
@@ -114,12 +107,6 @@ if __name__ == '__main__':
 
         y_test = y_test + list(gold_tag_sent)
         y_pred = y_pred + model_tag_sent
-        #for j in range(len(model_tag_sent)):
-            #word_tag = model_tag_sent[j]
-            #gold_tag = gold_tag_sent[j]
-            #gold_tag = gold_tag[:2]
-            ## first index is for column, second for row
-            #conf_matrix[word_tag][gold_tag] += 1
 
         # global score
         hits_sent = [m == g for m, g in zip(model_tag_sent, gold_tag_sent)]
@@ -129,13 +116,13 @@ if __name__ == '__main__':
 
         # known words score
         hits_known = [ hits_sent[j] for j in range(len(hits_sent)) if
-                      not model.unknown(word_sent[j])]
+                        not model.unknown(word_sent[j])]
         known_hits += sum(hits_known)
         known_total += len(hits_known)
 
         # unknown words score
         hits_unknown = [ hits_sent[j] for j in range(len(hits_sent)) if
-                      model.unknown(word_sent[j])]
+                        model.unknown(word_sent[j])]
         unknown_hits += sum(hits_unknown)
         unknown_total += len(hits_unknown)
 
@@ -158,7 +145,9 @@ if __name__ == '__main__':
     #data_frame_to_md(conf_matrix)
     cnf_matrix = confusion_matrix(y_test, y_pred)
     classes = list(set(y_test) | set(y_pred))
+    classes.sort()
+    cnd_matrix_to_md(cnf_matrix, classes)
     plot_confusion_matrix(cnf_matrix, classes, 
-                          filename.split('.')[0]+'.pdf')
+                          filename.split('.')[0]+'.png')
 
 
