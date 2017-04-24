@@ -36,6 +36,7 @@ class BaselineTagger:
 
         w -- the word.
         """
+        w = w.lower()
         act_tag = self.tags[w]
         if (act_tag == ''):
             return self.unknown_tag
