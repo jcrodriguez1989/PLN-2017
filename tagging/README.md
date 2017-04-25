@@ -58,8 +58,11 @@ Se programó el script train.py que permite entrenar un etiquetador baseline. Ad
 Luego de evaluar nuestro etiquetador baselina se obtuvieron los siguientes resultados:
 
 Accuracy: 87.80%
+
 Known words accuracy: 95.01%
+
 Unknown words accuracy: 45.43%
+
 
 Con la siguiente matriz de confusión:
 
@@ -111,3 +114,8 @@ Con la siguiente matriz de confusión:
 | zp | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 56 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 26 |
 
 ![baseline model confusion matrix](https://github.com/jcrodriguez1989/PLN-2017/blob/practico2/tagging/plots/baseline.png)
+
+
+### Ejercicio 4
+
+Se implementó un Hidden Markov Model en la clase HMM, dicha clase toma, como parámetros, las probabilidades de transición entre estados (las etiquetas) y de emisión de símbolos (las palabras).
