@@ -2,7 +2,6 @@ from nltk.corpus.reader.api import SyntaxCorpusReader
 from nltk.corpus.reader import xmldocs
 from nltk import tree
 from nltk.util import LazyMap, LazyConcatenation
-from nltk.corpus.reader.util import concat
 
 
 def parsed(element):
@@ -89,14 +88,16 @@ class AncoraCorpusReader(SyntaxCorpusReader):
 
 
 class SimpleAncoraCorpusReader(AncoraCorpusReader):
-    """Ancora corpus with simplified POS tagset.
+    """Ancora corpus with simplified Stanford CoreNLP POS tagset.
+
+    https://nlp.stanford.edu/software/spanish-faq.shtml#tagset
     """
 
     def __init__(self, path, files=None):
         super().__init__(path, files)
 
     def tagged_sents(self, fileids=None):
-        f = lambda s: [(w, t[:3]) for w, t in s]
+        def f(s): return [(w, simple_tag(t)) for w, t in s]
         return LazyMap(f, super().tagged_sents(fileids))
 
     def parsed_sents(self, fileids=None):
@@ -104,7 +105,51 @@ class SimpleAncoraCorpusReader(AncoraCorpusReader):
             for p in t.treepositions('leaves'):
                 if len(p) > 1:
                     tag = t[p[:-1]].label()
-                    t[p[:-1]].set_label(tag[:3])
+                    t[p[:-1]].set_label(simple_tag(tag))
             return t
 
         return LazyMap(f, super().parsed_sents(fileids))
+
+
+def simple_tag(t):
+    """
+    Convert general AnCora POS tag to tag in the simplified POS tagset used in
+    Stanford CoreNLP.
+
+    https://nlp.stanford.edu/software/spanish-faq.shtml#tagset
+    """
+    if t.startswith('a'):
+        # assert t[1] in 'oq'
+        return t[:2] + '0000'
+    elif t.startswith('d'):
+        # assert t[1] in 'adeinpt'
+        return t[:2] + '0000'
+    elif t.startswith('f'):
+        # assert t in ['f0', 'faa', 'fat', 'fc', 'fd', 'fe', 'fg', 'fh', 'fia',
+        #              'fit', 'fp', 'fpa', 'fpt', 'fs', 'ft', 'fx', 'fz']
+        # (f0 and ft unobserved in ancora-3.0.1es)
+        return t
+    elif t in ['cc', 'cs', 'i', 'w', 'zm', 'zu']:
+        return t
+    elif t.startswith('nc'):
+        return 'nc0{}000'.format(t[3])
+    elif t.startswith('np'):
+        return 'np00000'
+    elif t.startswith('p'):
+        # assert t[1] in '0deinprtx'
+        return t[:2] + '000000'
+    elif t.startswith('r'):
+        # assert t in ['rg', 'rn']
+        return t
+    elif t.startswith('sp'):
+        return 'sp000'
+    elif t.startswith('v'):
+        # 34 possibilities for t[:4]
+        return t[:4] + '000'
+    elif t.startswith('z'):
+        # assert t in ['z', 'zp']
+        # ('zm' and 'zu' were already tested)
+        return 'z0'
+    else:
+        # not a valid POS: named entity ('ne' field) or 'unk'
+        return t
