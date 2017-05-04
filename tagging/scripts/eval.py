@@ -50,7 +50,7 @@ def cnd_matrix_to_md(cnf_matrix, classes):
 def plot_confusion_matrix(cm, classes, filename="cnf_matrix.png",
                           normalize=False,
                           title='Confusion matrix',
-                          cmap=plt.cm.Blues):
+                          cmap=plt.cm.Reds):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -58,14 +58,14 @@ def plot_confusion_matrix(cm, classes, filename="cnf_matrix.png",
     np.set_printoptions(precision=2)
 
     # Plot non-normalized confusion matrix
-    plt.figure()
+    plt.figure(figsize=(15,10), dpi=80)
 
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
     plt.colorbar()
     tick_marks = np.arange(len(classes))
-    plt.xticks(tick_marks, classes, rotation=90)
-    plt.yticks(tick_marks, classes)
+    plt.xticks(tick_marks, classes, rotation=90, fontsize=8)
+    plt.yticks(tick_marks, classes, fontsize=8)
 
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
@@ -136,8 +136,8 @@ if __name__ == '__main__':
         unknown_total += len(hits_unknown)
 
         progress('{:3.1f}% Global score: ({:2.2f}%), \
-                 Known words score: ({:2.2f}%), Unknown \
-                 words score: ({:2.2f}%)'.format(
+                 Known words score: ({:2.2f}%),  \
+                 Unknown words score: ({:2.2f}%)'.format(
             float(i) * 100 / n, acc * 100,
             float(known_hits)/known_total * 100,
             float(unknown_hits)/unknown_total * 100))

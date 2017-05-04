@@ -153,7 +153,6 @@ class ViterbiTagger:
         hmm -- the HMM.
         """
         self.hmm = hmm
-        self._pi = defaultdict(lambda: defaultdict(tuple))
 
     def tag(self, sent):
         """
@@ -165,7 +164,7 @@ class ViterbiTagger:
         hmm = self.hmm
         n = hmm.n
         tagset = hmm.tagset
-        pi[0][('<s>',)*(n-1)] = (0, [])
+        pi[0][('<s>',)*(n-1)] = (0, []) # log prob
 
         # pi(k,u,v) = max w [ pi(k-1,w,u)*q(v|w,u)*e(xk|v) ]
         for k in range(len(sent)):
@@ -182,12 +181,14 @@ class ViterbiTagger:
                         continue
                     act_prob = log(act_prob, 2) + pi_k_1[prev_tags][0]
                     act_tags = pi_k_1[prev_tags][1] + [v]
-                    old_prob = pi_k.get(prev_tags[1:] + (v,), float('-inf'))
+                    old_prob = pi_k.get(prev_tags[1:] + (v,), 
+                                        (float('-inf'),))[0]
                     if (old_prob < act_prob):
-                        pi_k[prev_tags[1:] + (v,)] = (act_prob, act_tags)
+                        pi_k[prev_tags[1:] + (v,)*(n!=1)] = (act_prob, act_tags)
         last_state = list(pi[max(pi.keys())].values())
-        last_state.sort(key=lambda x: x[0], reverse=not False)
-        return last_state[0][1]
+        probs = [keys[0] for keys in last_state]
+        self._pi = dict(pi)
+        return last_state[probs.index(max(probs))][1]
 
 
 class MLHMM(HMM):
@@ -234,6 +235,8 @@ class MLHMM(HMM):
         for ngram in [ngram for ngram in tcounts if len(ngram) == n]:
             #trans[ngram[:-1]][ngram[-1]] = self.tcount(ngram) / self.tcount(ngram[:-1])
             trans[ngram[:-1]][ngram[-1]] = tcounts[ngram] / tcounts[ngram[:-1]]
+        self.trans = dict(trans)
+        self.out = dict(out)
 
     def tcount(self, tokens):
         """
@@ -266,8 +269,8 @@ class MLHMM(HMM):
         addone = self.addone
         trans = self.trans
         if (addone):
-            num = self.tcounts(prev_tags + (tag,)) +1 
-            denom = self.tcounts(prev_tags) + len(self.tagset) + 1  # for </s>
+            num = self.tcount(prev_tags + (tag,)) +1 
+            denom = self.tcount(prev_tags) + len(self.tagset) + 1  # for </s>
             prob = num / denom
         else:
             prob = trans.get(prev_tags, dict()).get(tag, 0)
