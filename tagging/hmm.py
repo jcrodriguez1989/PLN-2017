@@ -181,10 +181,10 @@ class ViterbiTagger:
                         continue
                     act_prob = log(act_prob, 2) + pi_k_1[prev_tags][0]
                     act_tags = pi_k_1[prev_tags][1] + [v]
-                    old_prob = pi_k.get(prev_tags[1:] + (v,), 
+                    old_prob = pi_k.get((prev_tags + (v,))[1:], 
                                         (float('-inf'),))[0]
                     if (old_prob < act_prob):
-                        pi_k[prev_tags[1:] + (v,)*(n!=1)] = (act_prob, act_tags)
+                        pi_k[(prev_tags + (v,))[1:]] = (act_prob, act_tags)
         last_state = list(pi[max(pi.keys())].values())
         probs = [keys[0] for keys in last_state]
         self._pi = dict(pi)
@@ -204,26 +204,24 @@ class MLHMM(HMM):
         self.addone = addone
         self.tcounts = tcounts = defaultdict(int)
         all_words = set()
-        self.tagset = tagset = set()
+        tagset = set()
         self.trans = trans = defaultdict(lambda: defaultdict(int))
         self.out = out = defaultdict(lambda: defaultdict(int))
 
         for sent in tagged_sents:
             tags = [tag[1] for tag in sent]
             words = [word[0] for word in sent]
+            tagset = tagset.union(tags)
             all_words = all_words.union(words)
             words = ['<s>']*(n-1) + words + ['</s>']
             tags = ['<s>']*(n-1) + tags + ['</s>']
             for i in range(len(tags) - n+1):
-                tagset.add(tags[i])
-                out[tags[i]][words[i]] += 1
+                out[tags[i+(n-1)]][words[i+(n-1)]] += 1
                 ngram = tuple(tags[i:(i+n)])
                 tcounts[ngram] += 1  # n grams
                 tcounts[ngram[:-1]] += 1  # n-1 grams
         self.all_words = all_words.copy()
-        if ('<s>' in tagset):
-            tagset.remove('<s>')
-        out.pop('<s>', None)
+        self.tagset = tagset.copy()
         out.pop('</s>', None)
 
         # we have counts in out, let's make them probabilities

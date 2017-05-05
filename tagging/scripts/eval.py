@@ -110,31 +110,31 @@ if __name__ == '__main__':
         word_sent, gold_tag_sent = zip(*sent)
         # we use just the two first chars of tags
         gold_tag_sent = [tag for tag in gold_tag_sent]
-
+        
         model_tag_sent = model.tag(word_sent)
         assert len(model_tag_sent) == len(gold_tag_sent), i
-
+        
         y_test = y_test + list(gold_tag_sent)
         y_pred = y_pred + model_tag_sent
-
+        
         # global score
         hits_sent = [m == g for m, g in zip(model_tag_sent, gold_tag_sent)]
         hits += sum(hits_sent)
         total += len(sent)
         acc = float(hits) / total
-
+        
         # known words score
         hits_known = [hits_sent[j] for j in range(len(hits_sent)) if
                       not model.unknown(word_sent[j])]
         known_hits += sum(hits_known)
         known_total += len(hits_known)
-
+        
         # unknown words score
         hits_unknown = [hits_sent[j] for j in range(len(hits_sent)) if
                         model.unknown(word_sent[j])]
         unknown_hits += sum(hits_unknown)
         unknown_total += len(hits_unknown)
-
+        
         progress('{:3.1f}% Global score: ({:2.2f}%), \
                  Known words score: ({:2.2f}%),  \
                  Unknown words score: ({:2.2f}%)'.format(
@@ -159,4 +159,4 @@ if __name__ == '__main__':
     classes.sort()
     cnd_matrix_to_md(cnf_matrix, classes)
     plot_confusion_matrix(cnf_matrix, classes,
-                          filename.split('.')[0]+'.png')
+                          'tagging/plots/'+filename.split('.')[0]+'.png')
