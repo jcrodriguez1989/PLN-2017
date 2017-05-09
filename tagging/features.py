@@ -53,6 +53,50 @@ def prev_tags(h):
     """
     return h.prev_tags
 
+### Additional features
+
+def word_is_first(h):
+    """
+    Feature: current word is the first of the sentence.
+
+    h -- a history.
+    """
+    i = h.i
+    return i == 0
+
+def word_is_last(h):
+    """
+    Feature: current word is the last of the sentence.
+
+    h -- a history.
+    """
+    sent, i = h.sent, h.i
+    return i == len(sent)
+
+def word_is_middle(h):
+    """
+    Feature: current word is not the fisrt nor last of the sentence.
+
+    h -- a history.
+    """
+    return not (word_is_first(h) | word_is_last(h))
+
+def sent_is_very_short(h):
+    """
+    Feature: current sentence is shorter than 3 words.
+
+    h -- a history.
+    """
+    return len(h.sent) <= 3
+
+def sent_is_short(h):
+    """
+    Feature: current sentence len is between 3 and 7 words.
+
+    h -- a history.
+    """
+    return (3 < len(h.sent)) & (len(h.sent) <= 7)
+
 class NPrevTags(Feature):
 
     def __init__(self, n):
