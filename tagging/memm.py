@@ -16,11 +16,13 @@ class MEMM:
         self.n = n
         self.all_words = set(it[0] for sent in tagged_sents for it in sent)
         
-        features = [word_lower, word_istitle, word_isupper, word_isdigit]
-        features += [PrevWord(feature) for feature in features]
+        basic_feat = [word_lower, word_istitle, word_isupper, word_isdigit]
+        features = basic_feat
+        features += [PrevWord(feature) for feature in basic_feat]
         features += [NPrevTags(i) for i in range(1,n)]
         
         if (ef):
+            features += [FollWord(feature) for feature in basic_feat]
             features += [word_is_first, word_is_last, word_is_middle]
             features += [sent_is_very_short, sent_is_short]
         

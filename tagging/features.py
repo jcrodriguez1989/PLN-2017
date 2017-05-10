@@ -138,3 +138,25 @@ class PrevWord(Feature):
         if (h.i != 0):
             res = f(History(h.sent, h.prev_tags, (h.i)-1))
         return str(res) # tests want result as string
+
+class FollWord(Feature):
+
+    def __init__(self, f):
+        """
+        Feature: the feature f applied to the following word.
+
+        f -- the feature.
+        """
+        self.f = f
+
+    def _evaluate(self, h):
+        """
+        Apply the feature to the following word in the history.
+
+        h -- the history.
+        """
+        f = self.f
+        res = 'EOS'
+        if (h.i < len(h.sent)-1):
+            res = f(History(h.sent, h.prev_tags, (h.i)+1))
+        return str(res) # tests want result as string
