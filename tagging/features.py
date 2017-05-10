@@ -18,6 +18,7 @@ def word_lower(h):
     sent, i = h.sent, h.i
     return sent[i].lower()
 
+
 def word_istitle(h):
     """
     Feature: current word starts with an uppercase letter.
@@ -26,6 +27,7 @@ def word_istitle(h):
     """
     sent, i = h.sent, h.i
     return sent[i].istitle()
+
 
 def word_isupper(h):
     """
@@ -36,6 +38,7 @@ def word_isupper(h):
     sent, i = h.sent, h.i
     return sent[i].isupper()
 
+
 def word_isdigit(h):
     """
     Feature: current word is a number.
@@ -45,6 +48,7 @@ def word_isdigit(h):
     sent, i = h.sent, h.i
     return sent[i].isnumeric()
 
+
 def prev_tags(h):
     """
     Feature: previous tags.
@@ -53,7 +57,6 @@ def prev_tags(h):
     """
     return h.prev_tags
 
-### Additional features
 
 def word_is_first(h):
     """
@@ -64,6 +67,7 @@ def word_is_first(h):
     i = h.i
     return i == 0
 
+
 def word_is_last(h):
     """
     Feature: current word is the last of the sentence.
@@ -73,6 +77,7 @@ def word_is_last(h):
     sent, i = h.sent, h.i
     return i == len(sent)
 
+
 def word_is_middle(h):
     """
     Feature: current word is not the fisrt nor last of the sentence.
@@ -80,6 +85,7 @@ def word_is_middle(h):
     h -- a history.
     """
     return not (word_is_first(h) | word_is_last(h))
+
 
 def sent_is_very_short(h):
     """
@@ -89,6 +95,7 @@ def sent_is_very_short(h):
     """
     return len(h.sent) <= 3
 
+
 def sent_is_short(h):
     """
     Feature: current sentence len is between 3 and 7 words.
@@ -96,6 +103,7 @@ def sent_is_short(h):
     h -- a history.
     """
     return (3 < len(h.sent)) & (len(h.sent) <= 7)
+
 
 class NPrevTags(Feature):
 
@@ -117,6 +125,7 @@ class NPrevTags(Feature):
         n = self.n
         return prev_tags(h)[-n:]
 
+
 class PrevWord(Feature):
 
     def __init__(self, f):
@@ -137,7 +146,8 @@ class PrevWord(Feature):
         res = 'BOS'
         if (h.i != 0):
             res = f(History(h.sent, h.prev_tags, (h.i)-1))
-        return str(res) # tests want result as string
+        return str(res)  # tests want result as string
+
 
 class FollWord(Feature):
 
@@ -159,4 +169,4 @@ class FollWord(Feature):
         res = 'EOS'
         if (h.i < len(h.sent)-1):
             res = f(History(h.sent, h.prev_tags, (h.i)+1))
-        return str(res) # tests want result as string
+        return str(res)  # tests want result as string

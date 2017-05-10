@@ -164,7 +164,7 @@ class ViterbiTagger:
         hmm = self.hmm
         n = hmm.n
         tagset = hmm.tagset
-        pi[0][('<s>',)*(n-1)] = (0, []) # log prob
+        pi[0][('<s>',)*(n-1)] = (0, [])  # log prob
 
         # pi(k,u,v) = max w [ pi(k-1,w,u)*q(v|w,u)*e(xk|v) ]
         for k in range(len(sent)):
@@ -181,7 +181,7 @@ class ViterbiTagger:
                         continue
                     act_prob = log(act_prob, 2) + pi_k_1[prev_tags][0]
                     act_tags = pi_k_1[prev_tags][1] + [v]
-                    old_prob = pi_k.get((prev_tags + (v,))[1:], 
+                    old_prob = pi_k.get((prev_tags + (v,))[1:],
                                         (float('-inf'),))[0]
                     if (old_prob < act_prob):
                         pi_k[(prev_tags + (v,))[1:]] = (act_prob, act_tags)
@@ -230,8 +230,7 @@ class MLHMM(HMM):
             for sub_key, sub_val in val.items():
                 val[sub_key] = val[sub_key]/act_total
 
-        for ngram in [ngram for ngram in tcounts if len(ngram) == n]:
-            #trans[ngram[:-1]][ngram[-1]] = self.tcount(ngram) / self.tcount(ngram[:-1])
+        for ngram in [ng for ng in tcounts if len(ng) == n]:
             trans[ngram[:-1]][ngram[-1]] = tcounts[ngram] / tcounts[ngram[:-1]]
         self.trans = dict(trans)
         self.out = dict(out)
@@ -255,7 +254,7 @@ class MLHMM(HMM):
 
         w -- the word.
         """
-        return(not w in self.all_words)
+        return(w not in self.all_words)
 
     def trans_prob(self, tag, prev_tags):
         """
@@ -267,7 +266,7 @@ class MLHMM(HMM):
         addone = self.addone
         trans = self.trans
         if (addone):
-            num = self.tcount(prev_tags + (tag,)) +1 
+            num = self.tcount(prev_tags + (tag,)) + 1
             denom = self.tcount(prev_tags) + len(self.tagset) + 1  # for </s>
             prob = num / denom
         else:

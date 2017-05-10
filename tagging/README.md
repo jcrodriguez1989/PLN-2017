@@ -3,15 +3,11 @@
 ### Ejercicio 1
 
 Se programó el script stats.py que obtiene estadísticas básicas del corpus Ancora.
-
 Nota: Estas estadísticas diferencian entre mayusculas y minúsculas.
 
 Cantidad de oraciones: 17,378
-
 Cantidad de ocurrencias de palabras: 517,194
-
 Cantidad de palabras (vocabulario): 46,501
-
 Cantidad de etiquetas (vocabulario de tags): 85
 
 Etiquetas más frecuentes:
@@ -49,7 +45,7 @@ Niveles de ambigüedad de las palabras:
 ### Ejercicio 2
 
 Se programó un etiquetador baseline en la clase BaselineTagger, el cual elije para cada palabra su etiqueta más frecuente observada en entrenamiento.
-Para las palabras desconocidas, devuelve la etiqueta más frecuente observada en entrenamiento.
+Para las palabras desconocidas, devuelve la etiqueta 'nc0s000'.
 
 ### Ejercicio 3
 
@@ -58,9 +54,7 @@ Se programó el script train.py que permite entrenar un etiquetador baseline. Ad
 Luego de evaluar nuestro etiquetador baselina se obtuvieron los siguientes resultados:
 
 Accuracy: 87.60%
-
 Known words accuracy: 95.28%
-
 Unknown words accuracy: 18.01%
 
 
@@ -163,7 +157,7 @@ Adicionalmente se implementó el algoritmo de Viterbi que calcula el etiquetado 
 
 Se implementó la clase MLHMM, la cual representa un Hidden Markov Model cuyos parámetros se estiman usando Maximum Likelihood sobre un corpus de oraciones etiquetado.
 Se agregó al script de entrenamiento (train.py) una opción de línea de comandos que permite utilizar esta clase con distintos valores de N.
-Se entrenó y evaluó dicho modelo para valores de N en {1, 2, 3, 4}. Obteniendo los siguientes resultados:
+Se entrenó y evaluó dicho modelo para valores de N en {1, 2, 3, 4} obteniendo los siguientes resultados:
 
 
 | N                 |    1   |    2   |    3   |    4   |
@@ -242,14 +236,24 @@ LinearSVC:
 | Unknown words acc | 61.75% | 62.02% | 62.66% | 62.56% |
 | Minutes           |   0:27 |   0:29 |   0:30 |   0:32 |
 
+
+Claramente se observa que los MEMM superan a los MLHMM en taggeando palabras desconocidas. En cuanto a palabras conocidas se puede llegar a obtener un MEMM que se comporte al mismo nivel que MLHMM.
+Viendo los MEMM exclusivamente, se nota que la elección de un buen clasificador es fundamental, dado que para MultinomialNB tiene una muy baja performance en comparación a los demás clasificadores.
+
 Nota: Vale la pena aclarar que los MEMM consumen la mayor cantidad del tiempo en entrenamiento, es por ello que hubiera sido buena práctica obtener la medida de tiempo entre que entrena y evalúa.
 
 Se puede observar que uno de los mejores MEMM que obtuvimos en relacion al tiempo de ejecución es el MEMM con clasificador LinearSVC N=3. Es por ello que probaremos este modelo con los features adicionales que detallamos a continuación:
+
 FollWord(f): Dado un feature f, aplicarlo sobre la palabra siguiente en lugar de la actual. Se aplicó sobre los features básicos (detallados en el enunciado).
+
 word_is_first(h): la palabra actual es la primera de la oración.
+
 word_is_last(h): la palabra actual es la última de la oración.
+
 word_is_middle(h): la palabra actual no es la primera ni la última de la oración.
+
 sent_is_very_short(h): la oración de la historia tiene a lo sumo trés palabras.
+
 sent_is_short(h): la oración de la historia tiene entre cuatro y siete palabras.
 
 
@@ -260,7 +264,7 @@ sent_is_short(h): la oración de la historia tiene entre cuatro y siete palabras
 | Unknown words acc | 62.66% |             64.90% |
 | Minutes           |   0:30 |               0:39 |
 
-#### Matrices de confusión:
+#### Matrices de confusión (solo para regresión logística):
 
 N=1
 
