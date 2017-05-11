@@ -162,10 +162,10 @@ Se entrenó y evaluó dicho modelo para valores de N en {1, 2, 3, 4} obteniendo 
 
 | N                 |    1   |    2   |    3   |    4   |
 | ----------------- | ------ | ------ | ------ | ------ |
-| Accuracy          | 85.84% | 91.34% | 91.86% | 92.72% |
-| Known words acc   | 95.28% | 97.63% | 97.65% | 97.61% |
-| Unknown words acc |  0.45% | 34.33% | 39.48% | 41.11% |
-| Minutes           |   0:13 |   1:28 |   9:17 | No finalizó la ejecución, llegó al 31.2% luego de 6 horas. |
+| Accuracy          | 85.84% | 91.34% | 91.86% | 91.58% |
+| Known words acc   | 95.28% | 97.63% | 97.65% | 97.29% |
+| Unknown words acc |  0.45% | 34.33% | 39.48% | 39.82% |
+| Minutes           |   0:13 |   1:28 |   9:17 | 137:27 |
 
 Se observa que no son malos modelos de POS tagging ya que para palabras conocidas tienen alto accuracy, sin embargo con palabras desconocidas no tienen tan buen comportamiento.
 No se notan grandes diferencias entre N = 2, 3 y 4, aunque para el caso de N=1 se ve que es bastante malo en cuanto a palabras desconocidas.
@@ -190,7 +190,7 @@ N=3
 
 N=4
 
-No disponible
+![MLHMM N=4 confusion matrix](https://github.com/jcrodriguez1989/PLN-2017/blob/practico2/tagging/plots/mlhmm4.png)
 
 
 ### Ejercicio 6

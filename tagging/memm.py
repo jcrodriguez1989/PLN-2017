@@ -2,6 +2,7 @@ from featureforge.vectorizer import Vectorizer
 from itertools import chain
 from sklearn.pipeline import Pipeline
 
+from sklearn.linear_model import LogisticRegression
 from tagging.features import (History, word_lower, word_istitle, word_isupper,
                               word_isdigit, NPrevTags, PrevWord)
 from tagging.features import (FollWord, word_is_first, word_is_last,
@@ -11,7 +12,8 @@ from tagging.features import (FollWord, word_is_first, word_is_last,
 
 class MEMM:
 
-    def __init__(self, n, tagged_sents, classifier, ef=False):
+    def __init__(self, n, tagged_sents, classifier=LogisticRegression(),
+                 ef=False):
         """
         n -- order of the model.
         tagged_sents -- list of sentences, each one being a list of pairs.
