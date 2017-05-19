@@ -295,37 +295,31 @@ K = 1
 
 | N                 |    1   |    2   |    3   |    4   |
 | ----------------- | ------ | ------ | ------ | ------ |
-| Accuracy          | 94.19% |  | 94.37% |  |
-| Known words acc   | 97.66% |  | 97.63% |  |
-| Unknown words acc | 62.75% |  | 64.90% |  |
-| Minutes           |   0:51 |  |   1:03 |  |
+| Accuracy          | 94.19% | 94.15% | 94.37% | 94.22% |
+| Known words acc   | 97.66% | 97.60% | 97.63% | 97.46% |
+| Unknown words acc | 62.75% | 62.94% | 64.90% | 64.86% |
+| Minutes           |   0:51 |   1:00 |   1:03 |   1:05 |
 
 
 K = 2
 
 | N                 |    1   |    2   |    3   |    4   |
 | ----------------- | ------ | ------ | ------ | ------ |
-| Accuracy          |  |  | 94.48% |  |
-| Known words acc   |  |  | 97.69% |  |
-| Unknown words acc |  |  | 65.43% |  |
-| Minutes           |  |  |   1:56 |  |
+| Accuracy          | 94.19% | 94.24% | 94.48% | 94.31% |
+| Known words acc   | 97.66% | 97.67% | 97.69% | 97.54% |
+| Unknown words acc | 62.75% | 63.24% | 65.43% | 65.04% |
+| Minutes           |   0:51 |   1:49 |   1:56 |   2:15 |
 
 
 K = 3
 
 | N                 |    1   |    2   |    3   |    4   |
 | ----------------- | ------ | ------ | ------ | ------ |
-| Accuracy          |  |  |  |  |
-| Known words acc   |  |  |  |  |
-| Unknown words acc |  |  |  |  |
-| Minutes           |  |  |  |  |
+| Accuracy          | 94.19% | 94.21% | 94.41% | 94.25% |
+| Known words acc   | 97.66% | 97.65% | 97.64% | 97.50% |
+| Unknown words acc | 62.75% | 63.03% | 65.21% | 64.86% |
+| Minutes           |   0:52 |   2:42 |   2:50 |   3:00 |
 
-
-K = 4
-
-| N                 |    1   |    2   |    3   |    4   |
-| ----------------- | ------ | ------ | ------ | ------ |
-| Accuracy          |  |  |  |  |
-| Known words acc   |  |  |  |  |
-| Unknown words acc |  |  |  |  |
-| Minutes           |  |  |  |  |
+Como se puede observar, los resultados para K=1 son los mismos que para el algoritmo que utilizaba MEMM del ejercicio anterior (recordar que aquí estamos utilizando extra features y por ello solo nos sirve de comparación el caso N=3 K=1).
+Adicionalmente se observa que para N=1 no se presentan cambios en cuanto a las variantes de K.
+Se ve que al aumentar el K de 1 a 2 incrementa el accuracy, pero algo que no esperaba aunque es factible es que al pasar de K 2 a 3 disminuyen las accuracy.
