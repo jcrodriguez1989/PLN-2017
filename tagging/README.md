@@ -283,3 +283,49 @@ N=4
 ![MEMM N=4 confusion matrix](https://github.com/jcrodriguez1989/PLN-2017/blob/practico2/tagging/plots/memm4.png)
 
 
+### Ejercicio 8 (punto bonus)
+
+Si bien en este ejercicio lo único que debería cambiar con respecto al MEMM del ejercicio anterior es el algoritmo de taggeo, se implementó la clase ViterbiMEMM, la cual hereda de MEMM, guarda el valor de k y pisa el método de tag.
+El algoritmo de taggeo de Viterbi obtiene la secuencia de tags de máxima probabilidad.
+Para obtener las probabilidades de los tags, se implementó el método tag_history_probs, el cual dependiendo del clasificador debe definir la manera de obtener la probabilidad de cada tag (predict_proba para LogisticRegression y MultinomialNB; decision_function para LinearSVC; etc).
+Beam: En cada paso del Viterbi, se guardan sólo los k taggings más probables, a donde k es un parámetro de la clase.
+Se modificó el script train.py para poder utilizar esta nueva clave, se evaluaron para la mejor alternativa previamente obtenida (LinearSVC con extra features) valores de N en {1, 2, 3, 4} y para valores de k en {1, 2, 3} obteniendo los siguientes resultados:
+
+K = 1
+
+| N                 |    1   |    2   |    3   |    4   |
+| ----------------- | ------ | ------ | ------ | ------ |
+| Accuracy          | 94.19% |  | 94.37% |  |
+| Known words acc   | 97.66% |  | 97.63% |  |
+| Unknown words acc | 62.75% |  | 64.90% |  |
+| Minutes           |   0:51 |  |   1:03 |  |
+
+
+K = 2
+
+| N                 |    1   |    2   |    3   |    4   |
+| ----------------- | ------ | ------ | ------ | ------ |
+| Accuracy          |  |  | 94.48% |  |
+| Known words acc   |  |  | 97.69% |  |
+| Unknown words acc |  |  | 65.43% |  |
+| Minutes           |  |  |   1:56 |  |
+
+
+K = 3
+
+| N                 |    1   |    2   |    3   |    4   |
+| ----------------- | ------ | ------ | ------ | ------ |
+| Accuracy          |  |  |  |  |
+| Known words acc   |  |  |  |  |
+| Unknown words acc |  |  |  |  |
+| Minutes           |  |  |  |  |
+
+
+K = 4
+
+| N                 |    1   |    2   |    3   |    4   |
+| ----------------- | ------ | ------ | ------ | ------ |
+| Accuracy          |  |  |  |  |
+| Known words acc   |  |  |  |  |
+| Unknown words acc |  |  |  |  |
+| Minutes           |  |  |  |  |

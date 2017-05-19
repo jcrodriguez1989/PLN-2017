@@ -1,5 +1,8 @@
+from collections import defaultdict
 from featureforge.vectorizer import Vectorizer
 from itertools import chain
+from math import log
+from numpy import exp2
 from sklearn.pipeline import Pipeline
 
 from sklearn.linear_model import LogisticRegression
@@ -113,3 +116,70 @@ class MEMM:
         w -- the word.
         """
         return(w not in self.all_words)
+
+
+class ViterbiMEMM(MEMM):
+
+    def __init__(self, n, tagged_sents, k, classifier=LogisticRegression(),
+                 ef=False):
+        """
+        n -- order of the model.
+        tagged_sents -- list of sentences, each one being a list of pairs.
+        ef -- boolean specifying if extra features might be used.
+        classifier -- classifier for the model.
+        k -- save k most probable taggings.
+        """
+        super(ViterbiMEMM, self).__init__(n, tagged_sents, classifier, ef)
+        assert (k > 0)
+        self.k = k
+
+    def tag_history_probs(self, h):
+        """
+        Get a history taggings probabilities.
+
+        h -- the history.history = History(sent, tags, i)
+        """
+        try:
+            probs = self.pipeline.predict_proba([h])[0]
+        except AttributeError:
+            probs = exp2(self.pipeline.decision_function([h])[0])
+
+        indexes = sorted(range(len(probs)), key=lambda x: -probs[x])
+        tags = self.pipeline.classes_[indexes]
+        probs = probs[indexes]
+        return(list(zip(probs, tags)))
+
+    def tag(self, sent):
+        """
+        Returns the most probable tagging for a sentence.
+
+        sent -- the sentence.
+        """
+        self._pi = pi = defaultdict(lambda: defaultdict(tuple))
+        n = self.n
+        save_probs = self.k  # this name, because I use k in viterbi algorithm
+        pi[0][('<s>',)*(n-1)] = (0, [])  # log prob
+
+        for k in range(len(sent)):
+            pi_k_1 = pi[k]
+            pi_k = pi[k+1]
+            for prev_tags in pi_k_1.keys():  # fixed w u
+                history = History(sent, prev_tags, k)
+                tag_probs = self.tag_history_probs(history)
+                for act_prob, v in tag_probs:  # using same names as in hmm
+                    act_prob = log(act_prob, 2) + pi_k_1[prev_tags][0]
+                    act_tags = pi_k_1[prev_tags][1] + [v]
+                    old_prob = pi_k.get((prev_tags + (v,))[1:],
+                                        (float('-inf'),))[0]
+                    if (old_prob < act_prob):
+                        pi_k[(prev_tags + (v,))[1:]] = (act_prob, act_tags)
+            # keep the k most probable from pi_k
+            aux = list(pi_k.items())
+            aux.sort(key=lambda x: -x[1][0])
+            aux = aux[:save_probs]
+            pi[k+1] = dict(aux)
+
+        last_state = list(pi[max(pi.keys())].values())
+        probs = [keys[0] for keys in last_state]
+        self._pi = dict(pi)
+        return last_state[probs.index(max(probs))][1]

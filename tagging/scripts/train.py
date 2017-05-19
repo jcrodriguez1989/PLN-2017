@@ -1,7 +1,7 @@
 """Train a sequence tagger.
 
 Usage:
-  train.py [-m <model>] [-n <n>] [-c <classif>] [-e <bool>] -o <file>
+  train.py [-m <model>] [-n <n>] [-c <classif>] [-e <bool>] [-k <n>] -o <file>
   train.py -h | --help
 
 Options:
@@ -9,9 +9,14 @@ Options:
                   base: Baseline
                   mlhmm: Maximum Likelihood Hidde Markov Model
                   memm: Maximum Entropy Markov Model
-  -n <n>        Order of the model (for mlhmm and memm).
-  -c <classif>  Classifier to use in the model (for memm).
-  -e <bool>     Use extra features.
+                  viterbimemm: MEMM with viterbi tagger
+  -n <n>        Order of the model (for mlhmm, memm and viterbimemm).
+  -c <classif>  Classifier to use in the model (for memm and viterbimemm):
+                  lr: LogisticRegression
+                  mnb: MultinomialNB
+                  lsvc: LinearSVC
+  -e <bool>     Use extra features (memm and viterbimemm).
+  -k <n>        Parameter for beam, save k most probable tagging (viterbimemm).
   -o <file>     Output model file.
   -h --help     Show this screen.
 """
@@ -26,13 +31,14 @@ from sklearn.svm import LinearSVC
 from corpus.ancora import SimpleAncoraCorpusReader
 from tagging.baseline import BaselineTagger
 from tagging.hmm import MLHMM
-from tagging.memm import MEMM
+from tagging.memm import MEMM, ViterbiMEMM
 
 
 models = {
     'base': BaselineTagger,
     'mlhmm': MLHMM,
-    'memm': MEMM
+    'memm': MEMM,
+    'viterbimemm': ViterbiMEMM
 }
 
 classifiers = {
@@ -54,17 +60,25 @@ if __name__ == '__main__':
     m = opts['-m']
     c = opts['-c']
     e = opts['-e']
+    k = opts['-k']
 
     ef = False
     if (e != ""):
         ef = True
 
+    if (k is not None):
+        k = int(k)
+
     if m == 'mlhmm':
         print('MLHMM model')
         model = models[m](n, sents)
     elif m == 'memm':
-        print('MEMM model', c)
+        print('MEMM model')
         model = models[m](n, sents, classifiers[c], ef)
+    elif m == 'viterbimemm':
+        print('Viterbi MEMM model')
+        print('K:', k)
+        model = models[m](n, sents, k, classifiers[c], ef)
     else:
         print('baseline tagger model')
         model = models[m](sents)
