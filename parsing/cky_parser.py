@@ -54,4 +54,9 @@ class CKYParser:
 
         self._pi = dict(pi)
         self._bp = dict(bp)
-        return (pi[(1, n)]['S'], bp[(1, n)]['S'])
+
+        res = (float("-inf"), Tree('S', sent))  # flatten tree
+        if ((1, n) in pi.keys()) & ((1, n) in bp.keys()):
+            if ('S' in pi[(1, n)].keys()) & ('S' in bp[(1, n)].keys()):
+                res = (pi[(1, n)]['S'], bp[(1, n)]['S'])
+        return(res)
