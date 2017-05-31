@@ -25,7 +25,7 @@ models = {
     'flat': Flat,
     'rbranch': RBranch,
     'lbranch': LBranch,
-    'upcfg' : UPCFG,
+    'upcfg': UPCFG,
 }
 
 

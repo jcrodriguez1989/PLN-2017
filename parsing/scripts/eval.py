@@ -7,7 +7,7 @@ Usage:
 Options:
   -i <file>     Parsing model file.
   -m <m>        Parse only sentences of length <= <m> [default: 9999].
-  -n <n>        Parse only <n> sentences (useful for profiling) [default: 9999].
+  -n <n>        Parse only <n> sentences (useful for prof) [default: 9999].
   -h --help     Show this screen.
 """
 from docopt import docopt
@@ -82,7 +82,7 @@ if __name__ == '__main__':
         unl_rec = float(unl_hits) / unl_total_gold * 100
         unl_f1 = 2 * unl_prec * unl_rec / (unl_prec + unl_rec)
 
-        progress(format_str.format(float(i+1) * 100 / n, i+1, n, prec, rec, f1))
+        progress(format_str.format(float(i+1)*100/n, i+1, n, prec, rec, f1))
 
     print('')
     print('Parsed {} sentences'.format(n))
