@@ -133,7 +133,6 @@ class TestCKYParser(TestCase):
         #""")
         #t1.chomsky_normal_form()
         #t1.collapse_unary(collapsePOS=True, collapseRoot=True)
-        #t1.draw()
 
         grammar = PCFG.fromstring(
             """

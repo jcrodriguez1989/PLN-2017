@@ -36,6 +36,20 @@ Dicha oración es "dogs in houses and cats", donde se puede entender:
 1) Perros y gatos, pero los perros están en la casa.
 2) Perros que están dentro de los gatos ó dentro de las casas.
 
+A continuación se presentan los árboles de estos posibles parseos:
+
+![1](https://github.com/jcrodriguez1989/PLN-2017/blob/practico3/parsing/pictures/t2.jpg)
+![2](https://github.com/jcrodriguez1989/PLN-2017/blob/practico3/parsing/pictures/t1.jpg)
+
+Pero para crear la gramática las dejamos en formal normal de Chomsky:
+
+![1](https://github.com/jcrodriguez1989/PLN-2017/blob/practico3/parsing/pictures/t2_chomsky.jpg)
+![2](https://github.com/jcrodriguez1989/PLN-2017/blob/practico3/parsing/pictures/t1_chomsky.jpg)
+
+Para que nuestro test devolviera el parseo que tiene más sentido semántico, lo único que se realizó fue darle una probabilidad de 0.8 a "S -> NP+ Sb|<Conj-NP>" y de 0.2 a "S -> NP+Noun PP+".
+Nota: Para poder utilizar la función de Python PCFG.fromstring, se debió modificar los caracteres '+'por 'p' y '|' por 'b'.
+
+
 ### Ejercicio 3
 
 Se implementó una UPCFG cuyas reglas y probabilidades se obtienen a partir de un corpus de entrenamiento.
