@@ -56,10 +56,34 @@ Se implementó una UPCFG cuyas reglas y probabilidades se obtienen a partir de u
 Dicha clase deslexicaliza completamente la PCFG: en las reglas, reemplaza todas las entradas léxicas por su POS tag. Luego, el parser ignora las entradas léxicas y usa la oración de POS tags para parsear.
 Se entrenó y evaluó la UPCFG para todas las oraciones de largo menor o igual a 20 del corpus dado (1444 oraciones), obteniendo los resultados presentados a continuación:
 
-| Comparación | UPCFG           |
+|             | UPCFG           |
 | ----------- |:--------------- |
 | Precision   | 73.08% (75.20%) |
 | Recall      | 72.76% (74.88%) |
 | F1          | 72.92% (75.04%) |
 | time (mins) | 10:43           |
 
+### Ejercicio 4
+
+Se debió modificar la UPCFG de modo que pueda admitir el uso de Markovización Horizontal de orden n para un n dado, para esto solo debió utilizar el parámetro horzMarkov de la función chomsky_normal_form.
+Se agregó al script de train.py una opción que permite habilitar esta funcionalidad.
+Se entrenó y evaluó este modelo para varios valores de N en {0, 1, 2, 3}, para las oraciones de largo menor o igual a 20. Obteniendo las siguientes métricas resultantes.
+Nota: En la tabla se presentan también los resultados del UPCFG sin Markovización, es decir, N=inf.
+
+|             | N=0             | N=1             | N=2             | N=3             | N=inf           |
+| ----------- |:--------------- |:--------------- |:--------------- |:--------------- |:--------------- |
+| Precision   | 70.23% (72.09%) | 74.46% (76.34%) | 74.59% (76.53%) | 73.92% (76.06%) | 73.08% (75.20%) |
+| Recall      | 70.01% (71.86%) | 74.39% (76.27%) | 74.18% (76.11%) | 73.30% (75.42%) | 72.76% (74.88%) |
+| F1          | 70.12% (71.97%) | 74.43% (76.31%) | 74.39% (76.32%) | 73.61% (75.74%) | 72.92% (75.04%) |
+| time (mins) |  5:34           |  6:17           |  8:55           |  9:49           | 10:43           |
+
+Se puede observar que para valores de N mayores a 0, al codificar información en los nodos de los árboles se gana performance. Dados nuestros resultados, el mejor escenario se presenta para N=1.
+
+### Ejercicio 5
+
+Se modificó el algoritmo de parseo de CKY, de manera que soporte producciones unarias. 
+Adicionalmente se debió modificar la UPCFG para que admita el uso de producciones unarias (parámetro unary=True).
+Al script train.py se le agregó una opción de línea de comandos que habilita esta funcionalidad.
+
+Al momento de evaluar este algoritmo de parsing con una UPCFG que no admite producciones unarias, se obtuvo exactamente el mismo resultado de métricas y en un tiempo similar.
+Sin embargo al permitirle producciones unarias, dado a la cantidad de veces adicionales que debe ingresar a bucles, el tiempo de ejecución aumenta considerablemente, esperemos que termine de correr antes de la fecha de entrega del práctico..

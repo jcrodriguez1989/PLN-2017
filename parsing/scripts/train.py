@@ -1,7 +1,7 @@
 """Train a parser.
 
 Usage:
-  train.py [-m <model>] -o <file>
+  train.py [-m <model>] [-n <n>] [-u <b>] -o <file>
   train.py -h | --help
 
 Options:
@@ -10,6 +10,8 @@ Options:
                   rbranch: Right branching trees
                   lbranch: Left branching trees
                   upcfg: Unlexicalized PCFG.
+  -n <n>        Order of horizontal Markovization for UPCFG [default: None].
+  -u <b>        Admit unnary productions for UPCFG [default: False].
   -o <file>     Output model file.
   -h --help     Show this screen.
 """
@@ -37,7 +39,17 @@ if __name__ == '__main__':
     corpus = SimpleAncoraCorpusReader('ancora/ancora-3.0.1es/', files)
 
     print('Training model...')
-    model = models[opts['-m']](corpus.parsed_sents())
+    m = opts['-m']
+    if m == 'upcfg':
+        n = opts['-n']
+        if n == "None":
+            n = None
+        else:
+            n = int(n)
+        u = opts['-u']
+        model = models[m](corpus.parsed_sents(), horzMarkov=n, unary=u=='True')
+    else:
+        model = models[m](corpus.parsed_sents())
 
     print('Saving...')
     filename = opts['-o']
