@@ -86,4 +86,14 @@ Adicionalmente se debió modificar la UPCFG para que admita el uso de produccion
 Al script train.py se le agregó una opción de línea de comandos que habilita esta funcionalidad.
 
 Al momento de evaluar este algoritmo de parsing con una UPCFG que no admite producciones unarias, se obtuvo exactamente el mismo resultado de métricas y en un tiempo similar.
-Sin embargo al permitirle producciones unarias, dado a la cantidad de veces adicionales que debe ingresar a bucles, el tiempo de ejecución aumenta considerablemente, esperemos que termine de correr antes de la fecha de entrega del práctico..
+Sin embargo al permitirle producciones unarias, dado a la cantidad de veces adicionales que debe ingresar a bucles, el tiempo de ejecución aumenta considerablemente.
+Este análisis se llevo a cabo en otra computadora, por lo tanto presento resultados del UPCFG sin producciones unarias y del que si las admite:
+
+|             | UPCFG           | UPCFG unary     |
+| ----------- |:--------------- |:--------------- |
+| Precision   | 72.59% (74.76%) | 67.39% (70.43%) |
+| Recall      | 72.44% (74.61%) | 67.58% (70.63%) |
+| F1          | 72.51% (74.69%) | 67.48% (70.53%) |
+| time (mins) |  2:13           | 484:19          |
+
+Se observa que al admitir producciones unarias, además del aumento del tiempo de ejecución (más de 8 horas), la performance del modelo disminuye notablemente. Esto probablemente sea debido a la UPCFG al momento de generar las producciones, y por ende las probabilidades, y no por el algoritmo de CKY en si.

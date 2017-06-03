@@ -10,7 +10,8 @@ class UPCFG:
     """Unlexicalized PCFG.
     """
 
-    def __init__(self, parsed_sents, start='sentence', unary=False, horzMarkov=None):
+    def __init__(self, parsed_sents, start='sentence', unary=False,
+                 horzMarkov=None):
         """
         parsed_sents -- list of training trees.
         start -- starting marker.

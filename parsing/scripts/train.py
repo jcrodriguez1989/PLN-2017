@@ -47,7 +47,8 @@ if __name__ == '__main__':
         else:
             n = int(n)
         u = opts['-u']
-        model = models[m](corpus.parsed_sents(), horzMarkov=n, unary=u=='True')
+        model = models[m](corpus.parsed_sents(),
+                          horzMarkov=n, unary=u == 'True')
     else:
         model = models[m](corpus.parsed_sents())
 
