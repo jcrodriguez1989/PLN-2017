@@ -103,6 +103,7 @@ class PapersDownloader:
         if (len(title_x) > 0):
             title = self.__get_text(title_x[0].childNodes)
 
+        date = '0 0 0000'
         date_x = xml_doc.getElementsByTagName('pub-date')
         if (len(date_x) > 0):
             date = self.__get_text(date_x[0].childNodes)

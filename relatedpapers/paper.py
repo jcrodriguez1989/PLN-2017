@@ -12,7 +12,7 @@ class Paper:
         """
         self.id = id
         self.title = title
-        year = [year for year in date.split(' ') if len(year) == 4]
+        year = [year for year in date.split(' ') if (len(year) == 4) and year.isdigit()]
         self.year = None
         if (len(year) > 0):
             self.year = int(year[0])
