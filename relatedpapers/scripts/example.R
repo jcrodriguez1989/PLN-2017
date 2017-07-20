@@ -5,6 +5,21 @@ gsetsInfo <- read.csv('gsetsInfo2.csv', sep='\t');
 dim(gsetsInfo);
 # [1] 492  30
 
+setwd('/media/jcrodriguez/Data11/Git/PLN-2017/examples/');
+
+subtypes <- cbind(c('Ba', 'B', 'A', 'H'), c('Basal-like', 'Luminal B', 'Luminal A', 'Her2-Enriched'));
+gsetsInfo <- gsetsInfo[, c('ID', subtypes[,1])];
+
+relations <- do.call(rbind, lapply(1:nrow(subtypes), function(i) {
+#     i <- 1;
+    actStype <- subtypes[i,];
+    cbind(as.character(gsetsInfo[gsetsInfo[,actStype[[1]]] == 1, 'ID']), actStype[[2]]);
+}))
+colnames(relations) <- c('gene_set', 'subtype');
+write.table(relations, file='relations_go_ids.tsv', sep="\t", row.names=F, quote=F, col.names=!F);
+
+###############################
+
 require(GO.db);
 getQueries <- function(data, stype, onlyLeaf=!F, minDepth=0) {
 #     data <- gsetsInfo; stype <- "Ba"; onlyLeaf=!F; minDepth=0;
@@ -38,8 +53,8 @@ getQueries <- function(data, stype, onlyLeaf=!F, minDepth=0) {
     return(data.frame(ID=actData$ID, queries=queries))
 }
 
-subtypes <- c('Ba', 'B', 'A', 'H');
 invisible(lapply(subtypes, function(actStype) {
+#     actStype <- subtypes[[1]];
     queries <- getQueries(gsetsInfo, actStype, onlyLeaf=F);
 #     print(nrow(queries));
     if (nrow(queries) > 0) {

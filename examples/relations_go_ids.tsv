@@ -1,0 +1,601 @@
+# this file should have to columns to query for relation <entity1>\t<entity2>
+gene_set	subtype
+GO:0001655	Basal-like
+GO:0002067	Basal-like
+GO:0002070	Basal-like
+GO:0002162	Basal-like
+GO:0003006	Basal-like
+GO:0003674	Basal-like
+GO:0005488	Basal-like
+GO:0005575	Basal-like
+GO:0005576	Basal-like
+GO:0005623	Basal-like
+GO:0005737	Basal-like
+GO:0007275	Basal-like
+GO:0008150	Basal-like
+GO:0008283	Basal-like
+GO:0009653	Basal-like
+GO:0009750	Basal-like
+GO:0009888	Basal-like
+GO:0009987	Basal-like
+GO:0010719	Basal-like
+GO:0010941	Basal-like
+GO:0014031	Basal-like
+GO:0014033	Basal-like
+GO:0016054	Basal-like
+GO:0019752	Basal-like
+GO:0021904	Basal-like
+GO:0022612	Basal-like
+GO:0030850	Basal-like
+GO:0030855	Basal-like
+GO:0031017	Basal-like
+GO:0031982	Basal-like
+GO:0031988	Basal-like
+GO:0032463	Basal-like
+GO:0032501	Basal-like
+GO:0032502	Basal-like
+GO:0032534	Basal-like
+GO:0032808	Basal-like
+GO:0033145	Basal-like
+GO:0033148	Basal-like
+GO:0033540	Basal-like
+GO:0035272	Basal-like
+GO:0035295	Basal-like
+GO:0035356	Basal-like
+GO:0036500	Basal-like
+GO:0040007	Basal-like
+GO:0042127	Basal-like
+GO:0042802	Basal-like
+GO:0042981	Basal-like
+GO:0043067	Basal-like
+GO:0043226	Basal-like
+GO:0043227	Basal-like
+GO:0043230	Basal-like
+GO:0043436	Basal-like
+GO:0044331	Basal-like
+GO:0044421	Basal-like
+GO:0044424	Basal-like
+GO:0044444	Basal-like
+GO:0044464	Basal-like
+GO:0044699	Basal-like
+GO:0044707	Basal-like
+GO:0044711	Basal-like
+GO:0044763	Basal-like
+GO:0044767	Basal-like
+GO:0046395	Basal-like
+GO:0048513	Basal-like
+GO:0048523	Basal-like
+GO:0048565	Basal-like
+GO:0048608	Basal-like
+GO:0048671	Basal-like
+GO:0048731	Basal-like
+GO:0048732	Basal-like
+GO:0048762	Basal-like
+GO:0048856	Basal-like
+GO:0048864	Basal-like
+GO:0048869	Basal-like
+GO:0050793	Basal-like
+GO:0050896	Basal-like
+GO:0051128	Basal-like
+GO:0055123	Basal-like
+GO:0060428	Basal-like
+GO:0060429	Basal-like
+GO:0060433	Basal-like
+GO:0060479	Basal-like
+GO:0060487	Basal-like
+GO:0060512	Basal-like
+GO:0060525	Basal-like
+GO:0060526	Basal-like
+GO:0060527	Basal-like
+GO:0060644	Basal-like
+GO:0060684	Basal-like
+GO:0060687	Basal-like
+GO:0060741	Basal-like
+GO:0060742	Basal-like
+GO:0061140	Basal-like
+GO:0061218	Basal-like
+GO:0061458	Basal-like
+GO:0065010	Basal-like
+GO:0070062	Basal-like
+GO:0070254	Basal-like
+GO:0071073	Basal-like
+GO:0071236	Basal-like
+GO:0071481	Basal-like
+GO:0072329	Basal-like
+GO:1900101	Basal-like
+GO:1900102	Basal-like
+GO:1900103	Basal-like
+GO:1902236	Basal-like
+GO:1903561	Basal-like
+GO:1903894	Basal-like
+GO:1903896	Basal-like
+GO:1903897	Basal-like
+GO:2000010	Basal-like
+GO:2000047	Basal-like
+GO:0003674	Luminal B
+GO:0005488	Luminal B
+GO:0005575	Luminal B
+GO:0005576	Luminal B
+GO:0005623	Luminal B
+GO:0005737	Luminal B
+GO:0007275	Luminal B
+GO:0008150	Luminal B
+GO:0008283	Luminal B
+GO:0009653	Luminal B
+GO:0009888	Luminal B
+GO:0009987	Luminal B
+GO:0010941	Luminal B
+GO:0030855	Luminal B
+GO:0031982	Luminal B
+GO:0031988	Luminal B
+GO:0032502	Luminal B
+GO:0040007	Luminal B
+GO:0042127	Luminal B
+GO:0042981	Luminal B
+GO:0043067	Luminal B
+GO:0043226	Luminal B
+GO:0043227	Luminal B
+GO:0043230	Luminal B
+GO:0044421	Luminal B
+GO:0044424	Luminal B
+GO:0044444	Luminal B
+GO:0044464	Luminal B
+GO:0044699	Luminal B
+GO:0044707	Luminal B
+GO:0044763	Luminal B
+GO:0044767	Luminal B
+GO:0048513	Luminal B
+GO:0048731	Luminal B
+GO:0048856	Luminal B
+GO:0048869	Luminal B
+GO:0050793	Luminal B
+GO:0050896	Luminal B
+GO:0051128	Luminal B
+GO:0060512	Luminal B
+GO:0065010	Luminal B
+GO:0070062	Luminal B
+GO:1903561	Luminal B
+GO:0005515	Luminal B
+GO:0005622	Luminal B
+GO:0048518	Luminal B
+GO:0048519	Luminal B
+GO:0048522	Luminal B
+GO:0050789	Luminal B
+GO:0050794	Luminal B
+GO:0065007	Luminal B
+GO:0008219	Luminal B
+GO:0016265	Luminal B
+GO:0030154	Luminal B
+GO:0051239	Luminal B
+GO:0003674	Luminal A
+GO:0005488	Luminal A
+GO:0005575	Luminal A
+GO:0005623	Luminal A
+GO:0005737	Luminal A
+GO:0007275	Luminal A
+GO:0008150	Luminal A
+GO:0008283	Luminal A
+GO:0009987	Luminal A
+GO:0042127	Luminal A
+GO:0042802	Luminal A
+GO:0043226	Luminal A
+GO:0043227	Luminal A
+GO:0044424	Luminal A
+GO:0044444	Luminal A
+GO:0044464	Luminal A
+GO:0044699	Luminal A
+GO:0044763	Luminal A
+GO:0048523	Luminal A
+GO:0050896	Luminal A
+GO:0051128	Luminal A
+GO:0055123	Luminal A
+GO:0000082	Luminal A
+GO:0000278	Luminal A
+GO:0000780	Luminal A
+GO:0005515	Luminal A
+GO:0005622	Luminal A
+GO:0007010	Luminal A
+GO:0007017	Luminal A
+GO:0007049	Luminal A
+GO:0007067	Luminal A
+GO:0008284	Luminal A
+GO:0016043	Luminal A
+GO:0022402	Luminal A
+GO:0031577	Luminal A
+GO:0043229	Luminal A
+GO:0044422	Luminal A
+GO:0044446	Luminal A
+GO:0044710	Luminal A
+GO:0044770	Luminal A
+GO:0044772	Luminal A
+GO:0044843	Luminal A
+GO:0048285	Luminal A
+GO:0051983	Luminal A
+GO:0071840	Luminal A
+GO:1903047	Luminal A
+GO:0000003	Luminal A
+GO:0000018	Luminal A
+GO:0000022	Luminal A
+GO:0000070	Luminal A
+GO:0000075	Luminal A
+GO:0000076	Luminal A
+GO:0000079	Luminal A
+GO:0000083	Luminal A
+GO:0000086	Luminal A
+GO:0000132	Luminal A
+GO:0000152	Luminal A
+GO:0000166	Luminal A
+GO:0000212	Luminal A
+GO:0000226	Luminal A
+GO:0000228	Luminal A
+GO:0000280	Luminal A
+GO:0000281	Luminal A
+GO:0000775	Luminal A
+GO:0000776	Luminal A
+GO:0000777	Luminal A
+GO:0000778	Luminal A
+GO:0000779	Luminal A
+GO:0000793	Luminal A
+GO:0000794	Luminal A
+GO:0000796	Luminal A
+GO:0000819	Luminal A
+GO:0000910	Luminal A
+GO:0000922	Luminal A
+GO:0000940	Luminal A
+GO:0000942	Luminal A
+GO:0001556	Luminal A
+GO:0001882	Luminal A
+GO:0001883	Luminal A
+GO:0003678	Luminal A
+GO:0003688	Luminal A
+GO:0003697	Luminal A
+GO:0003774	Luminal A
+GO:0003777	Luminal A
+GO:0004523	Luminal A
+GO:0005524	Luminal A
+GO:0005634	Luminal A
+GO:0005654	Luminal A
+GO:0005657	Luminal A
+GO:0005680	Luminal A
+GO:0005694	Luminal A
+GO:0005813	Luminal A
+GO:0005815	Luminal A
+GO:0005819	Luminal A
+GO:0005829	Luminal A
+GO:0005856	Luminal A
+GO:0005871	Luminal A
+GO:0005874	Luminal A
+GO:0005875	Luminal A
+GO:0005876	Luminal A
+GO:0005881	Luminal A
+GO:0006259	Luminal A
+GO:0006260	Luminal A
+GO:0006261	Luminal A
+GO:0006268	Luminal A
+GO:0006270	Luminal A
+GO:0006271	Luminal A
+GO:0006273	Luminal A
+GO:0006281	Luminal A
+GO:0006310	Luminal A
+GO:0006323	Luminal A
+GO:0006336	Luminal A
+GO:0006338	Luminal A
+GO:0006461	Luminal A
+GO:0006760	Luminal A
+GO:0006928	Luminal A
+GO:0006950	Luminal A
+GO:0006974	Luminal A
+GO:0006996	Luminal A
+GO:0007018	Luminal A
+GO:0007019	Luminal A
+GO:0007026	Luminal A
+GO:0007051	Luminal A
+GO:0007052	Luminal A
+GO:0007059	Luminal A
+GO:0007076	Luminal A
+GO:0007077	Luminal A
+GO:0007080	Luminal A
+GO:0007088	Luminal A
+GO:0007091	Luminal A
+GO:0007093	Luminal A
+GO:0007094	Luminal A
+GO:0007095	Luminal A
+GO:0007096	Luminal A
+GO:0007100	Luminal A
+GO:0007126	Luminal A
+GO:0007127	Luminal A
+GO:0007143	Luminal A
+GO:0007144	Luminal A
+GO:0007165	Luminal A
+GO:0007264	Luminal A
+GO:0007346	Luminal A
+GO:0008017	Luminal A
+GO:0008092	Luminal A
+GO:0008574	Luminal A
+GO:0008608	Luminal A
+GO:0009157	Luminal A
+GO:0009263	Luminal A
+GO:0009994	Luminal A
+GO:0010369	Luminal A
+GO:0010389	Luminal A
+GO:0010458	Luminal A
+GO:0010564	Luminal A
+GO:0010569	Luminal A
+GO:0010639	Luminal A
+GO:0010948	Luminal A
+GO:0010965	Luminal A
+GO:0010972	Luminal A
+GO:0010993	Luminal A
+GO:0010994	Luminal A
+GO:0015630	Luminal A
+GO:0015631	Luminal A
+GO:0016572	Luminal A
+GO:0016891	Luminal A
+GO:0017076	Luminal A
+GO:0019237	Luminal A
+GO:0019894	Luminal A
+GO:0019899	Luminal A
+GO:0019900	Luminal A
+GO:0019901	Luminal A
+GO:0022607	Luminal A
+GO:0022616	Luminal A
+GO:0030071	Luminal A
+GO:0030261	Luminal A
+GO:0030397	Luminal A
+GO:0030496	Luminal A
+GO:0030554	Luminal A
+GO:0031023	Luminal A
+GO:0031055	Luminal A
+GO:0031109	Luminal A
+GO:0031110	Luminal A
+GO:0031111	Luminal A
+GO:0031114	Luminal A
+GO:0031145	Luminal A
+GO:0031262	Luminal A
+GO:0031330	Luminal A
+GO:0031536	Luminal A
+GO:0031570	Luminal A
+GO:0031572	Luminal A
+GO:0031616	Luminal A
+GO:0031974	Luminal A
+GO:0031981	Luminal A
+GO:0032133	Luminal A
+GO:0032355	Luminal A
+GO:0032392	Luminal A
+GO:0032403	Luminal A
+GO:0032434	Luminal A
+GO:0032435	Luminal A
+GO:0032465	Luminal A
+GO:0032466	Luminal A
+GO:0032467	Luminal A
+GO:0032506	Luminal A
+GO:0032508	Luminal A
+GO:0032549	Luminal A
+GO:0032550	Luminal A
+GO:0032553	Luminal A
+GO:0032555	Luminal A
+GO:0032559	Luminal A
+GO:0032886	Luminal A
+GO:0033043	Luminal A
+GO:0033044	Luminal A
+GO:0033045	Luminal A
+GO:0033046	Luminal A
+GO:0033047	Luminal A
+GO:0033048	Luminal A
+GO:0033260	Luminal A
+GO:0033554	Luminal A
+GO:0034080	Luminal A
+GO:0034453	Luminal A
+GO:0034501	Luminal A
+GO:0034502	Luminal A
+GO:0034508	Luminal A
+GO:0034724	Luminal A
+GO:0035173	Luminal A
+GO:0035174	Luminal A
+GO:0035371	Luminal A
+GO:0035404	Luminal A
+GO:0035556	Luminal A
+GO:0035639	Luminal A
+GO:0036094	Luminal A
+GO:0040001	Luminal A
+GO:0042177	Luminal A
+GO:0042555	Luminal A
+GO:0043044	Luminal A
+GO:0043066	Luminal A
+GO:0043069	Luminal A
+GO:0043138	Luminal A
+GO:0043146	Luminal A
+GO:0043161	Luminal A
+GO:0043168	Luminal A
+GO:0043203	Luminal A
+GO:0043228	Luminal A
+GO:0043231	Luminal A
+GO:0043232	Luminal A
+GO:0043233	Luminal A
+GO:0043486	Luminal A
+GO:0043566	Luminal A
+GO:0043933	Luminal A
+GO:0044380	Luminal A
+GO:0044427	Luminal A
+GO:0044428	Luminal A
+GO:0044430	Luminal A
+GO:0044454	Luminal A
+GO:0044784	Luminal A
+GO:0044786	Luminal A
+GO:0044818	Luminal A
+GO:0044839	Luminal A
+GO:0044877	Luminal A
+GO:0045120	Luminal A
+GO:0045132	Luminal A
+GO:0045143	Luminal A
+GO:0045786	Luminal A
+GO:0045787	Luminal A
+GO:0045839	Luminal A
+GO:0045840	Luminal A
+GO:0045841	Luminal A
+GO:0045842	Luminal A
+GO:0045930	Luminal A
+GO:0045931	Luminal A
+GO:0046602	Luminal A
+GO:0046605	Luminal A
+GO:0048256	Luminal A
+GO:0048477	Luminal A
+GO:0048518	Luminal A
+GO:0048519	Luminal A
+GO:0048522	Luminal A
+GO:0048599	Luminal A
+GO:0050000	Luminal A
+GO:0050789	Luminal A
+GO:0050794	Luminal A
+GO:0051010	Luminal A
+GO:0051052	Luminal A
+GO:0051081	Luminal A
+GO:0051129	Luminal A
+GO:0051225	Luminal A
+GO:0051231	Luminal A
+GO:0051233	Luminal A
+GO:0051255	Luminal A
+GO:0051256	Luminal A
+GO:0051261	Luminal A
+GO:0051276	Luminal A
+GO:0051293	Luminal A
+GO:0051294	Luminal A
+GO:0051297	Luminal A
+GO:0051299	Luminal A
+GO:0051301	Luminal A
+GO:0051302	Luminal A
+GO:0051303	Luminal A
+GO:0051304	Luminal A
+GO:0051305	Luminal A
+GO:0051306	Luminal A
+GO:0051310	Luminal A
+GO:0051321	Luminal A
+GO:0051338	Luminal A
+GO:0051340	Luminal A
+GO:0051382	Luminal A
+GO:0051383	Luminal A
+GO:0051436	Luminal A
+GO:0051438	Luminal A
+GO:0051439	Luminal A
+GO:0051488	Luminal A
+GO:0051493	Luminal A
+GO:0051640	Luminal A
+GO:0051653	Luminal A
+GO:0051656	Luminal A
+GO:0051716	Luminal A
+GO:0051726	Luminal A
+GO:0051781	Luminal A
+GO:0051782	Luminal A
+GO:0051783	Luminal A
+GO:0051784	Luminal A
+GO:0051785	Luminal A
+GO:0051984	Luminal A
+GO:0051985	Luminal A
+GO:0051988	Luminal A
+GO:0060236	Luminal A
+GO:0060548	Luminal A
+GO:0061351	Luminal A
+GO:0061640	Luminal A
+GO:0061641	Luminal A
+GO:0065003	Luminal A
+GO:0065004	Luminal A
+GO:0065007	Luminal A
+GO:0070013	Luminal A
+GO:0070182	Luminal A
+GO:0070271	Luminal A
+GO:0070507	Luminal A
+GO:0070925	Luminal A
+GO:0070938	Luminal A
+GO:0071103	Luminal A
+GO:0071168	Luminal A
+GO:0071173	Luminal A
+GO:0071174	Luminal A
+GO:0071459	Luminal A
+GO:0071822	Luminal A
+GO:0071824	Luminal A
+GO:0072686	Luminal A
+GO:0072687	Luminal A
+GO:0072698	Luminal A
+GO:0090068	Luminal A
+GO:0090224	Luminal A
+GO:0090231	Luminal A
+GO:0090232	Luminal A
+GO:0090266	Luminal A
+GO:0090307	Luminal A
+GO:0097149	Luminal A
+GO:0097305	Luminal A
+GO:0097367	Luminal A
+GO:0098687	Luminal A
+GO:0098813	Luminal A
+GO:1901265	Luminal A
+GO:1901799	Luminal A
+GO:1901970	Luminal A
+GO:1901987	Luminal A
+GO:1901988	Luminal A
+GO:1901989	Luminal A
+GO:1901990	Luminal A
+GO:1901991	Luminal A
+GO:1901992	Luminal A
+GO:1902099	Luminal A
+GO:1902100	Luminal A
+GO:1902101	Luminal A
+GO:1902589	Luminal A
+GO:1902749	Luminal A
+GO:1902750	Luminal A
+GO:1902850	Luminal A
+GO:1903046	Luminal A
+GO:1903051	Luminal A
+GO:1903363	Luminal A
+GO:1903429	Luminal A
+GO:1903504	Luminal A
+GO:1904029	Luminal A
+GO:1904666	Luminal A
+GO:1904667	Luminal A
+GO:1990752	Luminal A
+GO:2000779	Luminal A
+GO:2000816	Luminal A
+GO:2001251	Luminal A
+GO:0003674	Her2-Enriched
+GO:0005488	Her2-Enriched
+GO:0005575	Her2-Enriched
+GO:0005576	Her2-Enriched
+GO:0005623	Her2-Enriched
+GO:0005737	Her2-Enriched
+GO:0008150	Her2-Enriched
+GO:0009987	Her2-Enriched
+GO:0019752	Her2-Enriched
+GO:0031982	Her2-Enriched
+GO:0031988	Her2-Enriched
+GO:0042127	Her2-Enriched
+GO:0042802	Her2-Enriched
+GO:0043226	Her2-Enriched
+GO:0043227	Her2-Enriched
+GO:0043230	Her2-Enriched
+GO:0043436	Her2-Enriched
+GO:0044421	Her2-Enriched
+GO:0044424	Her2-Enriched
+GO:0044444	Her2-Enriched
+GO:0044464	Her2-Enriched
+GO:0044699	Her2-Enriched
+GO:0044711	Her2-Enriched
+GO:0044763	Her2-Enriched
+GO:0048732	Her2-Enriched
+GO:0050896	Her2-Enriched
+GO:0060525	Her2-Enriched
+GO:0060526	Her2-Enriched
+GO:0060527	Her2-Enriched
+GO:0060687	Her2-Enriched
+GO:0065010	Her2-Enriched
+GO:0070062	Her2-Enriched
+GO:1903561	Her2-Enriched
+GO:0044710	Her2-Enriched
+GO:0003824	Her2-Enriched
+GO:0006082	Her2-Enriched
+GO:0006575	Her2-Enriched
+GO:0032787	Her2-Enriched
+GO:0042221	Her2-Enriched
+GO:0044281	Her2-Enriched
+GO:0044282	Her2-Enriched
+GO:0044283	Her2-Enriched
+GO:0055114	Her2-Enriched
+GO:0065008	Her2-Enriched
