@@ -13,12 +13,13 @@ with open(relations_file, 'r') as csvfile:
 
 
 all_data = ['literal,class']
-all_data = all_data + [ rel + ',' + colnames[0] for rel in rel_fst ]
-all_data = all_data + [ rel + ',' + colnames[1] for rel in rel_snd ]
+all_data = all_data + [ '"' + rel + '"' + ',' + '"' + colnames[0] + '"' for rel in rel_fst ]
+all_data = all_data + [ '"' + rel + '"' + ',' + '"' + colnames[1] + '"' for rel in rel_snd ]
 
 with open(out_file, 'w') as f:
     for item in all_data:
         f.write("{}\n".format(item))
+
 
 
 

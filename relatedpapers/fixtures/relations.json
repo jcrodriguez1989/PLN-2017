@@ -1,0 +1,20 @@
+[
+{
+    "model": "corpus.relation",
+    "pk": 1,
+    "fields": {
+        "left_entity_kind": 1,
+        "right_entity_kind": 2,
+        "name": "gene_set_subtype"
+    }
+},
+{
+    "model": "corpus.relation",
+    "pk": 2,
+    "fields": {
+        "left_entity_kind": 2,
+        "right_entity_kind": 1,
+        "name": "subtype_gene_set"
+    }
+}
+]
