@@ -1,14 +1,18 @@
-# this file should have to columns to query for relation <entity1>\t<entity2>
 gene_set	subtype
 GO:0001655	Basal-like
 GO:0002067	Basal-like
 GO:0002070	Basal-like
 GO:0002162	Basal-like
 GO:0003006	Basal-like
+GO:0003674	Basal-like
 GO:0005488	Basal-like
+GO:0005575	Basal-like
+GO:0005576	Basal-like
 GO:0005623	Basal-like
 GO:0005737	Basal-like
 GO:0007275	Basal-like
+GO:0008150	Basal-like
+GO:0008283	Basal-like
 GO:0009653	Basal-like
 GO:0009750	Basal-like
 GO:0009888	Basal-like
@@ -64,6 +68,7 @@ GO:0048565	Basal-like
 GO:0048608	Basal-like
 GO:0048671	Basal-like
 GO:0048731	Basal-like
+GO:0048732	Basal-like
 GO:0048762	Basal-like
 GO:0048856	Basal-like
 GO:0048864	Basal-like
@@ -106,10 +111,15 @@ GO:1903896	Basal-like
 GO:1903897	Basal-like
 GO:2000010	Basal-like
 GO:2000047	Basal-like
+GO:0003674	Luminal B
 GO:0005488	Luminal B
+GO:0005575	Luminal B
+GO:0005576	Luminal B
 GO:0005623	Luminal B
 GO:0005737	Luminal B
 GO:0007275	Luminal B
+GO:0008150	Luminal B
+GO:0008283	Luminal B
 GO:0009653	Luminal B
 GO:0009888	Luminal B
 GO:0009987	Luminal B
@@ -152,13 +162,18 @@ GO:0048522	Luminal B
 GO:0050789	Luminal B
 GO:0050794	Luminal B
 GO:0065007	Luminal B
+GO:0008219	Luminal B
 GO:0016265	Luminal B
 GO:0030154	Luminal B
 GO:0051239	Luminal B
+GO:0003674	Luminal A
 GO:0005488	Luminal A
+GO:0005575	Luminal A
 GO:0005623	Luminal A
 GO:0005737	Luminal A
 GO:0007275	Luminal A
+GO:0008150	Luminal A
+GO:0008283	Luminal A
 GO:0009987	Luminal A
 GO:0042127	Luminal A
 GO:0042802	Luminal A
@@ -180,6 +195,7 @@ GO:0005515	Luminal A
 GO:0005622	Luminal A
 GO:0007010	Luminal A
 GO:0007017	Luminal A
+GO:0007049	Luminal A
 GO:0007067	Luminal A
 GO:0008284	Luminal A
 GO:0016043	Luminal A
@@ -258,6 +274,7 @@ GO:0006268	Luminal A
 GO:0006270	Luminal A
 GO:0006271	Luminal A
 GO:0006273	Luminal A
+GO:0006281	Luminal A
 GO:0006310	Luminal A
 GO:0006323	Luminal A
 GO:0006336	Luminal A
@@ -288,6 +305,7 @@ GO:0007126	Luminal A
 GO:0007127	Luminal A
 GO:0007143	Luminal A
 GO:0007144	Luminal A
+GO:0007165	Luminal A
 GO:0007264	Luminal A
 GO:0007346	Luminal A
 GO:0008017	Luminal A
@@ -464,6 +482,7 @@ GO:0051640	Luminal A
 GO:0051653	Luminal A
 GO:0051656	Luminal A
 GO:0051716	Luminal A
+GO:0051726	Luminal A
 GO:0051781	Luminal A
 GO:0051782	Luminal A
 GO:0051783	Luminal A
@@ -535,9 +554,13 @@ GO:1990752	Luminal A
 GO:2000779	Luminal A
 GO:2000816	Luminal A
 GO:2001251	Luminal A
+GO:0003674	Her2-Enriched
 GO:0005488	Her2-Enriched
+GO:0005575	Her2-Enriched
+GO:0005576	Her2-Enriched
 GO:0005623	Her2-Enriched
 GO:0005737	Her2-Enriched
+GO:0008150	Her2-Enriched
 GO:0009987	Her2-Enriched
 GO:0019752	Her2-Enriched
 GO:0031982	Her2-Enriched
@@ -555,6 +578,7 @@ GO:0044464	Her2-Enriched
 GO:0044699	Her2-Enriched
 GO:0044711	Her2-Enriched
 GO:0044763	Her2-Enriched
+GO:0048732	Her2-Enriched
 GO:0050896	Her2-Enriched
 GO:0060525	Her2-Enriched
 GO:0060526	Her2-Enriched
@@ -564,6 +588,7 @@ GO:0065010	Her2-Enriched
 GO:0070062	Her2-Enriched
 GO:1903561	Her2-Enriched
 GO:0044710	Her2-Enriched
+GO:0003824	Her2-Enriched
 GO:0006082	Her2-Enriched
 GO:0006575	Her2-Enriched
 GO:0032787	Her2-Enriched
