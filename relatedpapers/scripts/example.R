@@ -1,24 +1,44 @@
-setwd('/media/jcrodriguez/Data11/Git/PLN-2017/relatedpapers/scripts/');
+# setwd('/media/jcrodriguez/Data11/Git/PLN-2017/relatedpapers/scripts/');
 
 rm(list=ls());
-gsetsInfo <- read.csv('gsetsInfo2.csv', sep='\t');
+gsetsInfo <- read.csv('~/Dropbox/RodriguezJuanCruz/Papers/MIGSA2/stypeGSetsMatrix.csv', sep='\t');
 dim(gsetsInfo);
-# [1] 492  30
+# [1] 623   8
 
-setwd('/media/jcrodriguez/Data11/Git/PLN-2017/examples/');
+colnames(gsetsInfo);
+# [1] "id"       "ontology" "name"     "depth"    "Ba"       "B"        "H"        "A"
+
+# setwd('/media/jcrodriguez/Data11/Git/PLN-2017/examples/');
 
 subtypes <- cbind(c('Ba', 'B', 'A', 'H'), c('Basal-like', 'Luminal B', 'Luminal A', 'Her2-Enriched'));
-gsetsInfo <- gsetsInfo[, c('ID', subtypes[,1])];
+# gsetsInfo <- gsetsInfo[, c('id', subtypes[,1])];
 
 relations <- do.call(rbind, lapply(1:nrow(subtypes), function(i) {
 #     i <- 1;
     actStype <- subtypes[i,];
-    cbind(as.character(gsetsInfo[gsetsInfo[,actStype[[1]]] == 1, 'ID']), actStype[[2]]);
+    cbind(as.character(gsetsInfo[gsetsInfo[,actStype[[1]]] == 1, 'id']), actStype[[2]]);
 }))
 colnames(relations) <- c('gene_set', 'subtype');
-write.table(relations, file='relations_go_ids.tsv', sep="\t", row.names=F, quote=F, col.names=!F);
 
-###############################
+require(GO.db);
+relations <- do.call(rbind, apply(relations, 1, function(actLine) {
+#     actLine <- relations[6,];
+    res <- actLine;
+    
+    if (!startsWith(actLine[[1]], 'GO:')) {
+        return(res);
+    }
+    
+    res <- rbind(res, c(Term(actLine[[1]]), actLine[[2]]));
+    
+    syns <- Synonym(actLine[[1]])[[1]];
+    if (!is.null(syns)) {
+        res <- rbind(res, cbind(syns, actLine[[2]]));
+    }
+    return(res);    
+}));
+
+write.table(relations, file='~/mytmp/stypeGSetsMatrix.tsv', sep="\t", row.names=F, quote=F, col.names=!F);
 
 # require(GO.db);
 # getQueries <- function(data, stype, onlyLeaf=!F, minDepth=0) {

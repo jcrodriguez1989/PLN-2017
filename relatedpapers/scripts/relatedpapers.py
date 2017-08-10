@@ -32,30 +32,32 @@ if not os.path.exists(papers_dir):
     os.makedirs(papers_dir)
 
 import csv
-gene_sets = defaultdict(str)
-with open('/media/jcrodriguez/Data11/Git/PLN-2017/relatedpapers/scripts/Ba.csv', 'r') as csvfile:
+rels = []
+with open('/home/jcrodriguez/mytmp/stypeGSetsMatrix.tsv', 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter='\t', quotechar='"')
     for row in csvreader :
-        gene_sets[row[0]] = row[1]
+        rels.append(row)
 
-gene_sets = dict(gene_sets)
-subtype = '("basal-like")'
+rels = rels[1:] # discard tsv headers
 
 related_papers = defaultdict(str)
-for act_id in gene_sets.keys():
-    print(act_id)
-    gene_set = gene_sets[act_id]
-    queries = [gene_set, subtype]
+for act_rel in rels:
+    print(act_rel)
+    ent1 = '("' + act_rel[0].replace(' ', '+') + '")'
+    ent2 = '("' + act_rel[1].replace(' ', '+') + '")'
+        
+    queries = [ent1, ent2]
     ppr_dlder = PapersDownloader(queries, papers_dir)
     ppr_dlder.get_paper_ids()
     ppr_dlder.download_papers(100) # download just the first n papers
-    entities = [gene_set.replace('("', '').replace('")', '').split('"OR"')]
+
+    entities = [ent1.replace('("', '').replace('")', '').split('"OR"')]
     entities += [['basal like', 'basal-like']]
     papers = ppr_dlder.get_papers()
     rr = RelationRecognition(papers, entities)
     if len(rr.related_papers) > 0:
         related_papers[act_id] = rr.related_papers
-        print(gene_set)
+        print(ent1)
         print(rr.related_papers)
 
 related_papers = dict(related_papers)

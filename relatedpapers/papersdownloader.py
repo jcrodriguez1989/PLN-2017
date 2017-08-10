@@ -41,6 +41,7 @@ class PapersDownloader:
             papers[id] = None
         self.papers = dict(papers)
         print(len(ids), "papers to download.")
+        return len(ids)
 
     def set_paper_ids(self, ids):
         """
