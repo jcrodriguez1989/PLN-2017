@@ -29,7 +29,7 @@ from relatedpapers.papersdownloader import PapersDownloader
 
 import tempfile
 papers_dir = tempfile.gettempdir() + '/relatedpapers/'
-papers_dir = '/home/jcrodriguez/relatedpapers/papers'
+papers_dir = '/home/jcrodriguez/relatedpapers/papers/'
 
 import os
 if not os.path.exists(papers_dir):
