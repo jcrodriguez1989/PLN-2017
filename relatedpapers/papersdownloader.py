@@ -59,7 +59,7 @@ class PapersDownloader:
         Get the first n downloaded papers.
         n -- Number of papers to download.
         """
-        act_papers = [ p for p in self.papers.values() if not p is None]
+        act_papers = [p for p in self.papers.values() if not p is None]
         n = min(len(act_papers), n)
         return act_papers[:n]
 

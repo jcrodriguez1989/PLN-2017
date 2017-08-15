@@ -28,10 +28,10 @@ class Paper:
 
     def __split_sents(self, text):
         abbreviations = ['Fig.', 'al.', 'vs.', 'Vs.', 'min.', 'Min.', 'max.', 'Max.', 'e.g.', 'E.g.', 'Dr.', 'St.', 'i.e.', 'Inc.', 'Figs.', 'Ref.', 'sp.']
-        
+
         for abb in abbreviations:
             text = text.replace(abb, abb.replace('.',''))
-        
+
         sents = text.split('\n')
         tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
         sents = tokenizer.tokenize_sents(sents)

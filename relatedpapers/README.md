@@ -20,3 +20,8 @@ Sin IEPY, se buscaron oraciones que contuvieran las dos entidades.
 Iteracion 2
 Con IEPY, dados los GO ID de interes se tradujeron a sus nombres y sinonimos (se descartaron aquellos de una sola palabra, ya que generaban demasiados papers; como el caso de 'cell'). Se descargaron los paper. Preprocessing completo. Solo encontro 3 relaciones candidatas, de las cuales solo dos eran ciertas.
 
+Iteracion 3
+Volvemos a la version original
+example.R
+Rscript scripts/inflateRel.R  --in_file /home/jcrodriguez/mytmp/stypeGSetsMatrix.tsv --inflation_file ../examples/subtypes_synonims.tsv --out_file /home/jcrodriguez/mytmp/stypeGSetsMatrixSinonims.tsv
+relatedpapers.py

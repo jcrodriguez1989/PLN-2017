@@ -1,6 +1,7 @@
 # setwd('/media/jcrodriguez/Data11/Git/PLN-2017/relatedpapers/scripts/');
 
 rm(list=ls());
+# gsetsInfo <- read.csv('~/tcgaElmer/HaibeKains/stypeGSetsMatrix.csv', sep='\t');
 gsetsInfo <- read.csv('~/Dropbox/RodriguezJuanCruz/Papers/MIGSA2/stypeGSetsMatrix.csv', sep='\t');
 dim(gsetsInfo);
 # [1] 623   8
@@ -35,7 +36,7 @@ relations <- do.call(rbind, apply(relations, 1, function(actLine) {
     if (!is.null(syns)) {
         res <- rbind(res, cbind(syns, actLine[[2]]));
     }
-    return(res);    
+    return(res);
 }));
 
 write.table(relations, file='~/mytmp/stypeGSetsMatrix.tsv', sep="\t", row.names=F, quote=F, col.names=!F);

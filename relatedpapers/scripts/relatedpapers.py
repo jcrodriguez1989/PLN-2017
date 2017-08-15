@@ -26,6 +26,7 @@ from relatedpapers.relationrecognition import RelationRecognition
 
 import tempfile
 papers_dir = tempfile.gettempdir() + '/relatedpapers/'
+papers_dir = '/home/jcrodriguez/relatedpapers/papers/'
 
 import os
 if not os.path.exists(papers_dir):
@@ -33,31 +34,34 @@ if not os.path.exists(papers_dir):
 
 import csv
 rels = []
-with open('/home/jcrodriguez/mytmp/stypeGSetsMatrix.tsv', 'r') as csvfile:
+with open('/home/jcrodriguez/mytmp/stypeGSetsMatrixSinonims.tsv', 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter='\t', quotechar='"')
     for row in csvreader :
         rels.append(row)
 
 rels = rels[1:] # discard tsv headers
 
+maxPapers = 500 # limit papers to download
+
 related_papers = defaultdict(str)
 for act_rel in rels:
+#    act_rel = rels[1]
     print(act_rel)
     ent1 = '("' + act_rel[0].replace(' ', '+') + '")'
     ent2 = '("' + act_rel[1].replace(' ', '+') + '")'
-        
     queries = [ent1, ent2]
     ppr_dlder = PapersDownloader(queries, papers_dir)
-    ppr_dlder.get_paper_ids()
-    ppr_dlder.download_papers(100) # download just the first n papers
-
-    entities = [ent1.replace('("', '').replace('")', '').split('"OR"')]
-    entities += [['basal like', 'basal-like']]
+    if (ppr_dlder.get_paper_ids() > maxPapers):
+        continue
+    ppr_dlder.download_papers(maxPapers) # download just the first n papers
+    entities = [[act_rel[0]], [act_rel[1]]]
+    #entities = [ent1.replace('("', '').replace('")', '').split('"OR"')]
+    #entities += [['basal like', 'basal-like']]
     papers = ppr_dlder.get_papers()
     rr = RelationRecognition(papers, entities)
     if len(rr.related_papers) > 0:
-        related_papers[act_id] = rr.related_papers
-        print(ent1)
+        related_papers[act_rel[0]] = rr.related_papers
+        print(act_rel)
         print(rr.related_papers)
 
 related_papers = dict(related_papers)
