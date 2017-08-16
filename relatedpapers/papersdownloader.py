@@ -32,7 +32,11 @@ class PapersDownloader:
 
         complete_url = query_url + "esearch.fcgi?db=" + database + "&term=" + query
         complete_url += "&retmax=999999"
-        xml_str = urllib.request.urlopen(complete_url).read()
+        try:
+            xml_str = urllib.request.urlopen(complete_url).read()
+        except:
+            print ('urllib exception')
+            return 0
         xml_doc = minidom.parseString(xml_str)
         ids = xml_doc.getElementsByTagName('Id')
         ids = [id.childNodes[0].data for id in ids]
@@ -53,15 +57,6 @@ class PapersDownloader:
         for id in ids:
             papers[id] = None
         self.papers = dict(papers)
-
-    def get_papers(self, n=float('inf')):
-        """
-        Get the first n downloaded papers.
-        n -- Number of papers to download.
-        """
-        act_papers = [p for p in self.papers.values() if not p is None]
-        n = min(len(act_papers), n)
-        return act_papers[:n]
 
     def download_papers(self, n=float('inf')):
         """
@@ -92,7 +87,11 @@ class PapersDownloader:
             download_url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/'
             database = 'pmc'
             download_url = download_url+'efetch.fcgi?db='+database+'&id='+paper_id
-            xml_str = urllib.request.urlopen(download_url).read()
+            try:
+                xml_str = urllib.request.urlopen(download_url).read()
+            except:
+                print ('urllib exception')
+                return Paper(paper_id,'','','','')
             xml_doc = minidom.parseString(xml_str)
             if (not self.papers_dir is None):
                 f = open(path, 'w')
@@ -133,4 +132,13 @@ class PapersDownloader:
             else:
                 rc.append(self.__get_text(node.childNodes))
         return ' '.join(rc)
+
+    def get_papers(self, n=float('inf')):
+        """
+        Get the first n downloaded papers.
+        n -- Number of papers to download.
+        """
+        act_papers = [p for p in self.papers.values() if not p is None]
+        n = min(len(act_papers), n)
+        return act_papers[:n]
 

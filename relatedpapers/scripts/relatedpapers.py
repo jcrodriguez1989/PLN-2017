@@ -44,8 +44,12 @@ rels = rels[1:] # discard tsv headers
 maxPapers = 500 # limit papers to download
 
 related_papers = defaultdict(str)
-for act_rel in rels:
-#    act_rel = rels[1]
+
+i = 0
+while i < len(rels):
+    act_rel = rels[i]
+    if (i % 100 == 0): print('**********************************************************', i)
+    i = i+1
     print(act_rel)
     ent1 = '("' + act_rel[0].replace(' ', '+') + '")'
     ent2 = '("' + act_rel[1].replace(' ', '+') + '")'
@@ -67,37 +71,91 @@ for act_rel in rels:
 related_papers = dict(related_papers)
 related_papers
 
+for act_key in related_papers.keys():
+    print(act_key, len(related_papers[act_key]))
 
+#centrosome 1
+#growth pattern 1
+#inhibition of cell proliferation 1
+#GO:0007067 1
+#exosome 1
+#DNA damage response 1
+#APC 2
+#epithelial cell differentiation 4
+#epithelial cell proliferation 4
+#GO:0009888 1
+#positive regulation of cell proliferation 1
+#chromosomal region 1
+#morphogenesis 2
+#metabolic process 1
+#cell division 3
+#cell communication 1
+#cell development 1
+#organelle 1
+#organogenesis 1
+#regulation of cell proliferation 1
+#cell cycle checkpoint 2
+#vesicle 1
+#nuclear division 2
+#mitotic cell cycle 1
+#biological process 3
+#centromere 1
+#GO:0007275 1
+#localisation 2
+#nucleoplasm 1
+#spindle 7
+#cell cycle process 1
+#necrosis 1
+#cell death 1
+#histogenesis 3
+#regulation of apoptosis 1
+#apoptosis 1
+#terminal differentiation 6
+#mitosis 6
+#cytoskeleton 1
+#microtubule 2
+#cell migration 1
+#negative regulation of programmed cell death 1
+#cell proliferation 7
+#GO:0000280 1
+#mitotic checkpoint 2
+#puberty 1
+#cytokinesis 1
+#anti-apoptosis 2
+#cell cycle control 1
+#oocyte maturation 1
+#pro-survival 1
 
+#########################################################
 
-gene_sets = defaultdict(str)
-with open('/media/jcrodriguez/Data11/Git/PLN-2017/relatedpapers/scripts/A.csv', 'r') as csvfile:
-    csvreader = csv.reader(csvfile, delimiter='\t', quotechar='"')
-    for row in csvreader :
-        gene_sets[row[0]] = row[1]
+#gene_sets = defaultdict(str)
+#with open('/media/jcrodriguez/Data11/Git/PLN-2017/relatedpapers/scripts/A.csv', 'r') as csvfile:
+    #csvreader = csv.reader(csvfile, delimiter='\t', quotechar='"')
+    #for row in csvreader :
+        #gene_sets[row[0]] = row[1]
 
-gene_sets = dict(gene_sets)
-subtype = '("Luminal A"OR"LumA"OR"Luminal-A")'
+#gene_sets = dict(gene_sets)
+#subtype = '("Luminal A"OR"LumA"OR"Luminal-A")'
 
-related_papers = defaultdict(str)
-for act_id in gene_sets.keys():
-    print(act_id)
-    gene_set = gene_sets[act_id]
-    queries = [gene_set, subtype]
-    ppr_dlder = PapersDownloader(queries, papers_dir)
-    ppr_dlder.get_paper_ids()
-    ppr_dlder.download_papers(100) # download just the first 30 papers
-    entities = [gene_set.replace('("', '').replace('")', '').split('"OR"')]
-    entities += [['luminal a', 'luminal-a', 'luma']]
-    papers = ppr_dlder.get_papers()
-    rr = RelationRecognition(papers, entities)
-    if len(rr.related_papers) > 0:
-        related_papers[act_id] = rr.related_papers
-        print(gene_set)
-        print(rr.related_papers)
+#related_papers = defaultdict(str)
+#for act_id in gene_sets.keys():
+    #print(act_id)
+    #gene_set = gene_sets[act_id]
+    #queries = [gene_set, subtype]
+    #ppr_dlder = PapersDownloader(queries, papers_dir)
+    #ppr_dlder.get_paper_ids()
+    #ppr_dlder.download_papers(100) # download just the first 30 papers
+    #entities = [gene_set.replace('("', '').replace('")', '').split('"OR"')]
+    #entities += [['luminal a', 'luminal-a', 'luma']]
+    #papers = ppr_dlder.get_papers()
+    #rr = RelationRecognition(papers, entities)
+    #if len(rr.related_papers) > 0:
+        #related_papers[act_id] = rr.related_papers
+        #print(gene_set)
+        #print(rr.related_papers)
 
-related_papers = dict(related_papers)
-related_papers
+#related_papers = dict(related_papers)
+#related_papers
 
 
 
