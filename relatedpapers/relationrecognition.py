@@ -1,3 +1,5 @@
+import re
+
 class RelationRecognition:
 
     def __init__(self, papers, entities):
@@ -23,12 +25,12 @@ class RelationRecognition:
         entities = self.entities
         related_sents = []
         for sent in paper.get_full_paper():
-            sent = sent.lower()
+            norm_sent = self.__to_plaintext(sent)
             is_related = True
             for entity in entities:
                 any_related = False
                 for sinom in entity:
-                    any_related = any_related or sinom.lower() in sent
+                    any_related = any_related or self.__to_plaintext(sinom) in norm_sent
                     if any_related:
                         break
                 is_related = is_related and any_related
@@ -39,4 +41,9 @@ class RelationRecognition:
         if len(related_sents) > 0:
             self.related_papers.append((paper, related_sents))
         return len(related_sents) > 0
+
+    def __to_plaintext(self, sent):
+        sent = sent.lower() # lowercase
+        sent = re.sub(r'[^a-zA-Z0-9]', ' ', sent) # keep only alphanumeric
+        return sent
 

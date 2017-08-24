@@ -1,0 +1,272 @@
+*******************************************************************
+negative regulation of programmed cell death
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5529370
+['GO term name Luminal A Luminal B1 Luminal B2 TNBC HER2-positive up down up down up down up down up down Regulation of metabolic process 18 44 56 88 49 27 157 498 82 18 Regulation of cell process 22 62 83 121 59 40 217 492 110 9 Cell proliferation 10  24 32 15 10 40 88 28  Positive regulation of cell proliferation  9 16 17  7   19  Cell migration 5  18 26 17  28 61 23  Negative regulation of cell death  10 15 19 8  27 54 19  Negative regulation of programmed cell death  10 14 17 8  27 52 18  Regulation of signaling  22 38 38   75 156 40  Cell-cell signaling 6 17 34 38 13 16 43  32  Regulation of cell differentiation  16 21 40 20 11 45 79 32 9 Positive regulation of epithelial cell differentiation 2  4  3   6 4  Hormone-mediated signaling pathway 3   6 4  8   4 The number of differentially modified genes is shown.']
+*******************************************************************
+GO:0000280
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5368690
+['Functional annotations of these genes found that the 500-gene luminal A specific signature was enriched in cell cycle related GO BP terms such as nuclear division (GO:0000280), mitosis (GO:0007067), M phase (GO:0000279), cell cycle phase (GO:0022403) and KEGG pathways such as cell cycle (hsa04110) ( Supplementary Materials Table S4 ).']
+*******************************************************************
+puberty
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4630903
+['Notably, the tumors occurring after HFD limited to peripuberty shared characteristics with basal-like human breast cancers.']
+*******************************************************************
+epithelial cell proliferation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3634767
+['Basal-like tumors are characterized by the expression of genes specific for basal epithelial cell proliferation, inhibition of apoptotic pathways, and aggressive migration and invasion  [9] � [11] .']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3009830
+['These studies provide evidence that INPP4B functions as a tumor suppressor by negatively regulating normal and malignant mammary epithelial cell proliferation through regulation of the PI3K/Akt signaling pathway, and that loss of INPP4B protein is a marker of aggressive basal-like breast carcinomas.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5217012
+['More recently, Fedele et al reported that the INPP4B protein functions as a tumor suppressor by negatively regulating epithelial cell proliferation through regulation of PI3K�AKT-mTOR pathway, and that loss of INPP4B is a marker of human basal-like carcinomas [ 6 ].']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5349945
+['They also showed a decrease in breast epithelial cell proliferation in three premenopausal women treated with denosumab, and a significant increase in basal-like tumor latency in mammary hyperplasia among  Brca1  deficient mice (that also develop) treated with a RANKL inhibitor (15).']
+*******************************************************************
+oocyte maturation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4111852
+['Subtype Driver pathway Basal-like PI3K-Akt signaling; MAPK signaling HER2+ PI3K-Akt signaling; MAPK signaling, Apoptosis; Phosphatidylinositol signaling system; Regulation of actin cytoskeleton; Focal adhesion; T cell receptor signaling; Cholinergic synapse; ErbB signaling; Chemokine signaling; Insulin signaling; TNF signaling; Osteoclast differentiation; Aldosterone-regulated sodium reabsorption; Carbohydrate digestion and absorption; Natural killer cell mediated cytotoxicity Luminal-A PI3K-Akt signaling; Focal adhesion; Regulation of actin cytoskeleton; Chemokine signaling; Jak-STAT signaling; Estrogen signaling Luminal-B PI3K-Akt signaling; Focal adhesion; Apoptosis; ErbB signaling; Estrogen signaling; HIF-1 signaling; mTOR signaling; Jak-STAT signaling; Progesterone-mediated oocyte maturation; Carbohydrate digestion and absorption; Cholinergic synapse; T cell receptor signaling; Insulin signaling; Phosphatidylinositol signaling system; Natural killer cell mediated cytotoxicity']
+*******************************************************************
+chromosomal region
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5342075
+['AI resistance-related miRNAs of chromosomal regions 14q32.31 and 21q21.1 are highly expressed in Luminal A breast cancers']
+*******************************************************************
+terminal differentiation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2175239
+['Thus, despite the loss of β1 and its associated α partners, basal epidermal cells still maintained their basal l-like properties and refrained from premature execution of the program of terminal differentiation.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4494910
+['A high proportion of mutant BRCA1 breast tumors are classified as basal-like, [ 12 � 14 ], likely because mutations in BRCA1 block terminal differentiation and cause luminal progenitor expansion.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3109556
+['Recent  in vivo  studies, however, have demonstrated that, despite their stem cell-like characteristics, basal-like breast tumors may not be derived from normal mammary gland stem cells [ 49 ] and instead point to the failure of luminal progenitors to undergo terminal differentiation as a more likely contributor to the emergence of sporadic and BRCA1-mutated basal-like breast cancers.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3217025
+['Conversely, loss of BRCA1 function might impair structural cues of terminal differentiation and, consequently, increase risk of breast cancer characterized by the basal-like tumor type.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2637890
+['In WDC, p75 NTR  was confined to the surrounding basal-like cells which were at some distance from the centers of terminal differentiation.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1061585
+['After transfection, the L2 mutant HPV31 genome was able to establish itself as a nuclear plasmid in proliferating populations of poorly differentiated (basal-like) human keratinocytes and to amplify its genome to high copy number, support late viral gene expression, and cause formation of virus particles in human keratinocytes that had been induced to undergo terminal differentiation.']
+*******************************************************************
+epithelial cell differentiation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4430311
+['30  BRCA1 is implicated in mammary epithelial cell differentiation and its deficiency associated with basal-like breast cancer subtype, yet the underlying mechanism involved is still not well understood.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4848836
+['29  BRCA1 is implicated in mammary epithelial cell differentiation and its deficiency is often associated with basal-like breast cancer subtype.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3500050
+['Whereas  T 121 / p53  mouse tumors often resembled the Luminal-B molecular subtype breast cancers, which show relatively abundant expression of luminal epithelial cell differentiation markers, TBP tumors consistently shared features of Basal-like and Claudin-low molecular subtypes.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3109556
+['Together, these findings seem consistent with the notion that distinct subsets of breast cancer may derive from the different cell lineages of the mammary gland and/or stages of mammary epithelial cell differentiation; that is, MaSCs may be the cell of origin for claudin-low tumors, and committed luminal progenitors may beget basal-like tumors.'] 
+*******************************************************************
+biological_process
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5008315
+['GO biological process analysis showed that the basal-like, luminal A and HER2+ specific modules contained genes enriched in the immune response, cell cycle process and response to chemical stimulus, respectively (Table  3 ).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4389408
+['Other works refined TN subtyping and identified a new molecular entity, named claudin-low, characterized by low expression of cell-cell adhesion cluster containing claudin 3, 4, 7 and E-cadherin, luminal and proliferation-associated genes, enrichment in epithelial-to-mesenchymal transition (EMT) features, immune system responses, and stem cell-associated biological processes [ 5 , 6 ].']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4197225
+['The difference in transcriptional diversity between subtypes appears to concern the entire transcriptome with the exception of a few biological processes that are critical for cell survival, suggesting that basal-like and luminal A cancers differ in fundamental ways in how tightly gene co-expression is regulated within cells.']
+*******************************************************************
+molecular function
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4819697
+['To investigate the molecular function of RGS16 in breast cancer cells, we generated lentiviral vector encoding Flag�naling  22 38 38   75 156 40  Cell-cell signaling 6 17 34 38 13 16 43  32  Regulation of cell differentiation  16 21 40 20 11 45 79 32 9 Positive regulation of epithelial cell differentiation 2  4  3   6 4  Hormone-mediated signaling pathway 3   6 4  8   4 The number of differentially modified genes is shown.']
+*******************************************************************
+organelle
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3228799
+['To be able to follow organelle biogenesis, the luminal acyl carrier protein (ACP) was tagged with YFP directly in its locus in the mutant line, (Tet)PPP1(HA), to establish a native marker.']
+*******************************************************************
+cell cycle checkpoint
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3326864
+['Expression of genes involved in DNA repair and cell cycle checkpoint pathways in Triple Negative compared to Luminal A Breast Cancer: a molecular characterization', 'The aim of the present work is to characterize molecularly a cohort of Triple Negative Breast Cancers (TNBC; estrogen receptor negative, progesterone receptor negative, and HER2/neu negative by immunohistochemistry) compared to Luminal A Breast Cancer (LABC; estrogen receptor positive and/or progesterone receptor positive, and HER2/neu negative, ki67 expression < 15% by immunohistochemistry) as regard of gene expression involved in DNA repair pathway (in particular genes involved in nucleotide excision repair, base excision repair, homologous recombination repair and BRCA/Fanconi anemia pathway) and cell cycle checkpoint pathway (CHK1) and their correlation with the clinical-pathological characteristics.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3073183
+['Context 51, indicative of ER-positive and PgR-positive, low grade, Luminal A and normal-like tumors, was significantly enriched for genes associated with cell cycle checkpoint regulation, specifically, the M phase of mitotic cell cycle (BUB1 MAD2L1 TTK).']
+*******************************************************************
+histogenesis
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1851391
+['Genes upregulated in basal-like tumors (with an EASE score of 0.05 or less) belonged to the annotation categories epidermal differentiation (GO:0008544) and ectoderm development (GO:0007398), protein biosynthesis (GO:0006412), nuclear division (GO:0000280), development (GO:0007275), biosynthesis (GO:0009058), histogenesis (GO:0009888), macromolecule biosynthesis (GO:0009059), and M phase (GO:0000279).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3835118
+['However, the histogenesis of basal-like breast carcinomas is a controversial topic with some researchers believing these cancers develop from a multi-potential early precursor cell and others supporting the theory that such breast carcinomas arise from partially-committed luminal progenitor cells [ 21 , 22 , 23 ].']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3300166
+["The current vogue to classify tumours on the basis of microarray data as 'basal-like' or lumenal may be leading us into assumptions about histogenesis that are not proven."]
+*******************************************************************
+tissue development
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5269562
+['FOXC1, a member of Forkhead box transcription factors essential for mesoderm tissue development in vertebrates  28 ,  29 , consistently showed the highest correlation with the basal�by SMLM facilitated visualization of structures not resolvable by conventional fluorescence microscopy including HER2 enriched membrane protrusions, membrane vesicles, mitochondrial membranes, and folds in the nuclear membrane.']
+*******************************************************************
+apoptosis
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5450379
+['In vitro, human cell lines [ 8 ,  48 ,  64 ] HER2-enriched subtype of breast cancer has a significantly higher frequency of mutations associated with APOBEC3B than other breast cancer subtypes TCGA [ 60 ] APOBEC3B leads to drug resistance in breast cancer and APOBEC3B-dependent tumor evolvability may serve as a effective target to improve efficacies of anti-cancer therapies Human tissue samples [ 62 ,  65 ] APOBEC3B depletion in an ER+\xa0breast cancer cell line results in prolonged tamoxifen response Xenograft model [ 66 ] Gastric cancer APOBEC3B expression was higher in gastric cancer tissues than that in normal tissues and APOBEC3B overexpression indicates the unfavorable prognosis of the patients with gastric cancer Human tissue samples [ 8 ,  62 ,  67 ] Chondrosarcoma APOBEC3B was overexpressed in chondrosarcoma tissues, and APOBEC3B deficiency caused slight apoptosis in the chondrosarcoma cells Human tissue samples.']
+*******************************************************************
+centrosome
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4076761
+['(A)  Images show nuclei (blue), cytokeratin 5 (white), cilia (red), and centrosomes (green) in cells from the following tissue: reduction mammoplasties (RM) and histologically normal epithelium (HNE) adjacent to cancer and invasive cancers of four different cancer subtypes: luminal A and luminal B, Her2-positive, and triple negative.']
+*******************************************************************
+cell communication
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4172847
+['Claudin-low tumors are differentiated from basal-like tumors by the higher expression of genes involved in immune response, cell communication, extracellular matrix, cell migration and angiogenesis and their lower expression of claudins 3, 4, 7, and occludin [ 28 , 29 ].']
+*******************************************************************
+APC
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3094906
+['The methylation status of a panel of four genes ( APC1, CDH, BRCA1  and  RAR-β ) in luminal and HER2 subtypes wwere dissimilar, where HER2 tumors showed a significantly higher level of methylation compared to luminal tumors.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5190013
+['Although the collective changes in the percentage varied between luminal A (8%), luminal B (17%) and Her2-enriched (26%) subtypes, the pattern of percentage changes of the individual genes of  CTNNB1, APC  and  DVL1  in luminal A, luminal B and Her2-enriched subtypes remained comparable to TCGA2012 data set ( Supplementary Figure S5 ).']
+*******************************************************************
+exosome  
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4673300
+['It is tempting to speculate that, in a similar manner to HER2 enriched exosomes, MDR-1/3 loaded exosomes can act as a systemic defense mechanism where they upload free docetaxel in the circulating exosomes.']
+*******************************************************************
+nuclear division
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5368690
+['Functional annotations of these genes found that the 500-gene luminal A specific signature was enriched in cell cycle related GO BP terms such as nuclear division (GO:0000280), mitosis (GO:0007067), M phase (GO:0000279), cell cycle phase (GO:0022403) and KEGG pathways such as cell cycle (hsa04110) ( Supplementary Materials Table S4 ).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3824397
+['Up-regulated genes in CNH Luminal A that are not in the 8q21�24 region are similarly highly enriched for �mitosis cell cycle� (GO: 0000278), but also for related processes like �cell division� (GO: 0051301), �spindle� (GO: 000581), and �nuclear division� (GO: 0000280).']
+*******************************************************************
+positive regulation of cell proliferation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5529370
+['GO term name Luminal A Luminal B1 Luminal B2 TNBC HER2-positive up down up down up down up down up down Regulation of metabolic process 18 44 56 88 49 27 157 498 82 18 Regulation of cell process 22 62 83 121 59 40 217 492 110 9 Cell proliferation 10  24 32 15 10 40 88 28  Positive regulation of cell proliferation  9 16 17  7   19  Cell migration 5  18 26 17  28 61 23  Negative regulation of cell death  10 15 19 8  27 54 19  Negative regulation of programmed cell death  10 14 17 8  27 52 18  Regulation of signaling  22 38 38   75 156 40  Cell-cell signaling 6 17 34 38 13 16 43  32  Regulation of cell differentiation  16 21 40 20 11 45 79 32 9 Positive regulation of epithelial cell differentiation 2  4  3   6 4  Hormone-mediated signaling pathway 3   6 4  8   4 The number of differentially modified genes is shown.']
+*******************************************************************
+anti-apoptosis
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1764759
+['However, among the basal-like cell line models, ME16C significantly down-regulated anti-apoptosis genes and HME-CC significantly up-regulated mitosis/proliferation genes.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4069014
+['However, unlike in the suprabasal-like, detached cells, it is the anti-apoptosis regulators that are expressed.']
+*******************************************************************
+cytoskeleton
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4111852
+['Subtype Driver pathway Basal-like PI3K-Akt signaling; MAPK signaling HER2+ PI3K-Akt signaling; MAPK signaling, Apoptosis; Phosphatidylinositol signaling system; Regulation of actin cytoskeleton; Focal adhesion; T cell receptor signaling; Cholinergic synapse; ErbB signaling; Chemokine signaling; Insulin signaling; TNF signaling; Osteoclast differentiation; Aldosterone-regulated sodium reabsorption; Carbohydrate digestion and absorption; Natural killer cell mediated cytotoxicity Luminal-A PI3K-Akt signaling; Focal adhesion; Regulation of actin cytoskeleton; Chemokine signaling; Jak-STAT signaling; Estrogen signaling Luminal-B PI3K-Akt signaling; Focal adhesion; Apoptosis; ErbB signaling; Estrogen signaling; HIF-1 signaling; mTOR signaling; Jak-STAT signaling; Progesterone-mediated oocyte maturation; Carbohydrate digestion and absorption; Cholinergic synapse; T cell receptor signaling; Insulin signaling; Phosphatidylinositol signaling system; Natural killer cell mediated cytotoxicity']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3552699
+['Luminal A and luminal B share similar network structure although focal adhesion pathway and regulation of actin cytoskeleton pathway can distinguish luminal A from luminal B.']
+*******************************************************************
+GO:0007275
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1851391
+['Genes upregulated in basal-like tumors (with an EASE score of 0.05 or less) belonged to the annotation categories epidermal differentiation (GO:0008544) and ectoderm development (GO:0007398), protein biosynthesis (GO:0006412), nuclear division (GO:0000280), development (GO:0007275), biosynthesis (GO:0009058), histogenesis (GO:0009888), macromolecule biosynthesis (GO:0009059), and M phase (GO:0000279).']
+*******************************************************************
+pro-survival
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5353937
+['In conclusion, our results indicated that autophagy might be related to an initial pro-survival response of the cells to the oxidative damage generated by MB-PDT in TNBC and normal-like cells, but not in luminal A cells.']
+*******************************************************************
+DNA damage response
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5053306
+['By k-means and consensus clustering, they found the following six subtypes: two basal-like subtypes, one with increased cell cycle and DNA damage response gene signatures (BL1) and the other one with high expression growth factor pathway and myoepithelial markers (BL2); two mesenchymal subtypes with up-regulated gene signatures associated with cell differentiation and growth factor signaling (M and MSL); an immunomodulatory (IM) type with enriched immune cell processes; and a luminal androgen subtype characterized by androgen signaling (LAR).']
+*******************************************************************
+mitosis  
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3824397
+['Up-regulated genes in CNH Luminal A that are not in the 8q21�24 region are similarly highly enriched for �mitosis cell cycle� (GO: 0000278), but also for related processes like �cell division� (GO: 0051301), �spindle� (GO: 000581), and �nuclear division� (GO: 0000280).', 'Interestingly, genes that are significantly over-expressed in  CNH  tumors compared to the rest of Luminal A cases are enriched for regulators of mitosis including Aurora kinases A and B,  PLK1 , Cyclin-A, Cyclin-E,  CDK1 , and Cdc25 (Fig\xa0 4 d; Table S6).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5400619
+['The mitosis-related genes GTSE1, CDCA3, FAM83D and SMC4 were associated with poor outcome specifically in Luminal A tumors.', 'It is known that other biological functions beyond mitosis can differentiate between luminal A and B tumors.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5368690
+['Functional annotations of these genes found that the 500-gene luminal A specific signature was enriched in cell cycle related GO BP terms such as nuclear division (GO:0000280), mitosis (GO:0007067), M phase (GO:0000279), cell cycle phase (GO:0022403) and KEGG pathways such as cell cycle (hsa04110) ( Supplementary Materials Table S4 ).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4931089
+['It correlated significantly with increased age at menopause, mitosis, the negative status of Her2, and the molecular subtype �luminal A� ( p  = 0.048,  p  = 0.042,  p  = 0.007, and  p  = 0.049, resp).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4094838
+['We demonstrated that PIP is required for the progression through G 1  phase, mitosis, and cytokinesis in luminal A, luminal B, and molecular apocrine breast cancer cells.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3978752
+['Landmark analyses of the Kaplan-Meier estimates of distant event-free survival (DEFS) during the first 5 years (left side of each panel) and from 5 to 10 years (right side of each panel) are shown for tamoxifen-treated patients according to four biomarker groups by combining mitosis kinase score (MKS) (low and high) and estrogen-related score (ERS) (high and low) in ER-positive/human epidermal growth factor (HER)2-negative low proliferation tumors  (A) \u2009and high-proliferation tumors  (B) \u2009by the three-gene model [ 21 ]; in Luminal A  (C) \u2009and luminal B  (D) \u2009by PAM50; and in low risk  (E) \u2009and high risk  (F) \u2009by Mammaprint.']
+*******************************************************************
+cytokinesis
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4094838
+['We demonstrated that PIP is required for the progression through G 1  phase, mitosis, and cytokinesis in luminal A, luminal B, and molecular apocrine breast cancer cells.']
+*******************************************************************
+biological process
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5008315
+['GO biological process analysis showed that the basal-like, luminal A and HER2+ specific modules contained genes enriched in the immune response, cell cycle process and response to chemical stimulus, respectively (Table  3 ).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4389408
+['Other works refined TN subtyping and identified a new molecular entity, named claudin-low, characterized by low expression of cell-cell adhesion cluster containing claudin 3, 4, 7 and E-cadherin, luminal and proliferation-associated genes, enrichment in epithelial-to-mesenchymal transition (EMT) features, immune system responses, and stem cell-associated biological processes [ 5 , 6 ].']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4197225
+['The difference in transcriptional diversity between subtypes appears to concern the entire transcriptome with the exception of a few biological processes that are critical for cell survival, suggesting that basal-like and luminal A cancers differ in fundamental ways in how tightly gene co-expression is regulated within cells.']
+*******************************************************************
+microtubule
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4868715
+['Luminal A breast cancer usually responds to hormonal therapies but does not benefit from chemotherapies, including microtubule-targeted paclitaxel.', 'For example, while luminal A breast cancers generally have a good prognosis and respond well to hormonal therapies, they do not appear to benefit from the addition of the microtubule-targeted chemotherapy drug paclitaxel [ 2 ,  6 - 8 ].', 'For example, while miR-100 regulates β-tubulin isotypes in MCFF-7 breast cancer cells [ 23 ], and tubulin alteration is a known mechanism for breast cancer resistance to the microtubule-targeted drug paclitaxel [ 24 ], luminal A breast cancers are less responsive to paclitaxel treatment, and the role of miR-100 in paclitaxel response is unknown.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3979011
+['CAIX, carbonic anhydrase IX; GLS1, glutaminase 1; Glut-1, glucose transporter 1; LMA, luminal A; LMB, luminal B; LC3A, microtubule-associated protein 1 light chain 3α; MCT4, monocarboxylate transporter 4; S, stroma; T, tumor;; TNBC, triple-negative breast cancer.']
+*******************************************************************
+localisation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4102947
+['This ectopically expressed protein showed nuclear localisation in luminal ZR-75-1 and basal-like HCC1937 transfectants ( Figure 3D ).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3398958
+['Although it has previously been assumed that PTPRJ localisation in epithelial cell lines is primarily at the plasma membrane, our analysis of both luminal- and basal-like breast epithelial cell lines unexpectedly also revealed variable expression and localisation of the PTPRJ protein, compatible with our human breast cancer tumor analyses.']
+*******************************************************************
+inhibition of cell proliferation
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5216765
+["Our study reveals the mechanism underlying berberine's inhibition of cell proliferation and migration in basal-like breast cancer, highlighting the use of berberine as a potential adjuvant therapeutic agent."]
+*******************************************************************
+necrosis 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4576021
+['Comparisons across the five groups revealed several overall differences, for example, advanced age of LA patients in general and tumor necrosis more frequent in TN and HER2-enriched.']
+*******************************************************************
+cell migration
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3326554
+['Compared with the luminal, HER2-enriched and basal-like subtypes, claudin-low tumors exhibit lower expression of ER, progesterone receptor (PR), HER2 and GATA3 and higher expression of mesenchymal, cell migration and angiogenesis genes [ 4 ].']
+*******************************************************************
+cell cycle process
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5008315
+['GO biological process analysis showed that the basal-like, luminal A and HER2+ specific modules contained genes enriched in the immune response, cell cycle process and response to chemical stimulus, respectively (Table  3 ).', 'The luminal A-specific gene module contains genes involved in the cell cycle process, which is correlated with clinical outcomes of BC [ 33 ].']
+*******************************************************************
+mitotic cell cycle
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3073183
+['Context 51, indicative of ER-positive and PgR-positive, low grade, Luminal A and normal-like tumors, was significantly enriched for genes associated with cell cycle checkpoint regulation, specifically, the M phase of mitotic cell cycle (BUB1 MAD2L1 TTK).']
+*******************************************************************
+spindle  
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4717616
+['We directly compared the expression levels of basal, luminal and mesenchymal markers, as defined by Herschkowitz et al, [ 20 ] in WAP-Cre:Pten f/f :p53 lsl_R270H/+  mutant spindle and PDA tumors as well as WAP-Cre:Pten f/f :p53 f/f  double-deletion spindle tumors [ 9 ].', 'a  Hierarchical clustering using basal, luminal and mesenchymal genes showing that Pten �f :p53 R270H  and Pten �f :p53 �f  spindle tumors grouped together with human claudin-low breast cancer, whereas Pten �f :p53 R270H  PDA and two of the spindle tumors grouped with human basal-like breast cancer.'] 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5458155
+['Transcriptomically, most of the models fall into the luminal A or B intrinsic molecular subtypes, despite the predominance of an aggressive, poorly-differentiated or spindled histopathology in all models.', 'Despite a uniformly aggressive and poorly differentiated or spindled histopathology, four of the nine models assigned to the luminal A subclass were weakly ER-positive (Figure  6B ), consistent with observations that the majority of ER+ human breast cancers fall into luminal A intrinsic subtype [ 30 ].']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4496199
+['K5 + /K19 �  cells over-expressing wtErbB2 combination predominantly gave rise to tumors with high claudin-low (spindle like, α-SMA + , vimentin + , claudin4 � ) and less basal (K5 + ) characteristics, whereas the same cells  over-expressing wtEGFR combinations formed tumors with mixed basal, luminal and claudin-low phenotype (Figure  3A, 3B ).'] 
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3096980
+['Unlike Luminal and Basal cell lines, Mesenchymal cancer cell lines formed almost exclusively spindle-cell metaplastic tumors that lacked obvious epithelial features (Figure  5b , Additional files  6  and  7 ).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3824397
+['Up-regulated genes in CNH Luminal A that are not in the 8q21�24 region are similarly highly enriched for �mitosis cell cycle� (GO: 0000278), but also for related processes like �cell division� (GO: 0051301), �spindle� (GO: 000581), and �nuclear division� (GO: 0000280).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3325967
+['Significantly, in multiple experiments we could reproducibly derive the spindle-shaped K5 � /K19 �  population from K5 + /K19 �  parental lines, whereas we could not isolate such cells from K5 + /K19 +  lines, even though both types of stem/progenitors are capable of differentiating into luminal as well as myoepithelial lineages when cultured in MEGM medium  [19] .']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4500593
+['FSCN1 is an endothelial cell biomarker that also identifies differentiated luminal and spindle-like cells in normal breast tissue ( Fig 3 ), and which has been extensively linked to the metastatic potential of cancer cells [ 37 ].']   
+*******************************************************************
+cell cycle control
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4308075
+['Moreover, luminal A cells overexpress transcripts related to cell cycle control, such as GRB2, EEF1G, MCM7, CSNK2B, PAK2, TK1, MAPK13, and NPM1; as well as ERBB2/3, PAK2, TK1, ICT1, and NPM1, involved in the resistance of cells to death.']
+*******************************************************************
+organogenesis
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4963807
+['In summary, controlled activation of the Wnt signaling cascade is fundamental in embryonic organogenesis and homeostatic maintenance of the mammary gland, while its deviations associate strongly with breast tumorigenesis, especially the aggressive basal-like subtype.']
+*******************************************************************
+cell development
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3278922
+['TNBC is often classified as basal-like breast cancer, which represents 10�25% of all tumours and is presumed to be derived from a distinct cell type and a specific developmental stage of mammary epithelial cell development 19 22 34 36 .']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5528267
+['Much less is known about myoepithelial cell development and where and when bi�ule biosynthesis (GO:0009059), and M phase (GO:0000279).']
+*******************************************************************
+nucleoplasm
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5514498
+['Importantly, our results showed that PRL treatment of aggressive breast cancer cells including MDA-MB-453, a representative of TNBC-PRLR subgroup( Lopez-Ozuna et al, 2016 ), SKBR3 and BT474 resulted in the re-localization of CPSF6 from the nucleoplasm to the nuclear periphery similar to that seen in luminal mammary epithelial cells and luminal A breast cancer cells ( Fig 7 A).']
+*******************************************************************
+mitotic checkpoint
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3680939
+['(f)  Dichotomizing breast cancer patients of either luminal A (LumA) or luminal B (LumB) subtype on mitotic progression module activity did not add prognostic information ( P  = 0.6 and  P  = 0.09, log-rank tests) using DMFS as endpoint,  (g)  while an above mean activity of the mitotic checkpoint module identified groups within both luminal A and luminal B tumors with worse prognosis (luminal A  P  = 3*10 -5 , luminal B  P  = 0.01, log-rank tests).', 'To investigate whether elevated activity of the mitotic checkpoint and progression transcriptional programs translated into disease aggressiveness, we performed survival analyses within the luminal A and B subtypes separately.', 'However, high activity of the mitotic checkpoint module correlated significantly to unfavorable prognosis in both luminal subgroups (luminal A  P  = 3*10 -5 , luminal B  P  = 0.01, log-rank tests) (Figure  2g ).', 'Thus, genes in the mitotic checkpoint module relate to a more aggressive disease phenotype within the otherwise low proliferating luminal A tumors, but also within the more highly proliferating luminal B tumors.', 'Correspondingly, the mitotic checkpoint module stratifies histological grade 1 and luminal A tumors as well as histological grade 2 and luminal B tumors into groups with differential prognosis (Figure S7 in Additional file  3 ), which may also translate into differential response to chemotherapy.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5299842
+['Similar to RAE1, amplification and overexpression of BUB3, a mitotic checkpoint regulator that shares extensive sequence homology with RAE1 3 , were found to correlate with the luminal A subtype of breast cancer 26 .']
+*******************************************************************
+cell division
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5487723
+['Transcriptomic data show that Luminal A tumours are enriched for aberrant expression of genes in the cell division control 42 homolog (CDC42) pathway.', 'Based on genomic and transcriptomic analysis by the Molecular Taxonomy of the Breast Cancer International Consortium (METABRIC) group, Luminal A tumours are enriched for aberrant expression of genes in the cell division control 42 homolog (CDC42) pathway [ 2 ] and linked by low levels of copy number aberration.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3824397
+['Up-regulated genes in CNH Luminal A that are not in the 8q21�24 region are similarly highly enriched for �mitosis cell cycle� (GO: 0000278), but also for related processes like �cell division� (GO: 0051301), �spindle� (GO: 000581), and �nuclear division� (GO: 0000280).']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4343025
+['Similarly to most adult SCs, MaSCs possess a number of defining characteristics: (i) multi-lineage differentiation potential (they can generate both luminal and basal lineages); (ii) ability to self-renew, usually through an asymmetric type of cell division, which generates one daughter SC and one progenitor, and maintains homeostasis of the SC pool; (iii) quiescence (or slow rate of division), unless activated, as occurs during pregnancy or lactation; and (iv) ability to withstand  anoikis , surviving in anchorage-independent conditions.']
+*******************************************************************
+growth pattern
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3226450
+['The grade III was the most common as in our series, corresponding to 53% in unclassified subtype, 48% in basal-like, 48% in Her2-overexpressing, 28% in luminal B, 23% in luminal A ( p = 0,005 ), which concord with other studies such as Livasy et al [ 15 ] who demonstrated that the most consistent pathologic features for basal-like subtype including high grade, high mitotic count, geographic necrosis, pushing border, prominent lymphocytic infiltrates, solid growth pattern, central fibrotic/acellular area, and less association with ductal carcinoma in situ.']
+*******************************************************************
+morphogenesis
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3209243
+['The transcription factor Gata-3 is a definitive marker of luminal breast cancers and a key regulator of mammary morphogenesis.']
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4350320
+['Basal-like and Claudin-low subtypes have the highest global heterogeneity yet, for the core module mammary morphogenesis, Luminal B is significantly more heterogeneous than both.']
+*******************************************************************
+histone chaperone
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5528705
+['The histone chaperone HJURP is a new independent prognostic marker for luminal A breast carcinoma', 'Unsupervised hierarchical clustering revealed a gene cluster containing several histone chaperones and histone variants highly�ome arms 1q and 16q and hybridized tissue slides with five different probes simultaneously, and found tumors with concurrent WA gain of chromosome arm 1q and loss of chromosome arm 16q by aCGH analysis were frequently of luminal A subtype and had a translocation resulting in a derivative chromosome der(1;16)(q10;p10).']
+*******************************************************************
+metabolic process
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5529370
+['GO term name Luminal A Luminal B1 Luminal B2 TNBC HER2-positive up down up down up down up down up down Regulation of metabolic process 18 44 56 88 49 27 157 498 82 18 Regulation of cell process 22 62 83 121 59 40 217 492 110 9 Cell proliferation 10  24 32 15 10 40 88 28  Positive regulation of cell proliferation  9 16 17  7   19  Cell migration 5  18 26 17  28 61 23  Negative regulation of cell death  10 15 19 8  27 54 19  Negative regulation of programmed cell death  10 14 17 8  27 52 18  Regulation of signaling  22 38 38   75 156 40  Cell-cell signaling 6 17 34 38 13 16 43  32  Regulation of cell differentiation  16 21 40 20 11 45 79 32 9 Positive regulation of epithelial cell differentiation 2  4  3   6 4  Hormone-mediated signaling pathway 3   6 4  8   4 The number of differentially modified genes is shown.']
+*******************************************************************
+molecular_function
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4819697
+['To investigate the molecular function of RGS16 in breast cancer cells, we generated lentiviral vector encoding Flag�BT-20, and BT-549) and about 65\xa0% of HER2-enriched cells (SK-BR-3) underwent cell death in response to PAC (Fig\xa0 2b ).']

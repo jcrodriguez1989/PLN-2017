@@ -16,8 +16,6 @@
     #queries = opts['-q']
     #entities = opts['-e']
 
-############## todo:
-# Mejorar el parser (separador de oraciones: 'Fig.' , 'sp.', etc)
 
 from collections import defaultdict
 
@@ -34,7 +32,8 @@ if not os.path.exists(papers_dir):
 
 import csv
 rels = []
-with open('/home/jcrodriguez/mytmp/stypeGSetsMatrixSinonims.tsv', 'r') as csvfile:
+#with open('/home/jcrodriguez/mytmp/stypeGSetsMatrixSinonims.tsv', 'r') as csvfile:
+with open('/home/jcrodriguez/mytmp/stypeGSetsMatrix.tsv', 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter='\t', quotechar='"')
     for row in csvreader :
         rels.append(row)
@@ -65,66 +64,23 @@ while i < len(rels):
     rr = RelationRecognition(papers, entities)
     if len(rr.related_papers) > 0:
         related_papers[act_rel[0]] = rr.related_papers
-        print(act_rel)
         print(rr.related_papers)
 
 related_papers = dict(related_papers)
-related_papers
+len(related_papers)
+
+#it1 49
+#it2 55
 
 for act_key in related_papers.keys():
-    print(act_key, len(related_papers[act_key]))
+    print('*******************************************************************')
+    print(act_key)
+    for act_rel in related_papers[act_key]:
+        act_paper = act_rel[0]
+        print('https://www.ncbi.nlm.nih.gov/pmc/articles/PMC' + act_paper.id)
+        print(act_rel[1])
 
-#centrosome 1
-#growth pattern 1
-#inhibition of cell proliferation 1
-#GO:0007067 1
-#exosome 1
-#DNA damage response 1
-#APC 2
-#epithelial cell differentiation 4
-#epithelial cell proliferation 4
-#GO:0009888 1
-#positive regulation of cell proliferation 1
-#chromosomal region 1
-#morphogenesis 2
-#metabolic process 1
-#cell division 3
-#cell communication 1
-#cell development 1
-#organelle 1
-#organogenesis 1
-#regulation of cell proliferation 1
-#cell cycle checkpoint 2
-#vesicle 1
-#nuclear division 2
-#mitotic cell cycle 1
-#biological process 3
-#centromere 1
-#GO:0007275 1
-#localisation 2
-#nucleoplasm 1
-#spindle 7
-#cell cycle process 1
-#necrosis 1
-#cell death 1
-#histogenesis 3
-#regulation of apoptosis 1
-#apoptosis 1
-#terminal differentiation 6
-#mitosis 6
-#cytoskeleton 1
-#microtubule 2
-#cell migration 1
-#negative regulation of programmed cell death 1
-#cell proliferation 7
-#GO:0000280 1
-#mitotic checkpoint 2
-#puberty 1
-#cytokinesis 1
-#anti-apoptosis 2
-#cell cycle control 1
-#oocyte maturation 1
-#pro-survival 1
+
 
 #########################################################
 
