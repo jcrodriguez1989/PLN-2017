@@ -4,6 +4,8 @@
 
 ### [Presentación](https://docs.google.com/presentation/d/1L6vSP8wdLbdJzjncK8u-wyiOB4bVjvXIXhGsQTChumQ/edit?usp=sharing)
 
+### [Librería pmcERR](https://github.com/jcrodriguez1989/pmcERR/)
+
 ### Introducción
 La validación de resultados biológicos obtenidos mediante técnicas estadísticas o hipótesis, lleva a la necesidad de exploración y lectura de grandes cantidades de artículos científicos.
 Dentro de la comunidad científica biológica, el principal recurso de publicaciones es [PubMed Central (PMC)](https://www.ncbi.nlm.nih.gov/pmc/), el cuál actualmente cuenta con más de 4.5 millones de artículos. Esto provee al investigador de una inmensa fuente de información, la cual si no es abordada de una manera inteligente puede llevarlo a invertir demasiado tiempo, o peor aún, no encontrar validación existente.
